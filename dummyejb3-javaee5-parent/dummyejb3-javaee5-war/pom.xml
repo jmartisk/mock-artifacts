@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>cz.wraychus</groupId>
+    <artifactId>dummyejb3-javaee5-war</artifactId>
+    <version>1.0</version>
+    <packaging>war</packaging>
+    <name>Dummy artifacts :: EJB3 - Java EE5 :: WAR</name>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <parent>
+        <groupId>cz.wraychus</groupId>
+        <artifactId>dummyejb3-javaee5-parent</artifactId>
+        <version>1.0</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+
+    <dependencies>
+        <dependency>
+            <groupId>javaee</groupId>
+            <artifactId>javaee-api</artifactId>
+            <version>5</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>cz.wraychus</groupId>
+            <artifactId>dummyejb3-javaee5-ejb</artifactId>
+            <version>1.0</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <finalName>dummyejb3-javaee5-war</finalName>
+    </build>
+
+</project>
