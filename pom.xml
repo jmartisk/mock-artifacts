@@ -9,8 +9,13 @@
     <version>1.0</version>
     <packaging>pom</packaging>
 
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
     <modules>
-        <module>dummyejb3</module>
+        <module>dummyejb3-javaee5-parent</module>
+        <module>dummyejb31-javaee6</module>
     </modules>
 
     
