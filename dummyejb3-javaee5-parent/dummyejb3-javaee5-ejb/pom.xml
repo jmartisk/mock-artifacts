@@ -8,6 +8,7 @@
     <artifactId>dummyejb3-javaee5-ejb</artifactId>
     <version>1.0</version>
     <packaging>jar</packaging>
+    <name>Dummy artifacts :: EJB3 - Java EE5 :: EJB-JAR</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

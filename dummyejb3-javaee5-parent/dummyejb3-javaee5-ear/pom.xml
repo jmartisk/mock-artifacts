@@ -8,6 +8,7 @@
     <artifactId>dummyejb3-javaee5-ear</artifactId>
     <packaging>ear</packaging>
     <version>1.0</version>
+    <name>Dummy artifacts :: EJB3 - Java EE5 :: EAR</name>
 
     <parent>
         <artifactId>dummyejb3-javaee5-parent</artifactId>

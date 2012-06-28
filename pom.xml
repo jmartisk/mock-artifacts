@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-                      <modelVersion>4.0.0</modelVersion>
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
     <groupId>cz.wraychus</groupId>
     <artifactId>dummy-artifacts</artifactId>
     <version>1.0</version>
     <packaging>pom</packaging>
+    <name>Dummy artifacts :: POM</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -18,5 +19,46 @@
         <module>dummyejb31-javaee6</module>
     </modules>
 
-    
+    <build>
+
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>2.4</version>
+                <executions>
+                    <execution>
+                        <id>copy</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy</goal>
+                        </goals>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>cz.wraychus</groupId>
+                                    <artifactId>dummyejb31-javaee6</artifactId>
+                                    <version>1.0</version>
+                                    <type>war</type>
+                                    <destFileName>dummyejb31-javaee6.war</destFileName>
+                                </artifactItem>
+                                <artifactItem>
+                                    <groupId>cz.wraychus</groupId>
+                                    <artifactId>dummyejb3-javaee5-ear</artifactId>
+                                    <type>ear</type>
+                                    <version>1.0</version>
+                                    <destFileName>dummyejb3-javaee5.ear</destFileName>
+                                </artifactItem>
+                            </artifactItems>
+                            <outputDirectory>${project.basedir}/target</outputDirectory>
+                            <overWriteReleases>true</overWriteReleases>
+                            <overWriteSnapshots>true</overWriteSnapshots>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+
 </project>
