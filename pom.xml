@@ -17,15 +17,18 @@
     <modules>
         <module>dummyejb3-javaee5-parent</module>
         <module>dummyejb31-javaee6</module>
+        <module>tomcat-hibernate-persistence</module>
+        <module>tomcat-dummy-servlet</module>
     </modules>
 
     <build>
-
+        <finalName>tomcat-hibernate-persistence</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
                 <version>2.4</version>
+                <inherited>false</inherited>
                 <executions>
                     <execution>
                         <id>copy</id>
@@ -49,8 +52,22 @@
                                     <version>1.0</version>
                                     <destFileName>dummyejb3-javaee5.ear</destFileName>
                                 </artifactItem>
+                                <artifactItem>
+                                    <groupId>cz.wraychus</groupId>
+                                    <artifactId>tomcat-hibernate-persistence</artifactId>
+                                    <type>war</type>
+                                    <version>1.0</version>
+                                    <destFileName>tomcat-hibernate-persistence.war</destFileName>
+                                </artifactItem>
+                                <artifactItem>
+                                    <groupId>cz.wraychus</groupId>
+                                    <artifactId>tomcat-dummy-servlet</artifactId>
+                                    <type>war</type>
+                                    <version>1.0</version>
+                                    <destFileName>tomcat-dummy-servlet.war</destFileName>
+                                </artifactItem>
                             </artifactItems>
-                            <outputDirectory>${project.basedir}/target</outputDirectory>
+                            <outputDirectory>${pom.basedir}/target</outputDirectory>
                             <overWriteReleases>true</overWriteReleases>
                             <overWriteSnapshots>true</overWriteSnapshots>
                         </configuration>
