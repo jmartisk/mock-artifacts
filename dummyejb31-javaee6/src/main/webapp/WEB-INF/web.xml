@@ -4,4 +4,16 @@
          xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee
             http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
 
+    <display-name>Dummy webapp with a servlet</display-name>
+
+<!--    <servlet>
+        <servlet-name>Dummy</servlet-name>
+        <servlet-class>dummy.DummyServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>Dummy</servlet-name>
+        <url-pattern>/dummy</url-pattern>
+    </servlet-mapping>-->
+
 </web-app>

@@ -2,6 +2,7 @@ package dummy;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,6 +14,7 @@ import java.io.PrintWriter;
  * Date: 6/28/12
  * Time: 2:52 PM
  */
+@WebServlet(urlPatterns = "/dummy")
 public class DummyServlet extends HttpServlet {
 
     @EJB
