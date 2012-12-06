@@ -19,7 +19,7 @@
         <module>dummyejb31-javaee6</module>
         <module>dummy-servlet30</module>
         <module>dummy-servlet25</module>
-        <module>jsf</module>
+        <module>jsf20</module>
     </modules>
 
     <build>
@@ -59,6 +59,13 @@
                                     <type>war</type>
                                     <version>1.0</version>
                                     <destFileName>dummy-servlet30.war</destFileName>
+                                </artifactItem>
+                                <artifactItem>
+                                    <groupId>cz.wraychus</groupId>
+                                    <artifactId>dummy-jsf20</artifactId>
+                                    <type>war</type>
+                                    <version>1.0</version>
+                                    <destFileName>dummy-jsf20.war</destFileName>
                                 </artifactItem>
                                 <artifactItem>
                                     <groupId>cz.wraychus</groupId>
