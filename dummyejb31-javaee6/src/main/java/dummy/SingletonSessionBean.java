@@ -34,7 +34,8 @@ public class SingletonSessionBean implements Serializable {
 
     @ShouldBeIntercepted
     public String sayHello(String name) {
-        return "Hello " + name + "!";
+        return "Men want the same thing from their underwear that they want from women: a little " +
+                "bit of support, and a little bit of freedom.";
     }
 
 }
