@@ -8,7 +8,7 @@
     <artifactId>dummyejb31-javaee6</artifactId>
     <version>1.0</version>
     <packaging>war</packaging>
-    <name>Dummy artifacts :: EJB3 - Java EE6</name>
+    <name>Dummy artifacts :: EJB31 - Java EE6</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

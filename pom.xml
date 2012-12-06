@@ -17,11 +17,12 @@
     <modules>
         <module>dummyejb3-javaee5-parent</module>
         <module>dummyejb31-javaee6</module>
-        <module>tomcat-dummy-servlet</module>
+        <module>dummy-servlet30</module>
+        <module>dummy-servlet25</module>
     </modules>
 
     <build>
-        <finalName>tomcat-hibernate-persistence</finalName>
+        <finalName>mock-artifacts</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -53,10 +54,17 @@
                                 </artifactItem>
                                 <artifactItem>
                                     <groupId>cz.wraychus</groupId>
-                                    <artifactId>tomcat-dummy-servlet</artifactId>
+                                    <artifactId>dummy-servlet30</artifactId>
                                     <type>war</type>
                                     <version>1.0</version>
-                                    <destFileName>tomcat-dummy-servlet.war</destFileName>
+                                    <destFileName>dummy-servlet30.war</destFileName>
+                                </artifactItem>
+                                <artifactItem>
+                                    <groupId>cz.wraychus</groupId>
+                                    <artifactId>dummy-servlet25</artifactId>
+                                    <type>war</type>
+                                    <version>1.0</version>
+                                    <destFileName>dummy-servlet25.war</destFileName>
                                 </artifactItem>
                             </artifactItems>
                             <outputDirectory>${pom.basedir}/target</outputDirectory>

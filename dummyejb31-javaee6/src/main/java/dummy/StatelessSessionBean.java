@@ -1,6 +1,12 @@
 package dummy;
 
+import dummy.aux.ShouldBeIntercepted;
+
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.ejb.Stateless;
+import javax.inject.Inject;
+import java.util.logging.Logger;
 
 /**
  * Author: jmartisk
@@ -10,8 +16,25 @@ import javax.ejb.Stateless;
 @Stateless
 public class StatelessSessionBean {
 
-    public String sayHello(String name) {
-        return "Hyvää päivää " + name + "!";
+    @Inject
+    private Logger logger;
+
+    @PostConstruct
+    public void postConstruct() {
+        logger.info("Hello, I am Stateless bean's PostConstruct");
     }
+
+    @PreDestroy
+    public void preDestroy() {
+        logger.info("Hello, I am Stateless bean's PreDestroy");
+    }
+
+    @ShouldBeIntercepted
+    public String sayHello(String name) {
+        return "Guten Tag " + name + "!";
+    }
+
+
+
 
 }

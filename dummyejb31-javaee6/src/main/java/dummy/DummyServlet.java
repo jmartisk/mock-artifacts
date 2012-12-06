@@ -14,7 +14,7 @@ import java.io.PrintWriter;
  * Date: 6/28/12
  * Time: 2:52 PM
  */
-@WebServlet(urlPatterns = "/dummy")
+@WebServlet(name = "MyAwesomeServlet", urlPatterns = "/")
 public class DummyServlet extends HttpServlet {
 
     @EJB
