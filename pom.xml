@@ -19,6 +19,7 @@
         <module>dummyejb31-javaee6</module>
         <module>dummy-servlet30</module>
         <module>dummy-servlet25</module>
+        <module>jsf</module>
     </modules>
 
     <build>

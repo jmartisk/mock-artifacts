@@ -30,7 +30,7 @@
     </dependencies>
 
     <build>
-        <finalName>tomcat-dummy-servlet</finalName>
+        <finalName>dummy-servlet30</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.tomcat.maven</groupId>

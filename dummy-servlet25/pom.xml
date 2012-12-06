@@ -31,7 +31,7 @@
     </dependencies>
 
     <build>
-        <finalName>tomcat-dummy-servlet</finalName>
+        <finalName>dummy-servlet25</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.tomcat.maven</groupId>
