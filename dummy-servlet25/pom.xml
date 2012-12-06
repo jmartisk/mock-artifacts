@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>dummy-artifacts</artifactId>
+        <groupId>cz.wraychus</groupId>
+        <version>1.0</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>cz.wraychus</groupId>
+    <artifactId>dummy-servlet25</artifactId>
+    <version>1.0</version>
+
+    <packaging>war</packaging>
+    <name>Dummy artifacts :: Tomcat - dummy servlet 2.5 webapp</name>
+
+    <properties>
+        <tomcat.username>tomcat</tomcat.username>
+        <tomcat.password>tomcat</tomcat.password>
+    </properties>
+
+
+    <dependencies>
+        <dependency>
+            <groupId>org.jboss.spec.javax.servlet</groupId>
+            <artifactId>jboss-servlet-api_2.5_spec</artifactId>
+            <version>1.0.1.Final</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <finalName>tomcat-dummy-servlet</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.tomcat.maven</groupId>
+                <artifactId>tomcat6-maven-plugin</artifactId>
+                <version>2.0-beta-1</version>
+                <configuration>
+                    <password>${tomcat.password}</password>
+                    <username>${tomcat.username}</username>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.tomcat.maven</groupId>
+                <artifactId>tomcat7-maven-plugin</artifactId>
+                <version>2.0-beta-1</version>
+                <configuration>
+                    <username>${tomcat.username}</username>
+                    <password>${tomcat.password}</password>
+                    <update>true</update>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.jboss.as.plugins</groupId>
+                <artifactId>jboss-as-maven-plugin</artifactId>
+                <version>7.1.1.Final</version>
+            </plugin>
+        </plugins>
+
+    </build>
+
+</project>
