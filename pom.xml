@@ -20,6 +20,7 @@
         <module>dummy-servlet30</module>
         <module>dummy-servlet25</module>
         <module>jsf20</module>
+        <module>persistence</module>
     </modules>
 
     <build>
