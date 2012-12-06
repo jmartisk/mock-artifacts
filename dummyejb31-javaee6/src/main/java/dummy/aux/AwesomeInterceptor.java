@@ -16,11 +16,12 @@ import java.util.logging.Logger;
 public class AwesomeInterceptor implements Serializable {
 
     @Inject
+    @NamedAfterClass
     private Logger logger;
 
     @AroundInvoke
     public Object doStuff(InvocationContext invocationContext) throws Exception {
-        logger.info("I am the master.");
+        logger.info("I am an awesome interceptor and I am intercepting a " + invocationContext.getMethod().getName() + " method call of " + invocationContext.getTarget().getClass().getName());
         return invocationContext.proceed();
     }
 }

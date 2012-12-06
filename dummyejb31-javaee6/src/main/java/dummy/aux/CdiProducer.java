@@ -15,6 +15,7 @@ public class CdiProducer {
     @SuppressWarnings("unused") // for the IDE to be happier
     @Produces
     @Dependent
+    @NamedAfterClass
     public Logger getLogger(InjectionPoint injectionPoint) {
         return Logger.getLogger(injectionPoint.getMember().getDeclaringClass().getName());
     }

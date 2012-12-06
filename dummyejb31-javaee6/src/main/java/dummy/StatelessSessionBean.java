@@ -1,5 +1,6 @@
 package dummy;
 
+import dummy.aux.NamedAfterClass;
 import dummy.aux.ShouldBeIntercepted;
 
 import javax.annotation.PostConstruct;
@@ -17,6 +18,7 @@ import java.util.logging.Logger;
 public class StatelessSessionBean {
 
     @Inject
+    @NamedAfterClass
     private Logger logger;
 
     @PostConstruct
