@@ -21,6 +21,7 @@
         <module>dummy-servlet25</module>
         <module>jsf20</module>
         <module>persistence</module>
+        <module>jaxws</module>
     </modules>
 
     <build>
@@ -85,6 +86,15 @@
             </plugin>
         </plugins>
     </build>
+
+    <profiles>
+        <profile>
+            <id>arqtest</id>
+            <modules>
+                <module>arquillian-as7-test</module>
+            </modules>
+        </profile>
+    </profiles>
 
 
 </project>
