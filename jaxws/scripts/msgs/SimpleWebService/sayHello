@@ -1,0 +1,17 @@
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+<soap:Header>
+	<Action xmlns="http://www.w3.org/2005/08/addressing">sayHelloWorldFrom</Action>
+	<MessageID xmlns="http://www.w3.org/2005/08/addressing">urn:uuid:f1b33789-4a21-447a-95fb-5ea15b0e4545</MessageID>
+	<To xmlns="http://www.w3.org/2005/08/addressing">http://localhost:8080/jbpapp9342-1.0/HelloService</To>
+	<ReplyTo xmlns="http://www.w3.org/2005/08/addressing"><Address>http://localhost:7778</Address></ReplyTo>  
+	<FaultTo xmlns="http://www.w3.org/2005/08/addressing"><Address>http://localhost:7777</Address></FaultTo>
+</soap:Header>
+
+
+<soap:Body>
+  <ns:sayHello xmlns:ns="http://ws.mock.wraychus.cz/">
+	<MyName>Dude</MyName>
+  </ns:sayHello>
+</soap:Body>
+
+</soap:Envelope>
