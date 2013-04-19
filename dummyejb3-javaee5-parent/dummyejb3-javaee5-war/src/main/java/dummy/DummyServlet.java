@@ -29,8 +29,9 @@ public class DummyServlet extends HttpServlet {
         StatefulIface stateful;
         try {
             InitialContext ctx = new InitialContext();
-            stateless = (StatelessIface)(ctx.lookup("dummyejb3-javaee5/StatelessSessionBean/local"));
-            stateful = (StatefulIface)(ctx.lookup("dummyejb3-javaee5/StatefulSessionBean/local"));
+//            stateless = (StatelessIface)(ctx.lookup("dummyejb3-javaee5/StatelessSessionBean/local"));
+            stateless = (StatelessIface)(ctx.lookup("java:app/dummyejb3-javaee5-ejb-1.0/StatelessSessionBean"));
+            stateful = (StatefulIface)(ctx.lookup("java:app/dummyejb3-javaee5-ejb-1.0/StatefulSessionBean"));
         } catch (NamingException e) {
             throw new ServletException(e);
         }
