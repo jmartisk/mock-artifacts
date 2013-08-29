@@ -1,0 +1,2 @@
+Add the user for remoting realm && therefore the "other" security domain
+bin/add-user.sh -a -u joe -p joeIsAwesome2013! --role users -sc standalone/configuration
