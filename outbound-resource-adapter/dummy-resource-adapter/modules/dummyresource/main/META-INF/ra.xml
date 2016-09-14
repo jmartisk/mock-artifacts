@@ -1,0 +1,33 @@
+<connector xmlns="http://java.sun.com/xml/ns/j2ee"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee
+           http://java.sun.com/xml/ns/j2ee/connector_1_5.xsd"
+           version="1.5">
+
+    <description>Generic Super Awesome Resource Adapter</description>
+    <display-name>Dummy Resource Adapter</display-name>
+
+    <vendor-name>Jan Martiska</vendor-name>
+    <eis-type>EIS like hell</eis-type>
+    <resourceadapter-version>5.0</resourceadapter-version>
+
+    <license>
+        <description>You just do what the fuck you want to.</description>
+        <license-required>false</license-required>
+    </license>
+
+    <resourceadapter>
+        <outbound-resourceadapter>
+            <connection-definition id="blabla">
+                <managedconnectionfactory-class>experiment.DummyManagedConnectionFactory</managedconnectionfactory-class>
+                <connectionfactory-interface>experiment.DummyConnectionFactory</connectionfactory-interface>
+                <connectionfactory-impl-class>experiment.DummyConnectionFactoryImpl</connectionfactory-impl-class>
+                <connection-interface>experiment.DummyConnection</connection-interface>
+                <connection-impl-class>experiment.DummyConnectionImpl</connection-impl-class>
+            </connection-definition>
+            <transaction-support>NoTransaction</transaction-support>
+            <reauthentication-support>false</reauthentication-support>
+        </outbound-resourceadapter>
+    </resourceadapter>
+
+</connector>
