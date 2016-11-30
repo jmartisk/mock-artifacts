@@ -1,0 +1,4 @@
+- specify hibernate version through the property version.hibernate (in pom.xml or using -D)
+- provide valid database connection info to src/test/resources/META-INF/persistence.xml
+- supply the required JDBC driver - if not available in an online maven repo, you can put it into jdbc-drivers directory and adjust the system-scope dependency in pom.xml
+- mvn test
