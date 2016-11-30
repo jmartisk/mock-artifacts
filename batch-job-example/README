@@ -1,0 +1,30 @@
+How to run the 'people' job:
+There are always two ways - CLI and via a HTTP request.
+
+- Regularly start the job:
+/deployment=batch-job-example.war/subsystem=batch-jberet:start-job(job-xml-name=people)
+http://localhost:8080/batch-job-example/start
+
+- Make the reader fail after 2 successful readings:
+/deployment=batch-job-example.war/subsystem=batch-jberet:start-job(job-xml-name=people, properties={reader.fail.at=>"2"}
+http://localhost:8080/batch-job-example/start?reader.fail.at=2
+
+- Make the reader crash (abruptly kill) the EAP instance after 2 successful readings:
+/deployment=batch-job-example.war/subsystem=batch-jberet:start-job(job-xml-name=people, properties={processor.crash.at=>"2"}
+http://localhost:8080/batch-job-example/start?processor.crash.at=2 (it might happen that you won't even get a valid HTTP response if it kills the server too fast)
+
+- Restart the failed/crashed job execution $X:
+/deployment=batch-job-example.war/subsystem=batch-jberet/job=people/execution=$X:restart-job(properties={reader.fail.at=>"9999"})
+http://localhost:8080/batch-job-example/restart?id=10&reader.fail.at=9999
+
+- To show the contents of the database:
+http://localhost:8080/batch-job-example/show
+
+---------------------------------------------------------------------------------------------------------------------
+
+If you want the execution data to persist between EAP restarts, you need a persistent storage via an XA data source.
+H2 might not work for this even if it uses a file.
+Create an XA data source and then:
+
+/subsystem=batch-jberet/jdbc-job-repository=jdbc:add(data-source=$DS_NAME)
+/subsystem=batch-jberet/:write-attribute(name=default-job-repository,value=jdbc)

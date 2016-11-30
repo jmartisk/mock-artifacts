@@ -1,0 +1,27 @@
+<job id="people" xmlns="http://xmlns.jcp.org/xml/ns/javaee" version="1.0">
+    <listeners>
+        <listener ref="jobLifecycleListener"/>
+    </listeners>
+
+    <step id="read-people-and-generate-passwords">
+        <chunk>
+            <reader ref="personReader">
+                <properties>
+                    <property name="reader.fail.at" value="#{jobParameters['reader.fail.at']}"/>
+                </properties>
+            </reader>
+            <processor ref="personProcessor">
+                <properties>
+                    <property name="processor.fail.at" value="#{jobParameters['processor.fail.at']}"/>
+                    <property name="processor.crash.at" value="#{jobParameters['processor.crash.at']}"/>
+                </properties>
+            </processor>
+            <writer ref="personWriter">
+                <properties>
+                    <property name="writer.fail.at" value="#{jobParameters['writer.fail.at']}"/>
+                </properties>
+            </writer>
+        </chunk>
+    </step>
+
+</job>
