@@ -2,6 +2,10 @@ deploy as static module named 'dummyresource' (use the prepared 'modules' direct
 /subsystem=resource-adapters/resource-adapter=dummy:add(module=dummyresource, statistics-enabled=true)
 /subsystem=resource-adapters/resource-adapter=dummy/connection-definitions=experiment.DummyConnection:add(class-name=experiment.DummyManagedConnectionFactory, jndi-name="java:jboss/DummyConnection", min-pool-size=5, max-pool-size=20)
 
+Then run the test application
+You can also test via cli
+/subsystem=resource-adapters/resource-adapter=dummy/connection-definitions=experiment.DummyConnection:test-connection-in-pool
+
 
 to enable logging from the resource adapter, enable DEBUG on the package 'experiment':
 /subsystem=logging/console-handler=CONSOLE:change-log-level(level=DEBUG)
