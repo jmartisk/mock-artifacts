@@ -37,6 +37,10 @@ public class Worker {
             em.persist(bob);
             tx.commit();
 
+
+            cache.evictAll();
+
+
             em.find(DumbEntity.class, "alice"); // cache Alice
 
             System.out.println("Contains Alice? " + cache.contains(DumbEntity.class, "alice"));
