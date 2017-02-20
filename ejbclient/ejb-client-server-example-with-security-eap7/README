@@ -1,4 +1,5 @@
-- add user to EAP:  bin/add-user.sh -a -g users -u joe -p joeIsAwesome2013!
+- unzip EAP distro
+- add user to EAP with this command:  bin/add-user.sh -a -g users -u joe -p joeIsAwesome2013!
 - build server side, deploy
 - run client side using mvn exec:exec
 
