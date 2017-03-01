@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<job id="job" xmlns="http://xmlns.jcp.org/xml/ns/javaee" version="1.0">
+
+
+   <step id="step1">
+       <batchlet ref="EJBBatchlet">
+           <properties>
+               <property name="injected.property" value="#{jobParameters['injected.property']}"/>
+           </properties>
+       </batchlet>
+   </step>
+
+</job>
