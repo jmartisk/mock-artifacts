@@ -9,7 +9,6 @@ import ejb.HelloBeanRemote;
 
 /**
  * @author jmartisk
- * @since 7/3/13
  */
 public class Client {
 

@@ -5,19 +5,12 @@ import java.security.PrivilegedActionException;
 import java.security.PrivilegedExceptionAction;
 import java.security.Provider;
 import java.util.Properties;
-import javax.ejb.EJB;
-import javax.management.RuntimeErrorException;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
-import org.jboss.ejb.client.EJBClientCluster;
 import org.jboss.ejb.client.EJBClientConnection;
 import org.jboss.ejb.client.EJBClientContext;
-import org.jboss.ejb.client.EJBClientInterceptor;
-import org.jboss.ejb.client.EJBIdentifier;
-import org.jboss.ejb.client.EJBTransportProvider;
-import org.jboss.ejb.client.StatelessEJBLocator;
 import org.wildfly.naming.client.WildFlyInitialContextFactory;
 import org.wildfly.security.WildFlyElytronProvider;
 import org.wildfly.security.auth.client.AuthenticationConfiguration;
@@ -28,7 +21,6 @@ import ejb.HelloBeanRemote;
 
 /**
  * @author jmartisk
- * @since 7/3/13
  */
 public class Client {
 
