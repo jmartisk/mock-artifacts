@@ -1,5 +1,6 @@
 package client;
 
+import java.net.URI;
 import java.security.PrivilegedActionException;
 import java.security.Provider;
 import java.util.Properties;
@@ -7,6 +8,7 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
+import org.jboss.ejb.client.EJBClientConnection;
 import org.jboss.ejb.client.EJBClientContext;
 import org.jboss.ejb.protocol.remote.RemoteTransportProvider;
 import org.wildfly.naming.client.WildFlyInitialContextFactory;
@@ -31,8 +33,10 @@ public class Client {
         final AuthenticationContext authCtx = authCtxEmpty.with(MatchRule.ALL, joe);
 
         final EJBClientContext.Builder ejbClientBuilder = new EJBClientContext.Builder();
-
         ejbClientBuilder.addTransportProvider(new RemoteTransportProvider());
+        final EJBClientConnection.Builder connBuilder = new EJBClientConnection.Builder();
+        connBuilder.setDestination(URI.create("remote+http://127.0.0.1:8080"));
+        ejbClientBuilder.addClientConnection(connBuilder.build());
         final EJBClientContext ejbCtx = ejbClientBuilder.build();
 
         EJBClientContext.getContextManager().setThreadDefault(ejbCtx);
@@ -48,7 +52,6 @@ public class Client {
     public static Properties getCtxProperties() {
         Properties props = new Properties();
         props.put(Context.INITIAL_CONTEXT_FACTORY, WildFlyInitialContextFactory.class.getName());
-        props.put(Context.PROVIDER_URL, "remote+http://127.0.0.1:8080");
         return props;
     }
 
