@@ -1,0 +1,6 @@
+- unzip EAP distro
+- add user to EAP with this command:  bin/add-user.sh -a -g users -u joe -p joeIsAwesome2013!
+- add a JNDI binding on the server side:
+/subsystem=naming/binding="java:jboss/exported/x":add(type=java.lang.String, value=blabla, binding-type=simple)
+- run using mvn package exec:exec
+
