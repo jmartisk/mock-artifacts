@@ -33,51 +33,6 @@
     <dependencies>
 
         <!-- ejb client manually using community bits -->
- <!--       <dependency>
-            <groupId>org.jboss</groupId>
-            <artifactId>jboss-ejb-client</artifactId>
-            <version>1.0.25.Final</version>
-        </dependency>
-        <dependency>
-            <groupId>org.jboss.xnio</groupId>
-            <artifactId>xnio-api</artifactId>
-            <version>3.0.7.GA</version>
-        </dependency>
-        <dependency>
-            <groupId>org.jboss.xnio</groupId>
-            <artifactId>xnio-nio</artifactId>
-            <version>3.0.7.GA</version>
-        </dependency>
-        <dependency>
-            <groupId>org.jboss.spec.javax.ejb</groupId>
-            <artifactId>jboss-ejb-api_3.1_spec</artifactId>
-            <version>1.0.2.Final</version>
-        </dependency>
-        <dependency>
-            <groupId>org.jboss.spec.javax.transaction</groupId>
-            <artifactId>jboss-transaction-api_1.1_spec</artifactId>
-            <version>1.0.1.Final</version>
-        </dependency>
-        <dependency>
-            <groupId>org.jboss.sasl</groupId>
-            <artifactId>jboss-sasl</artifactId>
-            <version>1.0.4.Final</version>
-        </dependency>
-        <dependency>
-            <groupId>org.jboss.remoting3</groupId>
-            <artifactId>jboss-remoting</artifactId>
-            <version>3.3.1.Final</version>
-        </dependency>
-        <dependency>
-            <groupId>org.jboss.marshalling</groupId>
-            <artifactId>jboss-marshalling-river</artifactId>
-            <version>1.4.7.Final</version>
-        </dependency>
-        <dependency>
-            <groupId>org.jboss.marshalling</groupId>
-            <artifactId>jboss-marshalling</artifactId>
-            <version>1.4.7.Final</version>
-        </dependency>-->
 
         <!-- ejb client using the EAP product BOM -->
         <dependency>
