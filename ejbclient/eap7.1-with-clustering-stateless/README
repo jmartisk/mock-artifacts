@@ -1,0 +1,5 @@
+- unzip EAP distributions
+- add user to all EAP nodes with this command:  bin/add-user.sh -a -g users -u joe -p joeIsAwesome2013!
+- build server side, deploy to all nodes
+- run client side using mvn exec:exec
+
