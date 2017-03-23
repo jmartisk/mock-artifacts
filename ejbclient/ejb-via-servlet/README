@@ -1,0 +1,8 @@
+add user to EAP:
+bin/add-user.sh -a -g users -u admin -p admin123+
+
+deploy the webapp
+
+access the app using curl:
+curl http://localhost:8080/ejb-via-servlet/ --basic -u admin:admin123+
+
