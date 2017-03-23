@@ -62,7 +62,7 @@ public class Client {
 //                        new ClusterAffinity("ejb")
 //                        URIAffinity.forUri(URI.create(URL))
                         Affinity.NONE
-                )
+                )cd
         );
 
         while (true) {
