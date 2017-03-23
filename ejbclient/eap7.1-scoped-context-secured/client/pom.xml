@@ -18,10 +18,10 @@
 
     <dependencyManagement>
         <dependencies>
-            <dependency> <!-- this is ejb client from EAP 7.1.0.DR14 -->
+            <dependency> <!-- this is ejb client from EAP 7.1.0.DR15 -->
                 <groupId>org.jboss.eap</groupId>
                 <artifactId>wildfly-ejb-client-bom</artifactId>
-                <version>7.1.0.Alpha1-redhat-15</version>
+                <version>7.1.0.Alpha1-redhat-16</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
