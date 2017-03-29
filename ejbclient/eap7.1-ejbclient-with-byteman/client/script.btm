@@ -1,0 +1,7 @@
+RULE crashTheInvocation
+CLASS org.jboss.ejb.protocol.remote.RemoteEJBReceiver
+METHOD processInvocation
+AT ENTRY
+IF TRUE
+DO throw new RuntimeException("trololo");
+ENDRULE
