@@ -1,5 +1,5 @@
 - unzip EAP distro
 - add user to EAP with this command:  bin/add-user.sh -a -g users -u joe -p joeIsAwesome2013!
 - build server side, deploy
-- run client side using mvn exec:exec
+- run client side using mvn exec:exec -Dbyteman.home=$BYTEMAN_HOME
 - the client-side byteman script is in client/script.btm
