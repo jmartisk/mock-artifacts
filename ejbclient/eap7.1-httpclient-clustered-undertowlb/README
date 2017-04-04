@@ -1,0 +1,20 @@
+--- prepare undertow load balancer node ---
+use the config docs/examples/standalone-load-balancer.xml
+Then apply this:
+/subsystem=undertow/configuration=handler/reverse-proxy=ejb:add
+/subsystem=undertow/server=default-server/host=default-host/location=wildfly-services:add(handler=ejb)
+/subsystem=undertow/server=default-server/host=default-host/location=wildfly-services/filter-ref=load-balancer:add
+/socket-binding-group=standard-sockets/remote-destination-outbound-socket-binding=node2:add(host=127.0.0.2, port=8009)
+/socket-binding-group=standard-sockets/remote-destination-outbound-socket-binding=node3:add(host=127.0.0.3, port=8009)
+/subsystem=undertow/configuration=handler/reverse-proxy=ejb/host=node2:add(outbound-socket-binding=node2, scheme=ajp, instance-id=myroute, path=/wildfly-services)
+/subsystem=undertow/configuration=handler/reverse-proxy=ejb/host=node3:add(outbound-socket-binding=node3, scheme=ajp, instance-id=myroute, path=/wildfly-services)
+
+--- prepare server nodes ---
+- bin/add-user.sh -a -g users -u joe -p joeIsAwesome2013!
+- build the "server" app and deploy it to all nodes
+- run with something like this...
+bin/standalone.sh -b 127.0.0.2 -bmanagement=127.0.0.2 -Djboss.node.name=node2 -c standalone-ha.xml
+
+--- run the example ---
+- run client side using:
+mvn exec:exec -Dremote.server.address=ADDRESS_OF_LOAD_BALANCER_NODE (default is 127.0.0.1)
