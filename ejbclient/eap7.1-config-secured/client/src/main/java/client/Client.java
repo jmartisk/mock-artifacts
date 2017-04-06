@@ -24,7 +24,9 @@ public class Client {
         try {
             String lookupName = "ejb:/server/HelloBean!ejb.HelloBeanRemote?stateful";
             HelloBeanRemote bean = (HelloBeanRemote)ctx.lookup(lookupName);
-            EJBClient.setStrongAffinity(bean, Affinity.NONE);       // FIXME this is needed for DR16
+            // FIXME this is needed to get clustering working in DR16 with stateful beans...
+            // it's not needed for stateless beans or if not invoking a cluster
+            EJBClient.setStrongAffinity(bean, Affinity.NONE);
             for(int i = 0; i<20; i++) {
                 System.out.println(bean.hello());
                 TimeUnit.SECONDS.sleep(1);
