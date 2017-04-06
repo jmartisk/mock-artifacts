@@ -1,5 +1,6 @@
 <configuration>
-  <!--  <authentication-client xmlns="urn:elytron:1.0">
+
+   <!-- <authentication-client xmlns="urn:elytron:1.0">
         <authentication-rules>
             <rule use-configuration="default"/>
         </authentication-rules>
@@ -18,11 +19,14 @@
         </authentication-rules>
         <authentication-configurations>
             <configuration name="default">
-                <allow-sasl-mechanisms names="DIGEST-MD5"/>
+                <!--<allow-sasl-mechanisms names="DIGEST-MD5"/>-->
+                <allow-all-sasl-mechanisms/>
                 <set-user-name name="joe"/>
                 <credentials>
+                    <!--<hashed-password algorithm="MD5" hash="70bb29e92e62deb4087c476589b2d316"/>-->
                     <clear-password password="joeIsAwesome2013!"/>
                 </credentials>
+                <set-mechanism-realm name="ApplicationRealm"/>
             </configuration>
         </authentication-configurations>
     </authentication-client>
