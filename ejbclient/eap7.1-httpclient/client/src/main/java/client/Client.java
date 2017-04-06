@@ -1,29 +1,18 @@
 package client;
 
-import java.net.URI;
 import java.security.PrivilegedActionException;
-import java.security.Provider;
 import java.util.Properties;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
-import org.jboss.ejb.client.EJBClientConnection;
-import org.jboss.ejb.client.EJBClientContext;
-import org.jboss.ejb.protocol.remote.RemoteTransportProvider;
-import org.wildfly.httpclient.common.WildflyHttpContext;
-import org.wildfly.httpclient.ejb.HttpClientProvider;
 import org.wildfly.naming.client.WildFlyInitialContextFactory;
-import org.wildfly.security.WildFlyElytronProvider;
 import org.wildfly.security.auth.client.AuthenticationConfiguration;
 import org.wildfly.security.auth.client.AuthenticationContext;
 import org.wildfly.security.auth.client.MatchRule;
 
 import ejb.HelloBeanRemote;
 
-/**
- * @author jmartisk
- */
 public class Client {
 
     public static final String URL = "http://localhost:8080/wildfly-services";
