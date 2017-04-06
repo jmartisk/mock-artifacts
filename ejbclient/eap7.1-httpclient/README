@@ -1,0 +1,10 @@
+- unzip EAP distro
+- add user to EAP with this command:  bin/add-user.sh -a -g users -u joe -p joeIsAwesome2013!
+- configure EAP with these CLI commands:
+
+/subsystem=undertow/server=default-server/host=default-host/setting=http-invoker:add(http-authentication-factory=application-http-authentication)
+/subsystem=ejb3/application-security-domain=other:add(security-domain=ApplicationDomain)
+
+- build server side, deploy
+- run client side using mvn exec:exec
+
