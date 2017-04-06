@@ -19,7 +19,7 @@ public class Client {
 
     public static void main(String[] args)
             throws NamingException, PrivilegedActionException, InterruptedException {
-        Security.addProvider(new WildFlyElytronProvider());       // FIXME this is a workaround and should not be needed
+        Security.addProvider(new WildFlyElytronProvider());       // FIXME this is a workaround for JBEAP-10167 and should not be needed
         InitialContext ctx = new InitialContext(getCtxProperties());
         try {
             String lookupName = "ejb:/server/HelloBean!ejb.HelloBeanRemote?stateful";
