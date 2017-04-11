@@ -11,7 +11,6 @@ import javax.naming.NamingException;
 import org.jboss.ejb.client.Affinity;
 import org.jboss.ejb.client.EJBClient;
 import org.wildfly.naming.client.WildFlyInitialContextFactory;
-import org.wildfly.security.WildFlyElytronProvider;
 
 import ejb.HelloBeanRemote;
 
@@ -19,7 +18,6 @@ public class Client {
 
     public static void main(String[] args)
             throws NamingException, PrivilegedActionException, InterruptedException {
-        Security.addProvider(new WildFlyElytronProvider());       // FIXME this is a workaround for JBEAP-10167 and should not be needed
         InitialContext ctx = new InitialContext(getCtxProperties());
         try {
             String lookupName = "ejb:/server/HelloBean!ejb.HelloBeanRemote?stateful";

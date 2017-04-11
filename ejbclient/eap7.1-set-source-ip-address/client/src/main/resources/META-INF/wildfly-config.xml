@@ -11,6 +11,7 @@
                 <credentials>
                     <clear-password password="joeIsAwesome2013!"/>
                 </credentials>
+                <use-service-loader-providers/>
             </configuration>
         </authentication-configurations>
     </authentication-client>

@@ -19,7 +19,6 @@ import org.jboss.ejb.client.EJBClient;
 import org.jboss.ejb.client.EJBClientContext;
 import org.wildfly.common.net.CidrAddress;
 import org.wildfly.naming.client.WildFlyInitialContextFactory;
-import org.wildfly.security.WildFlyElytronProvider;
 import org.xnio.Xnio;
 import org.xnio.XnioWorker;
 
@@ -43,7 +42,6 @@ public class Client {
 
 
 
-        Security.addProvider(new WildFlyElytronProvider());       // FIXME this is a workaround for JBEAP-10167 and should not be needed
         InitialContext ctx = new InitialContext(getCtxProperties());
         try {
             String lookupName = "ejb:/server/HelloBean!ejb.HelloBeanRemote?stateful";
