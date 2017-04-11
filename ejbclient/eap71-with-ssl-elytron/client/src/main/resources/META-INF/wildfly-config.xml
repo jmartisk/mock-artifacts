@@ -1,0 +1,45 @@
+<configuration>
+    <authentication-client xmlns="urn:elytron:1.0">
+        <authentication-rules>
+            <rule use-configuration="default"/>
+        </authentication-rules>
+        <authentication-configurations>
+            <configuration name="default">
+                <allow-sasl-mechanisms names="DIGEST-MD5"/>
+                <forbid-sasl-mechanisms names="JBOSS-LOCAL-USER"/>
+                <set-user-name name="joe"/>
+                <credentials>
+                    <clear-password password="joeIsAwesome2013!"/>
+                </credentials>
+                <use-service-loader-providers/>
+            </configuration>
+        </authentication-configurations>
+        <key-stores>
+            <key-store name="default" type="JKS">
+                <!-- FIXME this should allow expressions -->
+                <!--<file name="${keystore.path}"/>-->
+                <file name="../../src/main/resources/client.keystore"/>
+                <key-store-clear-password password="abcdef"/>
+            </key-store>
+        </key-stores>
+        <!-- TODO how to add trust store here? so far I add it via system property javax.net.ssl.trustStore but it should be possible here too -->
+        <ssl-contexts>
+            <ssl-context name="client-ssl-context">
+                <key-store-ssl-certificate key-store-name="default" alias="clientalias">
+                    <key-store-clear-password password="abcdef"/>
+                </key-store-ssl-certificate>
+            </ssl-context>
+        </ssl-contexts>
+        <ssl-context-rules>
+            <rule use-ssl-context="client-ssl-context"/>
+        </ssl-context-rules>
+    </authentication-client>
+    <jboss-ejb-client xmlns="urn:jboss:wildly-client-ejb:3.0">
+        <connections>
+            <!-- FIXME this should be the remote.ejb.url property -->
+            <connection uri="https-remoting://127.0.0.1:8443"/>
+            <!--<connection uri="remote://127.0.0.1:4448"/>-->
+            <!--<connection uri="${remote.ejb.url}"/>-->
+        </connections>
+    </jboss-ejb-client>
+</configuration>

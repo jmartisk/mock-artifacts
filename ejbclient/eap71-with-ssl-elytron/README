@@ -1,0 +1,29 @@
+Example how to invoke EJBs with EJB client over SSL
+
+- unzip EAP distro
+- copy ssl/server.keystore and ssl/server.truststore to $EAP_HOME/standalone/configuration
+- add user to EAP with this command:  bin/add-user.sh -a -g users -u joe -p joeIsAwesome2013!
+- prepare EAP config - there are two options
+
+this is needed always:
+/subsystem=elytron/key-store=example-key-store:add(path=server.keystore, relative-to=jboss.server.config.dir, credential-reference={clear-text=123456}, type=JKS)
+/subsystem=elytron/key-managers=example-key-manager:add(key-store=example-key-store, algorithm=SunX509, credential-reference={clear-text=123456})
+/subsystem=elytron/trust-managers=example-trust-manager:add(key-store=example-key-store, algorithm=SunX509)
+/subsystem=elytron/server-ssl-context=example-ssl-context:add(trust-managers=example-trust-manager, key-managers=example-key-manager, need-client-auth=true, want-client-auth=true)
+/subsystem=ejb3/application-security-domain=other:add(security-domain=ApplicationDomain) 
+
+to use https-remoting connector (port 8443):
+/subsystem=undertow/server=default-server/https-listener=https:undefine-attribute(name=security-realm)
+/subsystem=undertow/server=default-server/https-listener=https:write-attribute(name=ssl-context,value=example-ssl-context)
+/subsystem=remoting/http-connector=https-remoting-connector:add(connector-ref=https, sasl-authentication-factory=application-sasl-authentication)
+reload
+
+to use bare remoting+ssl connector (port 4448):
+/socket-binding-group=standard-sockets/socket-binding=remoting-ssl-sb:add(port=4448)
+/subsystem=remoting/connector=remoting-ssl-connector:add(socket-binding=remoting-ssl-sb, sasl-authentication-factory=application-sasl-authentication, ssl-context=example-ssl-context)
+/subsystem=ejb3/application-security-domain=other:add(security-domain=ApplicationDomain)
+
+- build server side, deploy
+- run client side using mvn exec:exec
+
+
