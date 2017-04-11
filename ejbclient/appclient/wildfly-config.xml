@@ -1,0 +1,22 @@
+<configuration>
+    <authentication-client xmlns="urn:elytron:1.0">
+        <authentication-rules>
+            <rule use-configuration="default"/>
+        </authentication-rules>
+        <authentication-configurations>
+            <configuration name="default">
+                <allow-sasl-mechanisms names="DIGEST-MD5"/>
+                <forbid-sasl-mechanisms names="JBOSS-LOCAL-USER"/>
+                <set-user-name name="joe"/>
+                <credentials>
+                    <clear-password password="joeIsAwesome2013!"/>
+                </credentials>
+            </configuration>
+        </authentication-configurations>
+    </authentication-client>
+    <jboss-ejb-client xmlns="urn:jboss:wildly-client-ejb:3.0">
+        <connections>
+            <connection uri="remote+http://127.0.0.8:8080" />
+        </connections>
+    </jboss-ejb-client> 
+</configuration> 
