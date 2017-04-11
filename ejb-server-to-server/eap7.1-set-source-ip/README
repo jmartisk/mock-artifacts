@@ -1,0 +1,18 @@
+1. CONFIGURE SERVER-SIDE EAP
+bin/add-user.sh -a -u user -p password1
+
+2. RUN SERVER-SIDE EAP
+bin/standalone.sh -Djboss.socket.binding.port-offset=100
+
+3. CONFIGURE CLIENT-SIDE EAP
+/socket-binding-group=standard-sockets/remote-destination-outbound-socket-binding=remote-ejb:add(host=localhost, port=8180)
+/core-service=management/security-realm=ejb-security-realm:add()
+/core-service=management/security-realm=ejb-security-realm/server-identity=secret:add(value="cGFzc3dvcmQx")
+/subsystem=remoting/remote-outbound-connection=remote-ejb-connection:add(outbound-socket-binding-ref=remote-ejb, protocol=http-remoting, security-realm=ejb-security-realm, username=user)
+/subsystem=io/worker=default/outbound-bind-address=default:add(match=0.0.0.0/0, bind-address=127.0.0.9, bind-port=12345)
+
+4. RUN CLIENT-SIDE EAP
+bin/standalone.sh
+
+5. deploy "client-side" app to the "client" server and "server-side" app to the "server" server
+6. run by accessing http://127.0.0.1:8080/client-side/
