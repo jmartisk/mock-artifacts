@@ -7,7 +7,6 @@ import javax.inject.Inject;
 
 /**
  * @author jmartisk
- * @since 12/13/12
  */
 @Singleton
 @Startup

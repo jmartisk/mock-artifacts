@@ -5,7 +5,6 @@ import javax.faces.bean.RequestScoped;
 
 /**
  * @author jmartisk
- * @since 12/6/12
  */
 @ManagedBean
 @RequestScoped

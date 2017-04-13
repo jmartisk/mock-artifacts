@@ -9,7 +9,6 @@ import javax.ejb.TimerConfig;
 
 /**
  * @author jmartisk
- * @since 4/19/13
  */
 @Singleton
 @Startup

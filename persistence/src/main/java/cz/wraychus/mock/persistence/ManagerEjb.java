@@ -12,7 +12,6 @@ import javax.persistence.PersistenceContext;
 
 /**
  * @author jmartisk
- * @since 12/6/12
  */
 @Stateless
 public class ManagerEjb {

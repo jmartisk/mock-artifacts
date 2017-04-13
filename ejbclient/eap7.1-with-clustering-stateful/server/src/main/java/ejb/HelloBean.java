@@ -9,10 +9,6 @@ import javax.ejb.Stateless;
 
 import org.jboss.ejb3.annotation.SecurityDomain;
 
-/**
- * @author jmartisk
- * @since 7/3/13
- */
 @Stateful
 @SecurityDomain("other")
 public class HelloBean implements HelloBeanRemote {

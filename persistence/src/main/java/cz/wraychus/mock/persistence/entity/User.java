@@ -9,7 +9,6 @@ import java.util.logging.Logger;
 
 /**
  * @author jmartisk
- * @since 12/6/12
  */
 @Entity
 public class User {

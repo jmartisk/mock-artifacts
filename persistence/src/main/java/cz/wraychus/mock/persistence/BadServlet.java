@@ -10,7 +10,6 @@ import java.io.IOException;
 
 /**
  * @author jmartisk
- * @since 12/6/12
  */
 @WebServlet(urlPatterns = "/oops", name = "BadServlet")
 public class BadServlet extends HttpServlet{

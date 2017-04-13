@@ -9,10 +9,6 @@ import javax.ejb.TransactionAttributeType;
 
 import org.jboss.ejb3.annotation.SecurityDomain;
 
-/**
- * @author jmartisk
- * @since 7/3/13
- */
 @Stateless
 @SecurityDomain("other")
 public class HelloBean implements HelloBeanRemote {

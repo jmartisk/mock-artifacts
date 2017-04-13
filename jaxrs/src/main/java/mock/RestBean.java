@@ -7,7 +7,6 @@ import javax.ws.rs.PathParam;
 
 /**
  * @author jmartisk
- * @since 5/16/13
  */
 @Stateless
 @Path("/bean")

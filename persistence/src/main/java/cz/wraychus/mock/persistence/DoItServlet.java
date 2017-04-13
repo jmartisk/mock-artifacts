@@ -13,7 +13,6 @@ import java.util.UUID;
 
 /**
  * @author jmartisk
- * @since 12/6/12
  */
 @WebServlet(urlPatterns = "/", name = "DoItServlet")
 public class DoItServlet extends HttpServlet {
