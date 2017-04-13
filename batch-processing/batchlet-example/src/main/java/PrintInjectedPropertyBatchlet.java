@@ -1,17 +1,12 @@
 import javax.batch.api.BatchProperty;
 import javax.batch.api.Batchlet;
-import javax.ejb.LocalBean;
-import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.persistence.PreRemove;
 
 /**
  * @author Jan Martiska
  */
-@Stateless
-@LocalBean
-@Named(value = "EJBBatchlet")
+@Named(value = "printInjectedPropertyBatchlet")
 public class PrintInjectedPropertyBatchlet implements Batchlet {
 
     @Inject
