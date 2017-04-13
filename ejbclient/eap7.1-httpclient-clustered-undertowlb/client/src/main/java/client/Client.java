@@ -16,10 +16,12 @@ public class Client {
     public static void main(String[] args)
             throws NamingException, PrivilegedActionException, InterruptedException {
         final String addr = System.getProperty("remote.server.address", "127.0.0.1");
+        final Boolean stateful = Boolean.getBoolean("stateful");
         final String URL = "http://" + addr + ":8080/wildfly-services";
         InitialContext iniCtx = new InitialContext(getCtxProperties(URL));
-        String lookupName = "ejb:/server/HelloBean!ejb.HelloBeanRemote";
-//        String lookupName = "ejb:/server/HelloBean!ejb.HelloBeanRemote?stateful";
+        String lookupName = stateful ?
+                "ejb:/server/HelloBeanStateful!ejb.HelloBeanRemote?stateful" :
+                "ejb:/server/HelloBeanStateless!ejb.HelloBeanRemote";
         HelloBeanRemote bean = (HelloBeanRemote)iniCtx.lookup(lookupName);
         try {
             for (int i = 0; i < 10_000; i++) {

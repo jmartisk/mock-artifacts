@@ -14,5 +14,7 @@ Then apply this:
 bin/standalone.sh -b 127.0.0.2 -bmanagement=127.0.0.2 -Djboss.node.name=node2 -c standalone-ha.xml
 
 --- run the example ---
-- run client side using:
-mvn exec:exec -Dremote.server.address=ADDRESS_OF_LOAD_BALANCER_NODE (default is 127.0.0.1)
+- run "client" project using:
+mvn exec:exec -Dstateful=(true|false) -Dremote.server.address=ADDRESS_OF_LOAD_BALANCER_NODE (default is 127.0.0.1)
+(you can also specify the address of a worker node, then it will invoke only on that node)
+The -Dstateful property chooses whether you want to invoke a stateful or a stateless bean.
