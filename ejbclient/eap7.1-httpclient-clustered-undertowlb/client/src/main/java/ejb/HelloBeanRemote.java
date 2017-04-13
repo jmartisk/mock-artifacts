@@ -1,11 +1,8 @@
 package ejb;
 
-/**
- * @author jmartisk
- */
 public interface HelloBeanRemote {
 
-    public String hello();
+    String hello();
 
 }
 
