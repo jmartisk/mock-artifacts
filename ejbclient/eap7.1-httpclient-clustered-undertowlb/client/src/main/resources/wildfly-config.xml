@@ -18,7 +18,7 @@
     <http-client xmlns="urn:wildfly-http-client:1.0">
         <defaults>
             <eagerly-acquire-session value="false"/>
-            <enable-http2 value="true"/>
+            <enable-http2 value="false"/>
         </defaults>
     </http-client>
 </configuration>

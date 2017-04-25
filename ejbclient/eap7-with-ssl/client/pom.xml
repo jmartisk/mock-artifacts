@@ -18,7 +18,6 @@
 
     <dependencyManagement>
         <dependencies>
-            <!-- ejb client using productized bits, needs the mead repo -->
             <dependency>
                 <groupId>org.jboss.eap</groupId>
                 <artifactId>wildfly-ejb-client-bom</artifactId>
@@ -31,8 +30,6 @@
 
     <dependencies>
 
-
-        <!-- ejb client using the EAP product BOM -->
         <dependency>
             <groupId>org.jboss</groupId>
             <artifactId>jboss-ejb-client</artifactId>
@@ -99,14 +96,13 @@
                     <arguments>
                         <argument>-classpath</argument>
                         <classpath/>
-                        <!-- uncomment for debugging -->
+                        <!-- uncomment for debugging the client side -->
                         <!--<argument>-agentlib:jdwp=transport=dt_socket,address=8787,server=y,suspend=y</argument>-->
                         <argument>-Djavax.net.ssl.trustStore=${project.basedir}/src/main/resources/client.keystore</argument>
                         <argument>-Djavax.net.ssl.keyStore=${project.basedir}/src/main/resources/client.keystore</argument>
                         <argument>-Djavax.net.ssl.trustStorePassword=abcdef</argument>
                         <argument>-Djavax.net.ssl.keyStorePassword=abcdef</argument>
                         <argument>client.Client</argument>
-                        <!-- the main class -->
                     </arguments>
                 </configuration>
             </plugin>
