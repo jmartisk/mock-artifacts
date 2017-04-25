@@ -21,7 +21,8 @@
         </connections>
     </jboss-ejb-client>
     <worker xmlns="urn:xnio:3.5">
-        <worker-name value="default"/>
+        <worker-name value="XNIO-1"/>
+        <io-threads value="99"/>
         <outbound-bind-addresses>
             <bind-address bind-address="127.0.0.9" bind-port="61111" match="0.0.0.0/0"/>
         </outbound-bind-addresses>

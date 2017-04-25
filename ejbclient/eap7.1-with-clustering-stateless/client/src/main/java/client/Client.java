@@ -37,6 +37,7 @@ public class Client {
 
     public static void main(String[] args)
             throws NamingException, PrivilegedActionException, InterruptedException {
+        // FIXME move this to wildfly-config.xml
         AuthenticationConfiguration common = AuthenticationConfiguration.EMPTY
                 .useProviders(() -> new Provider[] {new WildFlyElytronProvider()})
                 .allowSaslMechanisms("DIGEST-MD5")
@@ -56,6 +57,7 @@ public class Client {
                 ).build();
         EJBClientContext.getContextManager().setGlobalDefault(ctx);
 
+        // FIXME shouldn't need to set the affinity myself
         final HelloBeanRemote beanWithAffinity = EJBClient.createProxy(
                 StatelessEJBLocator.create(HelloBeanRemote.class, new EJBIdentifier(
                                 "", "server", "HelloBean", ""),
