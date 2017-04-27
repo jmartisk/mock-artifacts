@@ -38,7 +38,7 @@ public class Client {
         connBuilder.setDestination(URI.create("remote+http://127.0.0.1:8080"));
         ejbClientBuilder.addClientConnection(connBuilder.build());
         final EJBClientContext ejbCtx = ejbClientBuilder.build();
-        ejbClientBuilder.set
+//        ejbClientBuilder.set
 
         EJBClientContext.getContextManager().setThreadDefault(ejbCtx);
         AuthenticationContext.getContextManager().setThreadDefault(authCtx);

@@ -22,7 +22,7 @@
             <dependency>
                 <groupId>org.jboss.bom</groupId>
                 <artifactId>eap-runtime-artifacts</artifactId>
-                <version>7.1.0.DR16</version>  <!-- TODO update after 7.1 GA -->
+                <version>7.1.0.DR17</version>  <!-- TODO update after 7.1 GA -->
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
