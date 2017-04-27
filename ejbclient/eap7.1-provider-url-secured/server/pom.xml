@@ -29,28 +29,6 @@
             <version>1.1.1</version>
             <scope>provided</scope>
         </dependency>
-        <dependency>
-            <groupId>org.jboss.msc</groupId>
-            <artifactId>jboss-msc</artifactId>
-            <version>1.2.7.SP1</version>
-        </dependency>
-        <dependency>
-            <groupId>org.wildfly.core</groupId>
-            <artifactId>wildfly-server</artifactId>
-            <version>2.0.10.Final</version>
-        </dependency>
-        <dependency>
-            <groupId>org.jboss.eap</groupId>
-            <artifactId>wildfly-clustering-server</artifactId>
-            <version>7.1.0.Beta2-redhat-1</version>
-            <!--<type>pom</type>-->
-        </dependency>
-        <dependency>
-            <groupId>org.jboss.eap</groupId>
-            <artifactId>wildfly-ejb3</artifactId>
-            <version>7.1.0.Beta2-redhat-1</version>
-        </dependency>
-
     </dependencies>
 
     <build>
