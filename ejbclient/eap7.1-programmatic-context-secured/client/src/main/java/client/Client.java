@@ -2,7 +2,6 @@ package client;
 
 import java.net.URI;
 import java.security.PrivilegedActionException;
-import java.security.Provider;
 import java.util.Properties;
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -12,7 +11,6 @@ import org.jboss.ejb.client.EJBClientConnection;
 import org.jboss.ejb.client.EJBClientContext;
 import org.jboss.ejb.protocol.remote.RemoteTransportProvider;
 import org.wildfly.naming.client.WildFlyInitialContextFactory;
-import org.wildfly.security.WildFlyElytronProvider;
 import org.wildfly.security.auth.client.AuthenticationConfiguration;
 import org.wildfly.security.auth.client.AuthenticationContext;
 import org.wildfly.security.auth.client.MatchRule;
@@ -26,20 +24,16 @@ public class Client {
 
     public static void main(String[] args) throws NamingException, PrivilegedActionException {
         AuthenticationConfiguration common = AuthenticationConfiguration.EMPTY
-                .useProviders(() -> new Provider[] {new WildFlyElytronProvider()})
                 .allowSaslMechanisms("DIGEST-MD5");
         AuthenticationContext authCtxEmpty = AuthenticationContext.empty();
         AuthenticationConfiguration joe = common.useName("joe").usePassword("joeIsAwesome2013!");
         final AuthenticationContext authCtx = authCtxEmpty.with(MatchRule.ALL, joe);
 
-        final EJBClientContext.Builder ejbClientBuilder = new EJBClientContext.Builder();
-        ejbClientBuilder.addTransportProvider(new RemoteTransportProvider());
-        final EJBClientConnection.Builder connBuilder = new EJBClientConnection.Builder();
-        connBuilder.setDestination(URI.create("remote+http://127.0.0.1:8080"));
-        ejbClientBuilder.addClientConnection(connBuilder.build());
-        final EJBClientContext ejbCtx = ejbClientBuilder.build();
-//        ejbClientBuilder.set
-
+        final EJBClientContext ejbCtx = new EJBClientContext.Builder()
+                .addTransportProvider(new RemoteTransportProvider())
+                .addClientConnection(new EJBClientConnection.Builder()
+                        .setDestination(URI.create("remote+http://127.0.0.1:8080")).build())
+                .build();
         EJBClientContext.getContextManager().setThreadDefault(ejbCtx);
         AuthenticationContext.getContextManager().setThreadDefault(authCtx);
 
