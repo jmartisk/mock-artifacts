@@ -8,8 +8,6 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
-import org.jboss.ejb.client.Affinity;
-import org.jboss.ejb.client.EJBClient;
 import org.wildfly.naming.client.WildFlyInitialContextFactory;
 
 import ejb.HelloBeanRemote;
@@ -22,9 +20,6 @@ public class Client {
         try {
             String lookupName = "ejb:/server/HelloBean!ejb.HelloBeanRemote?stateful";
             HelloBeanRemote bean = (HelloBeanRemote)ctx.lookup(lookupName);
-            // FIXME this is needed to get clustering working in DR16 with stateful beans...
-            // it's not needed for stateless beans or if not invoking a cluster
-            EJBClient.setStrongAffinity(bean, Affinity.NONE);
             for(int i = 0; i<20; i++) {
                 System.out.println(bean.hello());
                 TimeUnit.SECONDS.sleep(1);
