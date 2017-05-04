@@ -11,7 +11,7 @@
 ```
 /socket-binding-group=standard-sockets/remote-destination-outbound-socket-binding=remote-ejb:add(host=${remote.ejb.host}, port=8080)
 /core-service=management/security-realm=ejb-security-realm:add()
-/core-service=management/security-realm=ejb-security-realm/server-identity=secret:add(value="cGFzc3cqcmQx")
+/core-service=management/security-realm=ejb-security-realm/server-identity=secret:add(value="YWRtaW4xMjMr")
 /subsystem=remoting/remote-outbound-connection=remote-ejb-connection:add(outbound-socket-binding-ref=remote-ejb, protocol=http-remoting, security-realm=ejb-security-realm, username=admin)
 ```
 
