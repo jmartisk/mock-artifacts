@@ -34,7 +34,7 @@
             <rule use-ssl-context="client-ssl-context"/>
         </ssl-context-rules>
     </authentication-client>
-    <jboss-ejb-client xmlns="urn:jboss:wildly-client-ejb:3.0">
+    <jboss-ejb-client xmlns="urn:jboss:wildfly-client-ejb:3.0">
         <connections>
             <!-- FIXME this should be the remote.ejb.url property -->
             <connection uri="https-remoting://127.0.0.1:8443"/>
