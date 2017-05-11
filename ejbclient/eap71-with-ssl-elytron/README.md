@@ -1,7 +1,7 @@
-## Example how to invoke EJBs with EJB client over SSL
+## Example how to invoke EJBs with EJB client over SSL/HTTPS
 
 1. unzip EAP distro
-2. copy `ssl/server.keystore` and `ssl/server.truststore` to `$EAP_HOME/standalone/configuration`
+2. copy `ssl/server.keystore` to `$EAP_HOME/standalone/configuration`
 3. add user to EAP with this command:  `bin/add-user.sh -a -g users -u joe -p joeIsAwesome2013!`
 4. prepare EAP config - there are two options
 
@@ -30,6 +30,8 @@ option 2) to use bare remoting+ssl connector (port 4448):
 ```
 
 5. build server side, deploy
-6. run client side using ```mvn exec:exec```
+6. run client side using ```mvn exec:exec -Dremote.ejb.url=$URL```
+
+default $URL is remote+https://127.0.0.1:8443
 
 

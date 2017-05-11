@@ -16,9 +16,7 @@
         </authentication-configurations>
         <key-stores>
             <key-store name="default" type="JKS">
-                <!-- FIXME this should allow expressions -->
-                <!--<file name="${keystore.path}"/>-->
-                <file name="../../src/main/resources/client.keystore"/>
+                <file name="${keystore.path}"/>
                 <key-store-clear-password password="abcdef"/>
             </key-store>
         </key-stores>
@@ -36,10 +34,7 @@
     </authentication-client>
     <jboss-ejb-client xmlns="urn:jboss:wildfly-client-ejb:3.0">
         <connections>
-            <!-- FIXME this should be the remote.ejb.url property -->
-            <connection uri="https-remoting://127.0.0.1:8443"/>
-            <!--<connection uri="remote://127.0.0.1:4448"/>-->
-            <!--<connection uri="${remote.ejb.url}"/>-->
+            <connection uri="${remote.ejb.url}"/>
         </connections>
     </jboss-ejb-client>
 </configuration>
