@@ -15,9 +15,8 @@ public class Client {
 
     public static void main(String[] args)
             throws NamingException, PrivilegedActionException, InterruptedException {
-        final String addr = System.getProperty("remote.server.address", "127.0.0.1");
+        final String URL = System.getProperty("remote.server.address", "http://127.0.0.1:8080/wildfly-services");
         final Boolean stateful = Boolean.getBoolean("stateful");
-        final String URL = "http://" + addr + ":8080/wildfly-services";
         InitialContext iniCtx = new InitialContext(getCtxProperties(URL));
         String lookupName = stateful ?
                 "ejb:/server/HelloBeanStateful!ejb.HelloBeanRemote?stateful" :
