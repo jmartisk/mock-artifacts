@@ -30,9 +30,17 @@ public class Client {
         AuthenticationContext.getContextManager().setGlobalDefault(authCtx);
 
         InitialContext iniCtx = new InitialContext(getCtxProperties());
-        String lookupName = "ejb:/server/HelloBean!ejb.HelloBeanRemote";
-        HelloBeanRemote bean = (HelloBeanRemote)iniCtx.lookup(lookupName);
-        System.out.println(bean.hello());
+        String lookupName;
+        HelloBeanRemote bean;
+
+        lookupName = "ejb:/server/HelloBean!ejb.HelloBeanRemote";
+        bean = (HelloBeanRemote)iniCtx.lookup(lookupName);
+        System.out.println("Stateless bean said: " + bean.whoami());
+
+        lookupName = "ejb:/server/HelloBeanStateful!ejb.HelloBeanRemote?stateful";
+        bean = (HelloBeanRemote)iniCtx.lookup(lookupName);
+        System.out.println("Stateful bean said: " + bean.whoami());
+
         iniCtx.close();
     }
 

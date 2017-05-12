@@ -3,25 +3,25 @@ package ejb;
 import javax.annotation.Resource;
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.SessionContext;
-import javax.ejb.Stateless;
+import javax.ejb.Stateful;
 
 import org.jboss.ejb3.annotation.SecurityDomain;
 
-@Stateless
+@Stateful
 @SecurityDomain("other")
-public class HelloBean implements HelloBeanRemote {
+public class HelloBeanStateful implements HelloBeanRemote {
 
     @Resource
     SessionContext ctx;
 
-    public HelloBean() {
+    public HelloBeanStateful() {
     }
 
     @Override
     @RolesAllowed("users")
     public String whoami() {
         System.out.println("method hello() invoked by user " + ctx.getCallerPrincipal().getName());
-        return ctx.getCallerPrincipal().getName();
+        return ctx.getCallerPrincipal().getName() + " (stateful)";
     }
 
 }
