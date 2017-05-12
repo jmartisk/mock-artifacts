@@ -42,6 +42,7 @@
             <artifactId>wildfly-http-ejb-client</artifactId>
         </dependency>
 
+	<!-- FIXME this should not be required after JBEAP-10166 -->
         <dependency>
             <groupId>io.undertow</groupId>
             <artifactId>undertow-core</artifactId>
@@ -52,6 +53,22 @@
             <artifactId>log4j</artifactId>
             <version>1.2.12</version>
             <scope>compile</scope>
+        </dependency>
+
+	 <!-- FIXME the following three need to be here because of https://issues.jboss.org/browse/JBEAP-10872 -->
+        <dependency>
+            <groupId>org.wildfly.wildfly-http-client</groupId>
+            <artifactId>wildfly-http-client-common</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.wildfly.wildfly-http-client</groupId>
+            <artifactId>wildfly-http-naming-client</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.wildfly.wildfly-http-client</groupId>
+            <artifactId>wildfly-http-transaction-client</artifactId>
         </dependency>
     </dependencies>
 
