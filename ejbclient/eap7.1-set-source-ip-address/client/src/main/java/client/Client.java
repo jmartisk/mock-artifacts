@@ -28,22 +28,6 @@ public class Client {
 
     public static void main(String[] args)
             throws Exception {
-
-        // trying to do the same which is in wildfly-config.xml
-     /*   final Constructor constructor = XnioWorker.Builder.class.getDeclaredConstructor(Xnio.class);
-        constructor.setAccessible(true);
-        XnioWorker.Builder builder = (XnioWorker.Builder) constructor.newInstance(Xnio.getInstance());
-        builder.setWorkerName("blabla");
-        builder.addBindAddressConfiguration(
-                CidrAddress.INET4_ANY_CIDR,
-                Inet4Address.getByName("127.0.0.9")
-        );
-        final XnioWorker worker = builder.build();
-        XnioWorker.getContextManager().setGlobalDefault(worker);
-*/
-
-        final XnioWorker worker = XnioWorker.getContextManager().getGlobalDefault();
-
         InitialContext ctx = new InitialContext(getCtxProperties());
         try {
             String lookupName = "ejb:/server/HelloBean!ejb.HelloBeanRemote?stateful";
@@ -52,15 +36,6 @@ public class Client {
         } finally {
             ctx.close();
         }
-
-        final XnioWorker currentXnioWorker = XnioWorker.getContextManager().getGlobalDefault();
-        System.out.println("IO threads: " + currentXnioWorker.getIoThreadCount());
-        System.out.println(currentXnioWorker.getName());
-
-
-        worker.shutdown();
-
-
     }
 
     public static Properties getCtxProperties() {
