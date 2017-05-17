@@ -1,26 +1,10 @@
 package client;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.net.Inet4Address;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
-import java.security.PrivilegedActionException;
-import java.security.Security;
 import java.util.Properties;
-import java.util.concurrent.TimeUnit;
 import javax.naming.Context;
 import javax.naming.InitialContext;
-import javax.naming.NamingException;
 
-import org.jboss.ejb.client.Affinity;
-import org.jboss.ejb.client.EJBClient;
-import org.jboss.ejb.client.EJBClientContext;
-import org.wildfly.common.net.CidrAddress;
 import org.wildfly.naming.client.WildFlyInitialContextFactory;
-import org.xnio.Xnio;
-import org.xnio.XnioWorker;
 
 import ejb.HelloBeanRemote;
 
