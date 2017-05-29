@@ -62,16 +62,6 @@ public class ClientServlet extends HttpServlet {
         Properties props = new Properties();
         props.put(Context.INITIAL_CONTEXT_FACTORY, "org.wildfly.naming.client.WildFlyInitialContextFactory");
 
-        /* FIXME this shouldn't be necessary and all of this should be provided by the outbound connection + authentication context
-          uncomment to make it work (but it's a workaround) */
-        {
-//            final String hostname = System.getProperty("remote.ejb.host");
-//            Objects.requireNonNull(hostname, "Please specify the property remote.ejb.host");
-//            props.put(Context.PROVIDER_URL, "http-remoting://" + hostname + ":8080");
-//            props.put(Context.SECURITY_CREDENTIALS, "admin123+");
-//            props.put(Context.SECURITY_PRINCIPAL, "admin");
-        }
-
         InitialContext ctx = new InitialContext(props);
         WhoAmIBeanRemote remoteBeanByLookup = (WhoAmIBeanRemote)ctx
                 .lookup("ejb:/server-side/WhoAmIBean!example.ejb.WhoAmIBeanRemote");
