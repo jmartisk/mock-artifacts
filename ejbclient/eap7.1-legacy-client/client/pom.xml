@@ -43,24 +43,9 @@
             <dependencyManagement>
 
                 <dependencies>
-                    <!-- FIXME at least one of these should work in the future - for importing the EJB Client version, I hope -->
-              <!--      <dependency>
-                        <groupId>org.jboss.eap</groupId>
-                        <artifactId>wildfly-ejb-client-legacy-bom</artifactId>
-                        <version>7.1.0.Beta1-redhat-4</version>
-                        <type>pom</type>
-                        <scope>import</scope>
-                    </dependency>-->
-                    <!-- <dependency>
-                         <groupId>org.jboss.bom</groupId>
-                         <artifactId>eap-runtime-artifacts</artifactId>
-                         <version>7.1.0.DR19</version>
-                         <type>pom</type>
-                         <scope>import</scope>
-                     </dependency>-->
                     <dependency>
                         <groupId>org.jboss.eap</groupId>
-                        <artifactId>jboss-eap-parent</artifactId>
+                        <artifactId>wildfly-ejb-client-legacy-bom</artifactId>
                         <version>7.1.0.Beta1-redhat-4</version>
                         <type>pom</type>
                         <scope>import</scope>
@@ -72,7 +57,6 @@
                 <dependency>
                     <groupId>org.jboss</groupId>
                     <artifactId>jboss-ejb-client-legacy</artifactId>
-                    <version>3.0.0.Beta7-redhat-1</version> <!-- FIXME import this from bom once possible -->
                 </dependency>
 
                 <!-- FIXME this needs to be here due to JBEAP-10877 -->
