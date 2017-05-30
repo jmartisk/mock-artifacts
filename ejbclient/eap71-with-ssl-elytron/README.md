@@ -8,8 +8,8 @@
 this is needed always:
 ```
 /subsystem=elytron/key-store=example-key-store:add(path=server.keystore, relative-to=jboss.server.config.dir, credential-reference={clear-text=123456}, type=JKS)
-/subsystem=elytron/key-managers=example-key-manager:add(key-store=example-key-store, algorithm=SunX509, credential-reference={clear-text=123456})
-/subsystem=elytron/trust-managers=example-trust-manager:add(key-store=example-key-store, algorithm=SunX509)
+/subsystem=elytron/key-manager=example-key-manager:add(key-store=example-key-store, algorithm=SunX509, credential-reference={clear-text=123456})
+/subsystem=elytron/trust-manager=example-trust-manager:add(key-store=example-key-store, algorithm=SunX509)
 /subsystem=elytron/server-ssl-context=example-ssl-context:add(trust-managers=example-trust-manager, key-managers=example-key-manager, need-client-auth=true, want-client-auth=true)
 /subsystem=ejb3/application-security-domain=other:add(security-domain=ApplicationDomain)
  ```
