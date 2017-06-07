@@ -5,13 +5,11 @@
         </authentication-rules>
         <authentication-configurations>
             <configuration name="default">
-                <allow-sasl-mechanisms names="DIGEST-MD5"/>
                 <forbid-sasl-mechanisms names="JBOSS-LOCAL-USER"/>
                 <set-user-name name="joe"/>
                 <credentials>
                     <clear-password password="joeIsAwesome2013!"/>
                 </credentials>
-		<use-service-loader-providers/>
             </configuration>
         </authentication-configurations>
     </authentication-client>
