@@ -1,0 +1,6 @@
+/core-service=management/security-realm=RemotingSSLRealm:add()
+/core-service=management/security-realm=RemotingSSLRealm/server-identity=secret:add(value="YWRtaW4xMjMr")
+/core-service=management/security-realm=RemotingSSLRealm/authentication=truststore:add(keystore-path=client.truststore, keystore-relative-to=jboss.server.config.dir, keystore-password=123456)
+/socket-binding-group=standard-sockets/remote-destination-outbound-socket-binding=remote-ejb:add(host=${remote.ejb.host}, port=4448)
+/subsystem=remoting/remote-outbound-connection=remote-ejb-connection:add(outbound-socket-binding-ref=remote-ejb, protocol=remote, security-realm=RemotingSSLRealm, username=admin)
+reload
