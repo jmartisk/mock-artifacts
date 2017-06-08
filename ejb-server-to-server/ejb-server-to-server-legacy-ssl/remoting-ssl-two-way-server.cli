@@ -1,0 +1,6 @@
+/core-service=management/security-realm=ApplicationRealm/server-identity=ssl:remove()
+/core-service=management/security-realm=ApplicationRealm/server-identity=ssl:add(keystore-password=123456, keystore-relative-to=jboss.server.config.dir, keystore-path=server.keystore)
+/core-service=management/security-realm=ApplicationRealm/authentication=truststore:(keystore-password=123456, keystore-relative-to=jboss.server.config.dir, keystore-path=server.truststore)
+/socket-binding-group=standard-sockets/socket-binding=remoting-ssl-sb:add(port=4448)
+/subsystem=remoting/connector=remoting-ssl-connector:add(socket-binding=remoting-ssl-sb, security-realm=ApplicationRealm)
+reload
