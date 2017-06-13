@@ -17,4 +17,12 @@
 if (outcome == success) of  /subsystem=messaging-activemq/server=default:read-resource
 	/subsystem=messaging-activemq/server=default:undefine-attribute(name=security-domain)
 	/subsystem=messaging-activemq/server=default:write-attribute(name=elytron-domain, value=ApplicationDomain)
-end-if	
+end-if 
+
+/subsystem=undertow/server=default-server/https-listener=https:undefine-attribute(name=security-realm)
+/subsystem=undertow/server=default-server/host=default-host/setting=http-invoker:undefine-attribute(name=security-realm)
+/subsystem=undertow/server=default-server/host=default-host/setting=http-invoker:write-attribute(name=http-authentication-factory,value=application-http-authentication)
+
+/core-service=management/security-realm=ApplicationRealm:remove
+/subsystem=security:remove
+/extension=org.jboss.as.security:remove
