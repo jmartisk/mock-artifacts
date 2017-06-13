@@ -19,21 +19,12 @@
     <profiles>
         <profile>
             <id>new</id>
-            <dependencyManagement>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.jboss.eap</groupId>
-                        <artifactId>wildfly-ejb-client-bom</artifactId>
-                        <version>7.1.0.Beta1-redhat-5</version>
-                        <type>pom</type>
-                        <scope>import</scope>
-                    </dependency>
-                </dependencies>
-            </dependencyManagement>
             <dependencies>
                 <dependency>
-                    <groupId>org.jboss</groupId>
-                    <artifactId>jboss-ejb-client</artifactId>
+                    <groupId>org.jboss.eap</groupId>
+                    <artifactId>wildfly-ejb-client-bom</artifactId>
+                    <version>7.1.0.Beta1-redhat-5</version>
+                    <type>compile</type>
                 </dependency>
             </dependencies>
         </profile>
@@ -57,7 +48,7 @@
                 <dependency>
                     <groupId>org.jboss</groupId>
                     <artifactId>jboss-ejb-client-legacy</artifactId>
-                </dependency>
+                </dependency> 
 
                 <!-- FIXME this needs to be here due to JBEAP-10877 -->
                 <dependency>
