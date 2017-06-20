@@ -17,25 +17,12 @@
 
     </properties>
 
-    <dependencyManagement>
-        <dependencies>
-            <dependency> <!-- this is ejb client from EAP 7.1.0.ER1 - TODO: update after GA -->
-                <groupId>org.jboss.eap</groupId>
-                <artifactId>wildfly-ejb-client-bom</artifactId>
-                <version>7.1.0.Beta1-redhat-5</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
-
     <dependencies>
-
-        <!-- ejb client using the EAP product BOM -->
-        <dependency>
-            <groupId>org.jboss</groupId>
-            <artifactId>jboss-ejb-client</artifactId>
-            <scope>compile</scope>
+        <dependency> <!-- this is ejb client from EAP 7.1.0.ER1 - TODO: update after GA -->
+           <groupId>org.jboss.eap</groupId>
+            <artifactId>wildfly-ejb-client-bom</artifactId>
+            <version>7.1.0.Beta1-redhat-5</version>
+            <type>pom</type>       
         </dependency>
 
         <!-- logging -->
@@ -45,8 +32,6 @@
             <version>1.2.12</version>
             <scope>compile</scope>
         </dependency>
-
-
     </dependencies>
 
     <build>
@@ -86,9 +71,7 @@
                 </configuration>
             </plugin>
         </plugins>
-
     </build>
-
 
     <repositories>
         <repository>

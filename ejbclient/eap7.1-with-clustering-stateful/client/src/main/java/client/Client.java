@@ -25,6 +25,7 @@ import org.wildfly.security.WildFlyElytronProvider;
 import org.wildfly.security.auth.client.AuthenticationConfiguration;
 import org.wildfly.security.auth.client.AuthenticationContext;
 import org.wildfly.security.auth.client.MatchRule;
+import org.wildfly.security.sasl.SaslMechanismSelector;
 
 import ejb.HelloBeanRemote;
 
@@ -37,17 +38,7 @@ public class Client {
 
     public static void main(String[] args)
             throws Exception {
-        // FIXME move this to wildfly-config.xml
-        AuthenticationConfiguration common = AuthenticationConfiguration.EMPTY
-                .useProviders(() -> new Provider[] {new WildFlyElytronProvider()})
-                .allowSaslMechanisms("DIGEST-MD5")
-                .forbidSaslMechanisms("JBOSS-LOCAL-USER");
-        AuthenticationContext authCtxEmpty = AuthenticationContext.empty();
-        AuthenticationConfiguration joe = common.useName("joe").usePassword("joeIsAwesome2013!");
-        final AuthenticationContext authCtx = authCtxEmpty.with(MatchRule.ALL, joe);
-        AuthenticationContext.getContextManager().setGlobalDefault(authCtx);
-
-        // FIXME try to get rid of programmatic context builder
+       /* // FIXME try to get rid of programmatic context builder
         final EJBClientContext ctx = new EJBClientContext.Builder()
                 .addTransportProvider(new RemoteTransportProvider())
                 .addClientCluster(
@@ -59,17 +50,27 @@ public class Client {
                                 .build()
                 ).build();
         EJBClientContext.getContextManager().setGlobalDefault(ctx);
+*/
+        final InitialContext ejbCtx = new InitialContext(getProps());
+        final HelloBeanRemote bean = (HelloBeanRemote)ejbCtx
+                .lookup("ejb:/server/HelloBean!" + HelloBeanRemote.class.getName() + "?stateful");
 
         // FIXME shouldn't need to set the affinity myself
         final StatefulEJBLocator<HelloBeanRemote> locator = EJBClient
                 .createSession(Affinity.NONE, HelloBeanRemote.class, "", "server", "HelloBean", "");
         final HelloBeanRemote beanWithAffinity = EJBClient.createProxy(locator);
-        EJBClient.setStrongAffinity(beanWithAffinity, Affinity.NONE);
+//        EJBClient.setStrongAffinity(beanWithAffinity, new ClusterAffinity("ejb"));
 
         while (true) {
             System.out.println(beanWithAffinity.hello());
             TimeUnit.SECONDS.sleep(1);
         }
+    }
+
+    public static Properties getProps() {
+        final Properties props = new Properties();
+        props.put(Context.INITIAL_CONTEXT_FACTORY, WildFlyInitialContextFactory.class.getName());
+        return props;
     }
 
 }

@@ -16,33 +16,13 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
-    <dependencyManagement>
-        <dependencies>
-            <dependency> <!-- this is ejb client from EAP 7.1.0.ER1 - TODO: update after GA -->
-                <groupId>org.jboss.eap</groupId>
-                <artifactId>wildfly-ejb-client-bom</artifactId>
-                <version>7.1.0.Beta1-redhat-5</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
-
     <dependencies>
 
-        <dependency>
-            <!-- TODO had to add this for EAP 7.1.0.DR8 -
-            -probably this is required for EJB client - add it to the maven dependency test? -->
-            <groupId>org.wildfly.security</groupId>
-            <artifactId>wildfly-elytron</artifactId>
-        </dependency>
-
-
-        <!-- ejb client using the EAP product BOM -->
-        <dependency>
-            <groupId>org.jboss</groupId>
-            <artifactId>jboss-ejb-client</artifactId>
-            <scope>compile</scope>
+        <dependency> <!-- this is ejb client from EAP 7.1.0.ER1 - TODO: update after GA -->
+            <groupId>org.jboss.eap</groupId>
+            <artifactId>wildfly-ejb-client-bom</artifactId>
+            <version>7.1.0.Beta1-redhat-5</version>
+            <type>pom</type>
         </dependency>
 
         <!-- logging -->
@@ -50,14 +30,6 @@
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
             <version>1.2.12</version>
-            <scope>compile</scope>
-        </dependency>
-
-        <!-- workaround for JBEAP-9351, TODO remove after that is fixed -->
-        <dependency>
-            <groupId>org.jboss.modules</groupId>
-            <artifactId>jboss-modules</artifactId>
-            <version>1.5.0.Final</version>
             <scope>compile</scope>
         </dependency>
 
