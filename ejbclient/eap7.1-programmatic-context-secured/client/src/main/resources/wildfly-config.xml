@@ -5,7 +5,7 @@
         </authentication-rules>
         <authentication-configurations>
             <configuration name="default">
-                <allow-all-sasl-mechanisms/>
+	        <sasl-mechanism-selector selector="DIGEST-MD5"/>
                 <set-mechanism-properties>
                     <property key="wildfly.sasl.local-user.quiet-auth" value="true"/>
                 </set-mechanism-properties>

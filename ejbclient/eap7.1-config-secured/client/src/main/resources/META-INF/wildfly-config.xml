@@ -5,14 +5,14 @@
         </authentication-rules>
         <authentication-configurations>
             <configuration name="default">
-                <forbid-sasl-mechanisms names="JBOSS-LOCAL-USER"/>
+                <sasl-mechanism-selector selector="DIGEST-MD5"/>
                 <set-user-name name="joe"/>
                 <credentials>
                     <clear-password password="joeIsAwesome2013!"/>
                 </credentials>
             </configuration>
         </authentication-configurations>
-    </authentication-client>
+    </authentication-client>	
     <jboss-ejb-client xmlns="urn:jboss:wildfly-client-ejb:3.0">
         <connections>
             <connection uri="remote+http://127.0.0.1:8080" />
