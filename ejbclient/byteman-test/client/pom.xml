@@ -11,46 +11,29 @@
     <packaging>jar</packaging>
     
     <properties>
-        <maven.compiler.target>1.6</maven.compiler.target>
-        <maven.compiler.source>1.6</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.source>1.8</maven.compiler.source>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <ejb.client.version>1.0.23.Final</ejb.client.version>         <!-- !!!!!!!!!!!!!!!!!!! -->
     </properties>
 
     <dependencies>
 
-        <dependency>
-            <groupId>org.jboss.logging</groupId>
-            <artifactId>jboss-logging</artifactId>
-            <version>3.1.2.GA</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.jboss.logmanager</groupId>
-            <artifactId>jboss-logmanager</artifactId>
-            <version>1.4.0.Final</version>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.jboss</groupId>
-            <artifactId>jboss-ejb-client</artifactId>
-            <scope>runtime</scope>
-            <version>${ejb.client.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.jboss.as</groupId>
-            <artifactId>jboss-as-ejb-client-bom</artifactId>
-            <version>7.2.0.Alpha1-SNAPSHOT</version>
+        <dependency> <!-- this is ejb client from EAP 7.1.0.ER1 - TODO: update after GA -->
+            <groupId>org.jboss.eap</groupId>
+            <artifactId>wildfly-ejb-client-bom</artifactId>
+            <version>7.1.0.Beta1-redhat-5</version>
             <type>pom</type>
-            <scope>import</scope>
         </dependency>
-
         <dependency>
             <groupId>org.jboss.byteman</groupId>
             <artifactId>byteman-bmunit</artifactId>
-            <version>2.1.2</version>
+            <version>3.0.10</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.2.17</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -89,6 +72,19 @@
             <snapshots>
                 <enabled>false</enabled>
                 <updatePolicy>never</updatePolicy>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>mead</id>
+            <name>MEAD EAP7.1 build</name>
+            <url>
+                http://download.eng.bos.redhat.com/brewroot/repos/jb-eap-7.1-rhel-7-maven-build/latest/maven
+            </url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
             </snapshots>
         </repository>
     </repositories>
