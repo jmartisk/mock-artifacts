@@ -37,40 +37,30 @@ public class Client {
 
     public static void main(String[] args)
             throws NamingException, PrivilegedActionException, InterruptedException {
-        // FIXME move this to wildfly-config.xml
-        AuthenticationConfiguration common = AuthenticationConfiguration.EMPTY
-                .useProviders(() -> new Provider[] {new WildFlyElytronProvider()})
-                .allowSaslMechanisms("DIGEST-MD5")
-                .forbidSaslMechanisms("JBOSS-LOCAL-USER");
-        AuthenticationContext authCtxEmpty = AuthenticationContext.empty();
-        AuthenticationConfiguration joe = common.useName("joe").usePassword("joeIsAwesome2013!");
-        final AuthenticationContext authCtx = authCtxEmpty.with(MatchRule.ALL, joe);
-        AuthenticationContext.getContextManager().setGlobalDefault(authCtx);
-
-        // FIXME try to get rid of programmatic context builder
-        final EJBClientContext ctx = new EJBClientContext.Builder()
+    /*    final EJBClientContext ctx = new EJBClientContext.Builder()
                 .addTransportProvider(new RemoteTransportProvider())
                 .addClientConnection(
                         new EJBClientConnection.Builder()
                                 .setDestination(URI.create(URL))
                                 .build()
                 ).build();
-        EJBClientContext.getContextManager().setGlobalDefault(ctx);
+        EJBClientContext.getContextManager().setGlobalDefault(ctx);*/
 
-        // FIXME shouldn't need to set the affinity myself
-        final HelloBeanRemote beanWithAffinity = EJBClient.createProxy(
-                StatelessEJBLocator.create(HelloBeanRemote.class, new EJBIdentifier(
-                                "", "server", "HelloBean", ""),
-//                        new ClusterAffinity("ejb")
-//                        URIAffinity.forUri(URI.create(URL))
-                        Affinity.NONE
-                )
-        );
+        final InitialContext ejbCtx = new InitialContext(getProps());
+        final HelloBeanRemote bean = (HelloBeanRemote)ejbCtx
+                .lookup("ejb:/server/HelloBean!" + HelloBeanRemote.class.getName());
 
         while (true) {
-            System.out.println(beanWithAffinity.hello());
+            System.out.println(bean.hello());
             TimeUnit.SECONDS.sleep(1);
         }
     }
+
+    public static Properties getProps() {
+        final Properties props = new Properties();
+        props.put(Context.INITIAL_CONTEXT_FACTORY, WildFlyInitialContextFactory.class.getName());
+        return props;
+    }
+
 
 }

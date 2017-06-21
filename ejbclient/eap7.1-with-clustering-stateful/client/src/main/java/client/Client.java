@@ -55,14 +55,26 @@ public class Client {
         final HelloBeanRemote bean = (HelloBeanRemote)ejbCtx
                 .lookup("ejb:/server/HelloBean!" + HelloBeanRemote.class.getName() + "?stateful");
 
-        // FIXME shouldn't need to set the affinity myself
+       /*
         final StatefulEJBLocator<HelloBeanRemote> locator = EJBClient
                 .createSession(Affinity.NONE, HelloBeanRemote.class, "", "server", "HelloBean", "");
-        final HelloBeanRemote beanWithAffinity = EJBClient.createProxy(locator);
-//        EJBClient.setStrongAffinity(beanWithAffinity, new ClusterAffinity("ejb"));
+        final HelloBeanRemote bean = EJBClient.createProxy(locator);
+        EJBClient.setStrongAffinity(bean, Affinity.NONE);*/
 
+
+//        EJBClient.setStrongAffinity(bean, Affinity.NONE);
+        EJBClient.setStrongAffinity(bean, new ClusterAffinity("ejb"));
+        EJBClient.setWeakAffinity(bean, Affinity.NONE);
         while (true) {
-            System.out.println(beanWithAffinity.hello());
+            System.out.println(EJBClient.getStrongAffinity(bean));
+            System.out.println(EJBClient.getWeakAffinity(bean));
+            try {
+                System.out.println(bean.hello());
+            } catch(Exception e) {
+                System.out.println("Call failed!!!!");
+                e.printStackTrace();
+            }
+
             TimeUnit.SECONDS.sleep(1);
         }
     }

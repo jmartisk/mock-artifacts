@@ -16,7 +16,6 @@
     <jboss-ejb-client xmlns="urn:jboss:wildfly-client-ejb:3.0">
         <connections>
             <connection uri="remote+http://127.0.0.1:8080"/>
-            <!--<connection uri="remote+http://127.0.0.2:8080"/>-->
         </connections>
     </jboss-ejb-client>
    <!-- <discovery xmlns="urn:wildfly-discovery:1.0">
