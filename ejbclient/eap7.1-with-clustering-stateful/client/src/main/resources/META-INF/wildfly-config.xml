@@ -16,26 +16,6 @@
     <jboss-ejb-client xmlns="urn:jboss:wildfly-client-ejb:3.0">
         <connections>
             <connection uri="remote+http://127.0.0.1:8080"/>
-            <!--<connection uri="remote+http://127.0.0.2:8080"/>-->
         </connections>
     </jboss-ejb-client>
-   <!-- <discovery xmlns="urn:wildfly-discovery:1.0">
-        <discovery-provider>
-            <static>
-                &lt;!&ndash; abstract node &ndash;&gt;
-                <service uri="node:node1" abstract-type="ejb" abstract-type-authority="jboss">
-                    <attribute name="cluster" value="ejb"/>
-                </service>
-                &lt;!&ndash; concrete node &ndash;&gt;
-                <service uri="remote+http://127.0.0.1:8080" abstract-type="ejb"
-                         abstract-type-authority="jboss">
-                    <attribute name="node" value="node1"/>
-                </service>
-                <service uri="remote+http://127.0.0.2:8080" abstract-type="ejb"
-                         abstract-type-authority="jboss">
-                    <attribute name="node" value="node2"/>
-                </service>
-            </static>
-        </discovery-provider>
-    </discovery>-->
 </configuration>
