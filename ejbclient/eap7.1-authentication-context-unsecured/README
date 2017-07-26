@@ -1,5 +1,0 @@
-- unzip EAP distro
-- build server side, deploy
-- run client side using mvn exec:exec
-
-TODO: remove src/main/resources/jboss-ejb-client.properties :: after JBEAP-11211 is fixed
