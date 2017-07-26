@@ -10,6 +10,7 @@ import javax.naming.Context;
 import org.wildfly.security.auth.client.AuthenticationConfiguration;
 import org.wildfly.security.auth.client.AuthenticationContext;
 import org.wildfly.security.auth.client.MatchRule;
+import org.wildfly.security.sasl.SaslMechanismSelector;
 
 /**
  * @author Jan Martiska
@@ -33,9 +34,8 @@ public class Main {
     }
 
     public static AuthenticationContext createAuthContext(String username, String password) {
-        AuthenticationConfiguration userConf = AuthenticationConfiguration.EMPTY
-                .useDefaultProviders()
-                .allowSaslMechanisms("DIGEST-MD5")
+        AuthenticationConfiguration userConf = AuthenticationConfiguration.empty()
+                .setSaslMechanismSelector(SaslMechanismSelector.fromString("DIGEST-MD5"))
                 .useName(username)
                 .usePassword(password);
         return AuthenticationContext.empty().with(MatchRule.ALL, userConf);

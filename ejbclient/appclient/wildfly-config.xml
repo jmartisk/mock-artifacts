@@ -5,8 +5,7 @@
         </authentication-rules>
         <authentication-configurations>
             <configuration name="default">
-                <allow-sasl-mechanisms names="DIGEST-MD5"/>
-                <forbid-sasl-mechanisms names="JBOSS-LOCAL-USER"/>
+	        <sasl-mechanism-selector selector="DIGEST-MD5"/>
                 <set-user-name name="joe"/>
                 <credentials>
                     <clear-password password="joeIsAwesome2013!"/>

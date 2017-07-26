@@ -1,6 +1,5 @@
 package client;
 
-import java.security.Provider;
 import java.util.Properties;
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -8,10 +7,10 @@ import javax.naming.NamingException;
 import javax.transaction.UserTransaction;
 
 import org.wildfly.naming.client.WildFlyInitialContextFactory;
-import org.wildfly.security.WildFlyElytronProvider;
 import org.wildfly.security.auth.client.AuthenticationConfiguration;
 import org.wildfly.security.auth.client.AuthenticationContext;
 import org.wildfly.security.auth.client.MatchRule;
+import org.wildfly.security.sasl.SaslMechanismSelector;
 
 import ejb.TransactionalBeanRemote;
 
@@ -25,13 +24,11 @@ public class Client {
     public static final String URL = "remote+http://127.0.0.1:8080";
 
     public static void main(String[] args) throws Exception {
-        /* FIXME as of DR18, you can have only one of these variants - if both variants are run, the second will always fail
-          they are not really isolated - is this a bug??? */
         // variant 1
         runUsingSecurityCredentialsInInitialContext();
 
         // variant 2
-//        runUsingAuthenticationContext();
+        runUsingAuthenticationContext();
     }
 
     public static Properties getCtxProperties() {
@@ -62,9 +59,8 @@ public class Client {
     }
 
     public static AuthenticationContext createAuthCtx() {
-        AuthenticationConfiguration userConf = AuthenticationConfiguration.EMPTY
-                .useProviders(() -> new Provider[] {new WildFlyElytronProvider()})
-                .allowSaslMechanisms("DIGEST-MD5")
+        AuthenticationConfiguration userConf = AuthenticationConfiguration.empty()
+                .setSaslMechanismSelector(SaslMechanismSelector.fromString("DIGEST-MD5"))
                 .useName(USERNAME)
                 .usePassword(PASSWORD)
                 .useRealm("ApplicationRealm");

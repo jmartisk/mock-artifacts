@@ -16,6 +16,7 @@ import org.wildfly.security.WildFlyElytronProvider;
 import org.wildfly.security.auth.client.AuthenticationConfiguration;
 import org.wildfly.security.auth.client.AuthenticationContext;
 import org.wildfly.security.auth.client.MatchRule;
+import org.wildfly.security.sasl.SaslMechanismSelector;
 
 import ejb.HelloBeanRemote;
 
@@ -25,9 +26,8 @@ import ejb.HelloBeanRemote;
 public class Client {
 
     public static void main(String[] args) throws NamingException, PrivilegedActionException {
-        AuthenticationConfiguration common = AuthenticationConfiguration.EMPTY
-                .useProviders(() -> new Provider[] {new WildFlyElytronProvider()})
-                .allowAllSaslMechanisms();
+        AuthenticationConfiguration common = AuthenticationConfiguration.empty()
+                .setSaslMechanismSelector(SaslMechanismSelector.fromString("DIGEST-MD5"));
         AuthenticationContext authCtxEmpty = AuthenticationContext.empty();
         final AuthenticationContext authCtx = authCtxEmpty.with(MatchRule.ALL, common);
 
