@@ -19,10 +19,10 @@
 
     <dependencyManagement>
         <dependencies>
-            <dependency> <!-- this is ejb client from EAP 7.1.0.ER2.2 - TODO: update after GA -->
+            <dependency> <!-- this is ejb client from EAP 7.1.0.ER3 - TODO: update after GA -->
                 <groupId>org.jboss.eap</groupId>
                 <artifactId>wildfly-ejb-client-bom</artifactId>
-                <version>7.1.0.GA-redhat-2</version>
+                <version>7.1.0.GA-redhat-4</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
