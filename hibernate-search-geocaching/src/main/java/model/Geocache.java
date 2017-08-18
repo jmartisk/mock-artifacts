@@ -1,5 +1,6 @@
 package model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -44,6 +45,18 @@ public class Geocache {
 
     @Longitude
     private Double longitude;
+
+    @Field(store = Store.YES)
+    @Column(length = Integer.MAX_VALUE)
+    private String longDescription;
+
+    public String getLongDescription() {
+        return longDescription;
+    }
+
+    public void setLongDescription(String longDescription) {
+        this.longDescription = longDescription;
+    }
 
     public String getGcCode() {
         return gcCode;

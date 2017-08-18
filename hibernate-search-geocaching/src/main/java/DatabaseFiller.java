@@ -25,8 +25,6 @@ public class DatabaseFiller {
     public static void main(String[] args) throws FileNotFoundException, XMLStreamException {
 
 
-
-
         final List<Geocache> geocaches = parseCaches("src/main/resources/2529264.gpx");
         System.out.println("Found " + geocaches.size() + " geocaches in the gpx file");
 
@@ -36,7 +34,7 @@ public class DatabaseFiller {
         try {
             final EntityTransaction tx = entityManager.getTransaction();
             tx.begin();
-            geocaches.forEach(entityManager::persist);
+            geocaches.forEach(entityManager::merge);
             System.out.println("Committing");
             tx.commit();
             System.out.println("Committed");
@@ -44,7 +42,7 @@ public class DatabaseFiller {
 
             final TypedQuery<Geocache> emAllQuery = entityManager
                     .createQuery("from Geocache", Geocache.class);
-            System.out.println(emAllQuery.getResultList().size());
+            System.out.println("DB size: " + emAllQuery.getResultList().size());
         } finally {
             entityManager.close();
             entityManagerFactory.close();
@@ -54,6 +52,7 @@ public class DatabaseFiller {
     public static List<Geocache> parseCaches(String filePath) throws FileNotFoundException,
             XMLStreamException {
         final XMLInputFactory xmlInputFactory = XMLInputFactory.newInstance();
+        xmlInputFactory.setProperty("javax.xml.stream.isCoalescing", true);     // to properly read HTML code in descriptions
         final XMLStreamReader reader = xmlInputFactory
                 .createXMLStreamReader(new FileReader(filePath));
         final List<Geocache> result = new ArrayList<>();
@@ -94,6 +93,13 @@ public class DatabaseFiller {
                             current.setName(reader.getText());
                         } else if (namespaceURI.equals(TOPOGRAFIX_NAMESPACE)) {
                             current.setGcCode(reader.getText());
+                        }
+                    } else if (reader.getName().getLocalPart().equals("long_description")) {
+                        final String namespaceURI = reader.getName().getNamespaceURI();
+                        reader.next();
+                        if (namespaceURI.equals(GROUNDSPEAK_NAMESPACE)) {
+                            final String desc = new String(reader.getTextCharacters());
+                            current.setLongDescription(desc);
                         }
                     }
                 }

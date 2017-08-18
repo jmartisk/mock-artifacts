@@ -15,13 +15,10 @@ import model.Geocache;
  */
 public class SearchBySimilarity {
 
-    // find caches within 12 km from [49.77N, 17.53E]
     public static void main(String[] args) throws InterruptedException {
         final EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("MainPU");
         final EntityManager entityManager = entityManagerFactory.createEntityManager();
         final FullTextEntityManager ftem = Search.getFullTextEntityManager(entityManager);
-        ftem.createIndexer(Geocache.class)
-                .startAndWait();     // reindex in case that this entity is currently not in the index
         final org.hibernate.search.query.dsl.QueryBuilder queryBuilder = ftem.getSearchFactory()
                 .buildQueryBuilder()
                 .forEntity(Geocache.class).get();
