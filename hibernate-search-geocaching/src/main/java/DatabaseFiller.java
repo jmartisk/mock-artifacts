@@ -1,12 +1,17 @@
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
+import javax.xml.bind.DatatypeConverter;
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
@@ -52,7 +57,8 @@ public class DatabaseFiller {
     public static List<Geocache> parseCaches(String filePath) throws FileNotFoundException,
             XMLStreamException {
         final XMLInputFactory xmlInputFactory = XMLInputFactory.newInstance();
-        xmlInputFactory.setProperty("javax.xml.stream.isCoalescing", true);     // to properly read HTML code in descriptions
+        xmlInputFactory.setProperty("javax.xml.stream.isCoalescing",
+                true);     // to properly read HTML code in descriptions
         final XMLStreamReader reader = xmlInputFactory
                 .createXMLStreamReader(new FileReader(filePath));
         final List<Geocache> result = new ArrayList<>();
@@ -101,7 +107,16 @@ public class DatabaseFiller {
                             final String desc = new String(reader.getTextCharacters());
                             current.setLongDescription(desc);
                         }
+                    } else if (reader.getName().getLocalPart().equals("time")) {
+                        final String namespaceURI = reader.getName().getNamespaceURI();
+                        reader.next();
+                        if (namespaceURI.equals(TOPOGRAFIX_NAMESPACE)) {
+                            final String dateString = reader.getText();
+                            DatatypeConverter.parseDate(dateString);
+                            current.setPlacedDate(DatatypeConverter.parseDate(dateString).getTime());
+                        }
                     }
+
                 }
                 break;
 
