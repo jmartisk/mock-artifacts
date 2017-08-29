@@ -33,6 +33,7 @@ public class Client {
         props.put("remote.connection.main.connect.options.org.xnio.Options.SASL_POLICY_NOPLAINTEXT","true");
         props.put("remote.connection.main.connect.options.org.xnio.Options.SSL_ENABLED", "false");
         props.put("remote.connection.main.connect.options.org.xnio.Options.SASL_DISALLOWED_MECHANISMS", "JBOSS-LOCAL-USER");
+        props.put("remote.connection.main.connect.options.org.jboss.remoting3.RemotingOptions.HEARTBEAT_INTERVAL", "500");
         return props;
     }
 

@@ -1,5 +1,6 @@
 package ejb;
 
+import java.util.concurrent.TimeUnit;
 import javax.annotation.Resource;
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.SessionContext;
@@ -21,6 +22,11 @@ public class HelloBean implements HelloBeanRemote {
     @RolesAllowed("users")
     public String hello() {
         System.out.println("method hello() invoked by user " + ctx.getCallerPrincipal().getName());
+        try {
+            TimeUnit.SECONDS.sleep(10);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         return ctx.getCallerPrincipal().getName();
     }
 
