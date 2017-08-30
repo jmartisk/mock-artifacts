@@ -27,9 +27,10 @@ public class Client {
     public static Properties getCtxProperties() {
         Properties props = new Properties();
         props.put(Context.INITIAL_CONTEXT_FACTORY, WildFlyInitialContextFactory.class.getName());
-        props.put(Context.PROVIDER_URL, "http-remoting://localhost:8080");
+        props.put(Context.PROVIDER_URL, "remote+http://localhost:8080");
         props.put(Context.SECURITY_PRINCIPAL, "joe");
         props.put(Context.SECURITY_CREDENTIALS, "joeIsAwesome2013!");
+	// TODO use an Elytron SASL mechanism selector instead of this
         props.put("jboss.naming.client.connect.options.org.xnio.Options.SASL_DISALLOWED_MECHANISMS",
                 "JBOSS-LOCAL-USER");
         return props;
