@@ -1,0 +1,3 @@
+mvn package exec:exec
+
+switch the version of hibernate-validator in pom.xml to the version you want to test
