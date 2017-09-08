@@ -15,12 +15,13 @@
     </authentication-client>	
     <jboss-ejb-client xmlns="urn:jboss:wildfly-client-ejb:3.0">
         <connections>
-            <connection uri="remote+http://127.0.0.1:8080" />
+            <connection uri="http-remoting://127.0.0.1:8080" />
         </connections>
     </jboss-ejb-client>
     <endpoint xmlns="urn:jboss-remoting:5.0">
         <connections>
-            <connection destination="remote+http://127.0.0.1:8080" read-timeout="50" write-timeout="50"/>
+            <connection destination="http-remoting://127.0.0.1:8080" read-timeout="1" write-timeout="1"/>
+            <!--<connection destination="http-remoting://127.0.0.1:8080" heartbeat-interval="1000"/>-->
         </connections>
     </endpoint>
 </configuration>
