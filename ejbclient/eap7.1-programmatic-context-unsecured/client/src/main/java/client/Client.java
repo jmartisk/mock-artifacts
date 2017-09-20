@@ -26,8 +26,7 @@ import ejb.HelloBeanRemote;
 public class Client {
 
     public static void main(String[] args) throws NamingException, PrivilegedActionException {
-        AuthenticationConfiguration common = AuthenticationConfiguration.empty()
-                .setSaslMechanismSelector(SaslMechanismSelector.fromString("DIGEST-MD5"));
+        AuthenticationConfiguration common = AuthenticationConfiguration.empty();
         AuthenticationContext authCtxEmpty = AuthenticationContext.empty();
         final AuthenticationContext authCtx = authCtxEmpty.with(MatchRule.ALL, common);
 
