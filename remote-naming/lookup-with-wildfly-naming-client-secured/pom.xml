@@ -21,7 +21,7 @@
             <dependency>
                 <groupId>org.jboss.eap</groupId>
                 <artifactId>wildfly-ejb-client-bom</artifactId>
-                <version>7.1.0.GA-redhat-6</version> <!-- this is EAP 7.1.0.CR1, TODO update after GA -->
+                <version>7.1.0.GA-redhat-7</version> <!-- this is EAP 7.1.0.CR2, TODO update after GA -->
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
