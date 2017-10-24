@@ -17,23 +17,20 @@
 
     <dependencyManagement>
         <dependencies>
-            <dependency> <!-- this is ejb client from EAP 7.1.0.CR2 - TODO: update after GA -->
-                <groupId>org.jboss.eap</groupId>
-                <artifactId>wildfly-ejb-client-bom</artifactId>
-                <version>7.1.0.GA-redhat-7</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
+
         </dependencies>
     </dependencyManagement>
 
     <dependencies>
 
-        <dependency>
-            <groupId>org.wildfly.wildfly-http-client</groupId>
-            <artifactId>wildfly-http-ejb-client</artifactId>
+        <dependency> <!-- this is ejb client from EAP 7.1.0.CR3 - TODO: update after GA -->
+            <groupId>org.jboss.eap</groupId>
+            <artifactId>wildfly-ejb-client-bom</artifactId>
+            <version>7.1.0.GA-redhat-8</version>
+            <type>pom</type>
+            <scope>compile</scope>
         </dependency>
-        
+
         <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
