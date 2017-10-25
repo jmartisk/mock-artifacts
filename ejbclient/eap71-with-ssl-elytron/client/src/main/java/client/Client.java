@@ -26,11 +26,6 @@ public class Client {
     }
 
     public static Properties getCtxProperties() {
-/*        String url = System.getProperty("remote.ejb.url");
-        if (url == null || url.isEmpty()) {
-            throw new IllegalArgumentException("Please specify the -Dremote.ejb.url property");
-        }*/
-        
         Properties props = new Properties();
         props.put(Context.INITIAL_CONTEXT_FACTORY, "org.wildfly.naming.client.WildFlyInitialContextFactory");
         return props;

@@ -14,7 +14,7 @@ keytool -genkey -v -alias clientalias -keyalg RSA -keysize 1024 -keystore client
 keytool -export -keystore client.keystore -alias clientalias -file client.cer -keypass abcdef -storepass abcdef
 
 # Importing Client's Public key into server's truststore
-keytool -import -v -trustcacerts -alias clientalias -file client.cer -keystore server.keystore -keypass 123456 -storepass 123456
+keytool -import -v -trustcacerts -alias clientalias -file client.cer -keystore server.truststore -keypass 123456 -storepass 123456
 
 # Importing Server's Public key into client's truststore
-keytool -import -v -trustcacerts -alias jbossalias -file server.cer -keystore client.keystore -keypass abcdef -storepass abcdef
+keytool -import -v -trustcacerts -alias jbossalias -file server.cer -keystore client.truststore -keypass abcdef -storepass abcdef

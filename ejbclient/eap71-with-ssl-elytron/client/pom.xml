@@ -14,27 +14,17 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <maven.compiler.source>1.8</maven.compiler.source>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <version.ejb.client.bom>7.1.0.GA-redhat-7</version.ejb.client.bom>
+        <version.ejb.client.bom>7.1.0.GA-redhat-8</version.ejb.client.bom>
         <remote.ejb.url>remote+https://127.0.0.1:8443</remote.ejb.url>
     </properties>
-
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.jboss.eap</groupId>
-                <artifactId>wildfly-ejb-client-bom</artifactId>
-                <version>${version.ejb.client.bom}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
 
     <dependencies>
         <!-- ejb client using the EAP product BOM -->
         <dependency>
-            <groupId>org.jboss</groupId>
-            <artifactId>jboss-ejb-client</artifactId>
+            <groupId>org.jboss.eap</groupId>
+            <artifactId>wildfly-ejb-client-bom</artifactId>
+            <version>${version.ejb.client.bom}</version>
+            <type>pom</type>
             <scope>compile</scope>
         </dependency>
         <!-- logging -->
@@ -68,10 +58,9 @@
                         <classpath/>
                         <!-- uncomment for debugging -->
                         <!--<argument>-agentlib:jdwp=transport=dt_socket,address=8787,server=y,suspend=y</argument>-->
-                        <argument>-Djavax.net.ssl.trustStore=${project.basedir}/src/main/resources/client.keystore</argument>
-                        <argument>-Djavax.net.ssl.trustStorePassword=abcdef</argument>
                         <argument>-Dremote.ejb.url=${remote.ejb.url}</argument>
                         <argument>-Dkeystore.path=${project.basedir}/src/main/resources/client.keystore</argument>
+                        <argument>-Dtruststore.path=${project.basedir}/src/main/resources/client.truststore</argument>
                         <argument>client.Client</argument>
                         <!-- the main class -->
                     </arguments>
