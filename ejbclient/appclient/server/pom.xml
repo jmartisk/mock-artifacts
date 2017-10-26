@@ -42,13 +42,13 @@
         <dependency>
             <groupId>org.jboss.eap</groupId>
             <artifactId>wildfly-clustering-server</artifactId>
-            <version>7.1.0.GA-redhat-7</version>
+            <version>7.1.0.GA-redhat-8</version>
             <!--<type>pom</type>-->
         </dependency>
         <dependency>
             <groupId>org.jboss.eap</groupId>
             <artifactId>wildfly-ejb3</artifactId>
-            <version>7.1.0.GA-redhat-7</version>
+            <version>7.1.0.GA-redhat-8</version>
         </dependency>
 
     </dependencies>
