@@ -12,6 +12,7 @@ batch
 /subsystem=elytron/trust-manager=example-trust-manager:add(key-store=server-trust-store)
 /subsystem=elytron/server-ssl-context=example-ssl-context:add(trust-manager=example-trust-manager, key-manager=example-key-manager, need-client-auth=true, want-client-auth=true)
 /subsystem=elytron/constant-role-mapper=constantClientRole:add(roles=[users])
+# this decodes the principal as the first CN, so in our example the principal will be "joe"
 /subsystem=elytron/x500-attribute-principal-decoder=CNDecoder:add(oid="2.5.4.3",maximum-segments=1)
 /subsystem=elytron/key-store-realm=server-key-store-realm:add(key-store=server-trust-store)
 /subsystem=elytron/security-domain=CertificateDomain:add(realms=[{realm=server-key-store-realm}], default-realm=server-key-store-realm, permission-mapper=default-permission-mapper, principal-decoder=CNDecoder, role-mapper=constantClientRole)
