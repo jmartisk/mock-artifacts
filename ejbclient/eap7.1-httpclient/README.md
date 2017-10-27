@@ -2,7 +2,8 @@
 
 1. unzip EAP distro
 2. add user to EAP with this command:  `bin/add-user.sh -a -g users -u joe -p joeIsAwesome2013!`
-3. prepare the HTTP invoker with these CLI commands:
+
+3. If you want to use legacy security on the server side, no configuration changes are needed. If you want to use Elytron:
 
 ```
 /subsystem=undertow/server=default-server/host=default-host/setting=http-invoker:undefine-attribute(name=security-realm)

@@ -21,33 +21,28 @@ public class Client {
 
     public static void main(String[] args)
             throws NamingException, PrivilegedActionException, InterruptedException {
-        AuthenticationContext authCtx = AuthenticationContext
-                .empty()
-                .with(MatchRule.ALL,
-                        AuthenticationConfiguration.EMPTY
-                                .useName(USERNAME)
-                                .usePassword(PASSWORD));
-        AuthenticationContext.getContextManager().setGlobalDefault(authCtx);
-
         InitialContext iniCtx = new InitialContext(getCtxProperties());
         String lookupName;
         HelloBeanRemote bean;
+        try {
+            lookupName = "ejb:/server/HelloBean!ejb.HelloBeanRemote";
+            bean = (HelloBeanRemote) iniCtx.lookup(lookupName);
+            System.out.println("Stateless bean said: " + bean.whoami());
 
-        lookupName = "ejb:/server/HelloBean!ejb.HelloBeanRemote";
-        bean = (HelloBeanRemote)iniCtx.lookup(lookupName);
-        System.out.println("Stateless bean said: " + bean.whoami());
-
-        lookupName = "ejb:/server/HelloBeanStateful!ejb.HelloBeanRemote?stateful";
-        bean = (HelloBeanRemote)iniCtx.lookup(lookupName);
-        System.out.println("Stateful bean said: " + bean.whoami());
-
-        iniCtx.close();
+            lookupName = "ejb:/server/HelloBeanStateful!ejb.HelloBeanRemote?stateful";
+            bean = (HelloBeanRemote) iniCtx.lookup(lookupName);
+            System.out.println("Stateful bean said: " + bean.whoami());
+        } finally {
+            iniCtx.close();
+        }
     }
 
     public static Properties getCtxProperties() {
         Properties props = new Properties();
         props.put(Context.INITIAL_CONTEXT_FACTORY, WildFlyInitialContextFactory.class.getName());
         props.put(Context.PROVIDER_URL, URL);
+        props.put(Context.SECURITY_PRINCIPAL, USERNAME);
+        props.put(Context.SECURITY_CREDENTIALS, PASSWORD);
         return props;
     }
 
