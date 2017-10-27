@@ -18,7 +18,7 @@ public class Client {
         try {
             String lookupName = "ejb:/server/HelloBean!ejb.HelloBeanRemote";
             HelloBeanRemote bean = (HelloBeanRemote)ctx.lookup(lookupName);
-            System.out.println(bean.hello());
+            System.out.println("The username is: " + bean.hello());
         } finally {
             ((Context)ctx.lookup("ejb:")).close();
             ctx.close();

@@ -24,9 +24,15 @@ run-batch
 reload
 ```
 
-4. build server side, deploy
-5. run client side using ```mvn exec:exec -Dremote.ejb.url=$URL```
+If you want to see more logging on the server side, add this:
+```
+/subsystem=logging/console-handler=CONSOLE:change-log-level(level=TRACE)
+/subsystem=logging/logger=org.wildfly.security:add(level=TRACE)
+```
 
-default $URL is remote+https://127.0.0.1:8443
+4. build server side, deploy
+5. run client side using ```mvn packge exec:exec -Dremote.ejb.url=$URL```
+
+default $URL is ```remote+https://127.0.0.1:8443```
 
 

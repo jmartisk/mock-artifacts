@@ -5,7 +5,6 @@
         </authentication-rules>
         <authentication-configurations>
             <configuration name="default">
-                <!--<sasl-mechanism-selector selector="EXTERNAL" />-->
                 <credentials>
                     <key-store-reference key-store-name="client-keystore" alias="joe">
                         <key-store-clear-password password="abcdef"/>
