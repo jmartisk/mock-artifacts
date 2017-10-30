@@ -12,7 +12,7 @@ bin/add-user.sh -a -g users -u admin -p admin123+
 2. Configure the things needed for the EJB client connection:
 ```
 /socket-binding-group=standard-sockets/remote-destination-outbound-socket-binding=remote-ejb:add(host=${remote.ejb.host}, port=8080)
-/subsystem=elytron/authentication-configuration=admin-cfg:add(forbid-sasl-mechanisms=[JBOSS-LOCAL-USER], credential-reference={clear-text="admin123+"}, authentication-name=admin, realm=ApplicationRealm)
+/subsystem=elytron/authentication-configuration=admin-cfg:add(credential-reference={clear-text="admin123+"}, authentication-name=admin, realm=ApplicationRealm, sasl-mechanism-selector=DIGEST-MD5)
 /subsystem=elytron/authentication-context=admin-ctx:add(match-rules=[{authentication-configuration=admin-cfg}])
 /subsystem=remoting/remote-outbound-connection=remote-ejb-connection:add(authentication-context=admin-ctx, outbound-socket-binding-ref=remote-ejb)
 ```
