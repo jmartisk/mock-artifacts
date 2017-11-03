@@ -24,9 +24,7 @@ import org.wildfly.security.auth.client.MatchRule;
 public class Client {
 
     public static void main(String[] args) throws NamingException, PrivilegedActionException {
-        AuthenticationConfiguration common = AuthenticationConfiguration.empty()
-                .useProviders(() -> new Provider[] {new WildFlyElytronProvider()})
-                .allowAllSaslMechanisms();
+        AuthenticationConfiguration common = AuthenticationConfiguration.empty();
         AuthenticationContext authCtxEmpty = AuthenticationContext.empty();
         final AuthenticationContext authCtx = authCtxEmpty.with(MatchRule.ALL, common);
 
