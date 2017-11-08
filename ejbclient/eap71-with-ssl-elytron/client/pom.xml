@@ -14,7 +14,7 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <maven.compiler.source>1.8</maven.compiler.source>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <version.ejb.client.bom>7.1.0.GA-redhat-8</version.ejb.client.bom>
+        <version.ejb.client.bom>7.1.0.GA-redhat-11</version.ejb.client.bom>
         <remote.ejb.url>remote+https://127.0.0.1:8443</remote.ejb.url>
     </properties>
 
