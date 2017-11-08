@@ -8,8 +8,12 @@ bin/add-user.sh -a -g users -u admin -p admin123+
 3. Build and deploy the `server` project
 
 ### 2. Prepare client-side EAP
-1. Run the EAP with property `-Dremote.ejb.host=HOSTNAME_OF_REMOTE_SERVER` (where `HOSTNAME_OF_REMOTE_SERVER` is the address where server-side EAP is available)
-2. Configure the things needed for the EJB client connection:
+1. Add the application user:
+```
+bin/add-user.sh -a -g users -u joe -p joeIsAwesome2013!
+```
+2. Run the EAP with property `-Dremote.ejb.host=HOSTNAME_OF_REMOTE_SERVER` (where `HOSTNAME_OF_REMOTE_SERVER` is the address where server-side EAP is available)
+3. Configure the things needed for the EJB client connection:
 ```
 /socket-binding-group=standard-sockets/remote-destination-outbound-socket-binding=remote-ejb:add(host=${remote.ejb.host}, port=8080)
 /subsystem=elytron/authentication-configuration=admin-cfg:add(sasl-mechanism-selector="DIGEST-MD5", credential-reference={clear-text="admin123+"}, authentication-name=admin, realm=ApplicationRealm)

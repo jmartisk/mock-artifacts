@@ -13,7 +13,11 @@ public class Intermediate implements WhoAmIBeanRemote {
     private WhoAmIBeanRemote serverSideWhoAmI;
 
     public String whoAmI() {
-        return serverSideWhoAmI.whoAmI();
+        try {
+            return serverSideWhoAmI.whoAmI();
+        } catch(Exception e) {
+            throw new RuntimeException("Intermediary server was unable to call the target server");
+        }
     }
 
 }
