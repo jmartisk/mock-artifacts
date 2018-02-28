@@ -7,7 +7,8 @@
 		<metadata type="DDL"><![CDATA[
 			CREATE view stockPricesMatView(
 			   id integer,
-			   name string 
+			   name string,
+			   PRIMARY KEY(id)
 			)	
 			AS 
 			   SELECT 1 as id, 'John' as name UNION ALL
