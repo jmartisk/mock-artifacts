@@ -1,18 +1,43 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <vdb name="DummyVDB" version="1">
 
-    <description>The dummiest possible VDB</description>
+    <description>Dummy VDB for testing</description>
 
-	<model name="DummyModel" type="VIRTUAL">
+	<model name="DUMMY_MODEL" type="VIRTUAL">
 		<metadata type="DDL"><![CDATA[
-			CREATE view stockPricesMatView(
+			CREATE view DUMMY_VIEW (
 			   id integer,
 			   name string,
 			   PRIMARY KEY(id)
 			)	
 			AS 
-			   SELECT 1 as id, 'John' as name UNION ALL
-			   SELECT 2 as id, 'Kenny' as name
+			   SELECT 1, 'John' UNION ALL
+			   SELECT 2, 'Kenny'
+			]]>
+		</metadata>
+	</model>  
+
+	<!-- Dummy table whose one column is a random number to be able to demonstrate result caching, TTL is 10 seconds 
+	     To query with cache disabled (this should generate new random numbers every time): 
+		SELECT * FROM "DUMMY_MODEL_MATERIALIZED"."DUMMY_VIEW_MATERIALIZED" OPTION nocache;	
+	-->
+	<model name="DUMMY_MODEL_MATERIALIZED" type="VIRTUAL">
+		<metadata type="DDL"><![CDATA[
+			CREATE view DUMMY_VIEW_MATERIALIZED (
+			   id integer,
+			   randomnumber double,
+			   PRIMARY KEY(id)
+			)	
+			OPTIONS (materialized true,
+		           "teiid_rel:MATVIEW_TTL" 10000,
+                           "teiid_rel:ALLOW_MATVIEW_MANAGEMENT" 'true',
+                           "teiid_rel:MATVIEW_PREFER_MEMEORY" 'true',
+                           "teiid_rel:MATVIEW_UPDATABLE" 'true',
+                           "teiid_rel:MATVIEW_SCOPE" 'VDB'
+			)
+			AS 
+			   SELECT 1, RAND() UNION ALL
+			   SELECT 2, RAND() 
 			]]>
 		</metadata>
 	</model>  
