@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<vdb name="DummyVDB" version="1">
+
+    <description>The dummiest possible VDB</description>
+
+	<model name="DummyModel" type="VIRTUAL">
+		<metadata type="DDL"><![CDATA[
+			CREATE view stockPricesMatView(
+			   id integer,
+			   name string 
+			)	
+			AS 
+			   SELECT 1 as id, 'John' as name UNION ALL
+			   SELECT 2 as id, 'Kenny' as name
+			]]>
+		</metadata>
+	</model>  
+
+</vdb>
