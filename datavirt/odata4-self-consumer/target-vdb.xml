@@ -1,0 +1,5 @@
+<vdb name="odata4target" version="1">
+    <model name="odata4target">
+         <source name="odata4" translator-name="odata4" connection-jndi-name="java:/odata4ds">
+    </model>
+</vdb>
