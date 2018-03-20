@@ -1,0 +1,14 @@
+bin/standalone.sh -Dcsv.directory=$MOCK-ARTIFACTS/datavirt/bqt-csv/csv
+
+/subsystem=resource-adapters/resource-adapter=csv-ra:add(module=org.jboss.teiid.resource-adapter.file, transaction-support=NoTransaction)
+/subsystem=resource-adapters/resource-adapter=csv-ra/connection-definitions=csv:add(class-name=org.teiid.resource.adapter.file.FileManagedConnectionFactory, jndi-name="java:/csvDS")
+/subsystem=resource-adapters/resource-adapter=csv-ra/connection-definitions=csv/config-properties=ParentDirectory:add(value="${csv.directory}")
+/subsystem=resource-adapters/resource-adapter=csv-ra:activate
+
+deploy bqt-vdb.xml
+
+Access via OData:
+http://localhost:8080/odata4/csv/bqt
+http://localhost:8080/odata4/csv/bqt/SmallA
+http://localhost:8080/odata4/csv/bqt/SmallA?$format=json
+etc.
