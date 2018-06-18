@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<vdb name="gpx" version="1">
+    <description/>
+    <model name="gpx" type="VIRTUAL">
+        <property name="imports" value="sourceModel"/>
+        <metadata type="DDL"><![CDATA[
+
+CREATE VIEW Caches (
+	gccode string,
+	name string,
+	latitude decimal,
+	longitude decimal,
+	country string,
+	type string,
+	container string,
+	difficulty decimal,
+	terrain decimal
+) 
+AS
+	SELECT
+		A.gccode,
+		A.name,
+		A.latitude,
+		A.longitude,
+		A.country,
+		A.type,
+		A.container,
+		A.difficulty,
+		A.terrain
+	FROM
+		(EXEC sourceModel.getTextFiles('caches.gpx')) AS f,
+		    XMLTABLE(XMLNAMESPACES(
+    		    'http://www.topografix.com/GPX/1/0' AS gpx,
+    		    'http://www.groundspeak.com/cache/1/0/1' AS gs
+    		),
+		    '/gpx:gpx/gpx:wpt'
+		    PASSING XMLPARSE(DOCUMENT f.file)
+		    COLUMNS
+		        gccode string PATH 'gpx:name/text()',
+		        name string PATH 'gs:cache/gs:name/text()',
+		        latitude decimal PATH '@lat',
+		        longitude decimal PATH '@lon',
+		        country string PATH 'gs:cache/gs:country/text()',
+		        type string PATH 'gs:cache/gs:type/text()',
+		        container string PATH 'gs:cache/gs:container/text()',
+		        difficulty decimal PATH 'gs:cache/gs:difficulty/text()',
+		        terrain decimal PATH 'gs:cache/gs:terrain/text()'
+		) AS A;
+]]></metadata>
+    </model>
+
+    <model name="sourceModel">
+        <source connection-jndi-name="java:/gpxDS" name="sourceModel" translator-name="file"/>
+        <metadata type="DDL"><![CDATA[
+
+CREATE FOREIGN PROCEDURE getTextFiles (
+	IN pathAndExt string(4000) NOT NULL
+) RETURNS
+	TABLE (
+		file clob,
+		filePath string(4000)
+) OPTIONS(UPDATECOUNT '1');
+
+]]></metadata>
+    </model>
+</vdb>

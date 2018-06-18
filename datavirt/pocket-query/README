@@ -1,0 +1,14 @@
+This file needs to exist and contain the GPX data: /path/to/gpx-parent-dir/caches.gpx
+
+bin/standalone.sh -Dgpx.directory=/path/to/gpx-parent-dir
+
+/subsystem=resource-adapters/resource-adapter=gpx-ra:add(transaction-support=NoTransaction, module=org.jboss.teiid.resource-adapter.file)
+/subsystem=resource-adapters/resource-adapter=gpx-ra/connection-definitions=gpx-xml:add(class-name=org.teiid.resource.adapter.file.FileManagedConnectionFactory, jndi-name="java:/gpxDS")
+/subsystem=resource-adapters/resource-adapter=gpx-ra/connection-definitions=gpx-xml/config-properties=ParentDirectory:add(value="${gpx.directory}")
+/subsystem=resource-adapters/resource-adapter=gpx-ra:activate
+
+deploy gpx-vdb.xml
+
+JDBC connection:
+jdbc:teiid:gpx@mm://localhost:31000
+select * from gpx.caches;
