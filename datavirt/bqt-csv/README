@@ -7,6 +7,10 @@ bin/standalone.sh -Dcsv.directory=$MOCK-ARTIFACTS/datavirt/bqt-csv/csv
 
 deploy bqt-vdb.xml
 
+
+JDBC access:
+jdbc:teiid:csv.1@mm://localhost:31000
+
 Access via OData:
 http://localhost:8080/odata4/csv/bqt
 http://localhost:8080/odata4/csv/bqt/SmallA
