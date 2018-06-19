@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<vdb name="big-strings-inmemory" version="1">
+
+    <!--
+        examples:
+        CALL BigObject.BigData(2000, 1000)
+        SELECT * FROM BigObject.BigDataView;
+
+        Unfortunately Teiid supports string length up to 4000 only, longer will be trimmed..
+     -->
+
+<model name="BigObject" type="VIRTUAL">
+<metadata type="DDL"><![CDATA[
+
+CREATE VIRTUAL PROCEDURE BigData(rowsize integer, rowcount bigint) RETURNS (obj string) AS
+BEGIN
+  DECLARE INTEGER bytenum = 0;
+  DECLARE STRING line = '';
+  WHILE ( bytenum < BigObject.BigData.rowsize ) BEGIN
+     line = line || 'a';
+     bytenum = bytenum + 1;
+  END
+
+  DECLARE INTEGER rownum = 1;
+  INSERT INTO #ret (obj) VALUES(line);
+  WHILE ( rownum < BigObject.BigData.rowcount ) BEGIN
+     INSERT INTO #ret (obj) VALUES(line);
+     rownum = rownum + 1;
+  END
+  SELECT obj FROM #ret;
+END
+
+CREATE VIEW BigDataView
+AS SELECT obj FROM (CALL BigData(1000, 100)) AS blabla
+
+]]></metadata>
+
+</model>
+                                                                   
+</vdb>
