@@ -9,7 +9,7 @@
     <packaging>war</packaging>
 
     <properties>
-        <version.thorntail>2.2.0.Final</version.thorntail>
+        <version.thorntail>2.3.0.Final</version.thorntail>
     </properties>
 
     <build>
@@ -68,14 +68,15 @@
         <dependency>
             <groupId>org.eclipse.microprofile.metrics</groupId>
             <artifactId>microprofile-metrics-api</artifactId>
-            <version>1.2-SNAPSHOT</version>
+            <version>2.0-SNAPSHOT-1</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>io.smallrye</groupId>
             <artifactId>smallrye-metrics</artifactId>
-            <version>1.1.2-SNAPSHOT</version>
+            <version>2.0-SNAPSHOT</version>
+            <scope>provided</scope>
         </dependency>
-
     </dependencies>
 
 </project>
