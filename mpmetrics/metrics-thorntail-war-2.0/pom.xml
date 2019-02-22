@@ -28,7 +28,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <finalName>metrics-20-thorntail</finalName>
+                    <finalName>metrics-thorntail</finalName>
                 </configuration>
             </plugin>
             <plugin>
