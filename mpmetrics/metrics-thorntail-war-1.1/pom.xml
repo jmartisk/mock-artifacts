@@ -9,7 +9,7 @@
     <packaging>war</packaging>
 
     <properties>
-        <version.thorntail>2.2.0.Final</version.thorntail>
+        <version.thorntail>2.3.0.Final</version.thorntail>
     </properties>
 
     <build>
