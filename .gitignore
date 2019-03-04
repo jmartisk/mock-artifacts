@@ -44,3 +44,5 @@ PutObjectStoreDirHere
 
 # m2repo from unzipped thorntail jars
 **/m2repo
+
+**/quarkus.log
