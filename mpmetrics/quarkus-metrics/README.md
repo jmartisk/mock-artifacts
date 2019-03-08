@@ -33,3 +33,7 @@ Accessing the app
 -----------------
 - `curl localhost:8080`
 - `curl localhost:8080/metrics`
+
+Running native tests
+--------------------
+`mvn verify -Pnative`
