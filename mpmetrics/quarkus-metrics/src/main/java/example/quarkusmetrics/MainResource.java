@@ -29,7 +29,7 @@ public class MainResource {
     @GET
     @Produces("text/plain")
     @Path("/counter")
-    @Counted(monotonic = true, name = "counter", absolute = true)
+    @Counted(monotonic = true, name = "counter", absolute = true, tags = "foo=bar")
     public String counter() {
         return "OK";
     }
@@ -51,6 +51,7 @@ public class MainResource {
         TimeUnit.MILLISECONDS.sleep(wait);
         return "OK, waited " + wait + " milliseconds";
     }
+
     @GET
     @Produces("text/plain")
     @Path("/histogram")
