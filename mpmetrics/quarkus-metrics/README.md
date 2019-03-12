@@ -34,6 +34,9 @@ Accessing the app
 - `curl localhost:8080`
 - `curl localhost:8080/metrics`
 
-Running native tests
---------------------
-`mvn verify -Pnative`
+Running the tests
+-----------------
+Just the JVM test:
+`mvn test -Dtest=CounterTest`
+Both tests:
+`mvn verify -Pnative -Dtest=CounterTest -Dit.test=CounterIT`
