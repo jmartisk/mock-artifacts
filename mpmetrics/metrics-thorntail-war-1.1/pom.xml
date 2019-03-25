@@ -52,33 +52,15 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.jboss.spec.javax.servlet</groupId>
-            <artifactId>jboss-servlet-api_3.1_spec</artifactId>
-            <version>1.0.0.Final</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>javax.enterprise</groupId>
-            <artifactId>cdi-api</artifactId>
-            <version>1.2</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
             <groupId>io.thorntail</groupId>
             <artifactId>microprofile-metrics</artifactId>
             <version>${version.thorntail}</version>
         </dependency>
         <dependency>
-            <groupId>org.eclipse.microprofile.metrics</groupId>
-            <artifactId>microprofile-metrics-api</artifactId>
-            <version>1.1.1</version>
+            <groupId>io.thorntail</groupId>
+            <artifactId>jaxrs</artifactId>
+            <version>${version.thorntail}</version>
         </dependency>
-        <dependency>
-            <groupId>io.smallrye</groupId>
-            <artifactId>smallrye-metrics</artifactId>
-            <version>1.1.2-SNAPSHOT</version>
-        </dependency>
-
     </dependencies>
 
 </project>
