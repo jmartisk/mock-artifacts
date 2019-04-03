@@ -3,6 +3,7 @@ package example.quarkusmetrics;
 import org.eclipse.microprofile.metrics.Histogram;
 import org.eclipse.microprofile.metrics.MetricRegistry;
 import org.eclipse.microprofile.metrics.MetricUnits;
+import org.eclipse.microprofile.metrics.annotation.ConcurrentGauge;
 import org.eclipse.microprofile.metrics.annotation.Counted;
 import org.eclipse.microprofile.metrics.annotation.Gauge;
 import org.eclipse.microprofile.metrics.annotation.Metered;
@@ -20,11 +21,11 @@ import java.util.concurrent.TimeUnit;
 public class MainResource {
 
     @Inject
-    private MetricRegistry registry;
+    MetricRegistry registry;
 
     @Inject
     @Metric(name = "histogram")
-    private Histogram histogram;
+    Histogram histogram;
 
     @GET
     @Produces("text/plain")
@@ -69,6 +70,16 @@ public class MainResource {
         long wait = ThreadLocalRandom.current().nextLong(1000);
         TimeUnit.MILLISECONDS.sleep(wait);
         return "OK, waited " + wait + " milliseconds";
+    }
+
+    @GET
+    @Produces("text/plain")
+    @Path("/cgauge")
+    @ConcurrentGauge(name = "cgauge", absolute = true)
+    public String cgauge() throws InterruptedException {
+        System.out.println("sleeping...");
+        TimeUnit.SECONDS.sleep(10);
+        return "OK, slept for 10 seconds";
     }
 
 
