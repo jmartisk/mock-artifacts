@@ -18,7 +18,7 @@ public class GaugeResource {
     @Gauge(name = "annotated-gauge", absolute = true, unit = MetricUnits.NONE)
     @Produces("text/plain")
     public Long gauge() {
-        return ThreadLocalRandom.current().nextLong();
+        return ThreadLocalRandom.current().nextLong(100);
     }
 
 }
