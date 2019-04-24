@@ -45,8 +45,9 @@ public class ProducersFieldsResource {
 
     @GET
     @Path("/counter")
-    public void counter() {
+    public Long counter() {
         counter.inc();
+        return counter.getCount();
     }
 
     @GET

@@ -83,8 +83,10 @@ public class ProducersMethodsResource {
 
     @GET
     @Path("/counter")
-    public void callCounter() {
-        counter().inc();
+    public Long callCounter() {
+        Counter counter = counter();
+        counter.inc();
+        return counter.getCount();
     }
 
     @GET
