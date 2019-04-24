@@ -1,8 +1,13 @@
 package com.example.metrics;
 
+import org.eclipse.microprofile.metrics.MetricUnits;
 import org.eclipse.microprofile.metrics.annotation.ConcurrentGauge;
 import org.eclipse.microprofile.metrics.annotation.Counted;
+import org.eclipse.microprofile.metrics.annotation.Gauge;
+import org.eclipse.microprofile.metrics.annotation.Metered;
+import org.eclipse.microprofile.metrics.annotation.Timed;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -22,7 +27,7 @@ public class MetricResource {
 
     @GET
     @Path("/counter")
-    @Counted(name = "blabla", absolute = true)
+    @Counted(name = "annotated-counter", absolute = true)
     @Produces("text/plain")
     public String countedMethod() {
         return "ACK";
@@ -43,7 +48,7 @@ public class MetricResource {
                 .thenRun(sseEventSink::close);
     }
 
-    @ConcurrentGauge(name = "cgauge", absolute = true)
+    @ConcurrentGauge(name = "annotated-cgauge", absolute = true)
     public CompletionStage<Void> cGaugedMethod(SseEventSink sseEventSink, Sse sse) {
         CompletableFuture<Void> ret = new CompletableFuture<>();
         sseEventSink.send(sse.newEvent(Thread.currentThread().getName() + " start"));
@@ -57,6 +62,36 @@ public class MetricResource {
                     .thenRun(() -> ret.complete(null));
         }
         return ret;
+    }
+
+    @GET
+    @Path("/timer")
+    @Timed(name = "annotated-timer", absolute = true, reusable = true)
+    @Produces("text/plain")
+    public String timedMethod1() throws InterruptedException {
+        int milliseconds = ThreadLocalRandom.current().nextInt(500);
+        TimeUnit.MILLISECONDS.sleep(milliseconds);
+        return "Ok, waited " + milliseconds + " ms";
+    }
+
+    @GET
+    @Path("/timer2")
+    @Timed(name = "annotated-timer", absolute = true, reusable = true)
+    @Produces("text/plain")
+    public String timedMethod2() throws InterruptedException {
+        int milliseconds = ThreadLocalRandom.current().nextInt(500) + 500;
+        TimeUnit.MILLISECONDS.sleep(milliseconds);
+        return "Ok, waited " + milliseconds + " ms";
+    }
+
+    @GET
+    @Path("/meter")
+    @Metered(name = "annotated-meter", absolute = true)
+    @Produces("text/plain")
+    public String meteredMethod() throws InterruptedException {
+        int milliseconds = ThreadLocalRandom.current().nextInt(500);
+        TimeUnit.MILLISECONDS.sleep(milliseconds);
+        return "Ok, waited " + milliseconds + " ms";
     }
 
 }
