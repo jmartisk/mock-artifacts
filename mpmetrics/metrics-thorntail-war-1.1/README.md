@@ -1,7 +1,7 @@
 ## Usage:
 ```
 mvn clean install
-java -jar target/metrics-11-thorntail.jar
+java -jar target/metrics-thorntail.jar
 
 # generate some data
 curl localhost:8080/counter
