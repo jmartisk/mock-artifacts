@@ -23,9 +23,9 @@ import java.util.concurrent.TimeUnit;
 @ApplicationScoped
 public class ProducersFieldsResource {
 
-    @Produces
+/*    @Produces
     @Metric(name = "producerfield-counter", absolute = true, description = "Counter from producer field.")
-    Counter counter = new CounterImpl();
+    Counter counter = new CounterImpl();*/
 
     @Produces
     @Metric(name = "producerfield-histogram", absolute = true, description = "Histogram from producer field.")
@@ -42,6 +42,7 @@ public class ProducersFieldsResource {
     @Produces
     @Metric(name = "producerfield-gauge", absolute = true, description = "Gauge from producer field.")
     Gauge<Long> gauge = () -> ThreadLocalRandom.current().nextLong(100);
+/*
 
     @GET
     @Path("/counter")
@@ -49,6 +50,7 @@ public class ProducersFieldsResource {
         counter.inc();
         return counter.getCount();
     }
+*/
 
     @GET
     @Path("/histogram")

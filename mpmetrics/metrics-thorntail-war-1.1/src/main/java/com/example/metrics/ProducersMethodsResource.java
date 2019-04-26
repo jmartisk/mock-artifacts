@@ -25,7 +25,7 @@ public class ProducersMethodsResource {
 
     private Gauge<Long> gaugeValue = () -> ThreadLocalRandom.current().nextLong(100);
 
-    private Counter counterValue = new CounterImpl();
+//    private Counter counterValue = new CounterImpl();
 
     private Histogram histogramValue = new HistogramImpl(new ExponentiallyDecayingReservoir());
 
@@ -39,11 +39,11 @@ public class ProducersMethodsResource {
         return gaugeValue;
     }
 
-    @Produces
-    @Metric(name = "producermethod-counter", description = "Counter from producer method.", absolute = true)
-    Counter counter() {
-        return counterValue;
-    }
+//    @Produces
+//    @Metric(name = "producermethod-counter", description = "Counter from producer method.", absolute = true)
+//    Counter counter() {
+//        return counterValue;
+//    }
 
     @Produces
     @Metric(name = "producermethod-timer", description = "Timer from producer method.", absolute = true)
@@ -81,11 +81,11 @@ public class ProducersMethodsResource {
         meter().mark(1);
     }
 
-    @GET
-    @Path("/counter")
-    public void callCounter() {
-        counter().inc();
-    }
+//    @GET
+//    @Path("/counter")
+//    public void callCounter() {
+//        counter().inc();
+//    }
 
     @GET
     @Path("/timer")
