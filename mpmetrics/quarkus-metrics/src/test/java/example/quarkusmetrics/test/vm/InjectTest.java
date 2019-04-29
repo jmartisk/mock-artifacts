@@ -8,24 +8,25 @@ import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.StringContains.containsString;
 
 @QuarkusTest
-public class CounterTest {
+public class InjectTest {
 
     @Test
-    public void testCounter() {
+    public void testCounterInject() {
+        // TODO: eager init for @Inject-ed metrics not implemented yet
+//        given()
+//                .when().get("/metrics")
+//                .then()
+//                .statusCode(200)
+//                .body(containsString("application:injected_counter 0.0"));
         given()
-                .when().get("/metrics/application")
-                .then()
-                .statusCode(200)
-                .body(containsString("application:annotated_counter 0.0"));
-        given()
-                .when().get("/counter")
+                .when().get("/inject/counter")
                 .then()
                 .statusCode(200);
         given()
                 .when().get("/metrics/application")
                 .then()
                 .statusCode(200)
-                .body(containsString("application:annotated_counter 1.0"));
+                .body(containsString("application:injected_counter 1.0"));
     }
 
 }
