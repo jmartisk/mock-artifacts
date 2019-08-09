@@ -21,7 +21,7 @@ public class CounterTest {
                 .when().get("/metrics")
                 .then()
                 .statusCode(200)
-                .body(containsString("application:counter{foo=\"bar\"} 1.0"));
+                .body(containsString("application_counter_total{foo=\"bar\"} 1.0"));
     }
 
     // TODO: tests for other metrics
