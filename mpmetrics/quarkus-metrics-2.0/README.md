@@ -11,12 +11,19 @@ Native binary:
 - set `GRAALVM_HOME` env variable
 - `mvn package -Pnative && target/quarkus-metrics-runner`
 
+Docker image with JAR:
+- start Docker
+- set `GRAALVM_HOME` env variable
+- `mvn package`
+- `docker build -f src/main/docker/Dockerfile.jvm -t mock-artifacts/quarkus-metrics-jvm .`
+- `docker run -i --rm -p 8080:8080 mock-artifacts/quarkus-metrics-jvm`
+
 Docker image with native binary:
 - start Docker
 - set `GRAALVM_HOME` env variable
 - `mvn package -Pnative -Dnative-image.docker-build=true`
-- `docker build -t quarkus-quickstart/quickstart .`
-- `docker run -i --rm -p 8080:8080 quarkus-quickstart/quickstart`
+- `docker build -f src/main/docker/Dockerfile.native -t mock-artifacts/quarkus-metrics-native .`
+- `docker run -i --rm -p 8080:8080 mock-artifacts/quarkus-metrics-native`
 
 OpenShift, binary build from local dir, containing the native binary:
 - set `GRAALVM_HOME` env variable

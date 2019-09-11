@@ -24,6 +24,4 @@ public class CounterTest {
                 .body(containsString("application_counter_total{foo=\"bar\"} 1.0"));
     }
 
-    // TODO: tests for other metrics
-
 }
