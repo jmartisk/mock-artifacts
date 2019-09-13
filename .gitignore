@@ -41,6 +41,10 @@ hs_err_pid*.log
 PutObjectStoreDirHere
 # ignore mvn-rpmbuild repo
 /.m2
+# gradle wrapper
+**/gradle/wrapper
+**/.gradle
+build
 
 # m2repo from unzipped thorntail jars
 **/m2repo
