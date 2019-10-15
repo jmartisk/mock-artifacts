@@ -16,8 +16,8 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <surefire.version>3.0.0-M3</surefire.version>
         <!-- TODO remove this after https://github.com/quarkusio/quarkus/issues/4289 -->
-        <!--         <quarkus.version>999-SNAPSHOT</quarkus.version>-->
-        <quarkus.version>0.21.1</quarkus.version>
+                 <quarkus.version>999-SNAPSHOT</quarkus.version>
+ <!--       <quarkus.version>0.21.1</quarkus.version> -->
     </properties>
 
 
@@ -41,7 +41,7 @@
     </dependencies>
 
     <build>
-        <finalName>quarkus-metrics</finalName>
+        <finalName>quarkus-rest</finalName>
         <plugins>
             <plugin>
                 <groupId>io.quarkus</groupId>
