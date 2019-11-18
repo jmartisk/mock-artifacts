@@ -1,9 +1,9 @@
 package example.quarkusmetrics.test.nativebinary;
 
 import example.quarkusmetrics.test.vm.CounterTest;
-import io.quarkus.test.junit.SubstrateTest;
+import io.quarkus.test.junit.NativeImageTest;
 
-@SubstrateTest
+@NativeImageTest
 public class CounterIT extends CounterTest {
 
     // just inherit tests from CounterTest

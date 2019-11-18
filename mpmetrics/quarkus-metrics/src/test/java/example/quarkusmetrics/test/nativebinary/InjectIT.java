@@ -1,9 +1,9 @@
 package example.quarkusmetrics.test.nativebinary;
 
 import example.quarkusmetrics.test.vm.InjectTest;
-import io.quarkus.test.junit.SubstrateTest;
+import io.quarkus.test.junit.NativeImageTest;
 
-@SubstrateTest
+@NativeImageTest
 public class InjectIT extends InjectTest {
 
 }
