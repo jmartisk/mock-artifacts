@@ -7,6 +7,7 @@ import javax.persistence.Id;
 public class Gift {
 
     private Long id;
+    private String description;
 
     @Id
     public Long getId() {
@@ -17,4 +18,11 @@ public class Gift {
         this.id = id;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 }
