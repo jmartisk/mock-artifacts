@@ -1,0 +1,2 @@
+Run the app and call `localhost:8080/` at least once to get the cache initialized, along with its metrics.
+Then the metrics will be available in the `application` scope in `localhost:8080/metrics` and in JMX.
