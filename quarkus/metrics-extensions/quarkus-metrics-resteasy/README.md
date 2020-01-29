@@ -1,2 +1,14 @@
-Run the app and call `localhost:8080/` at least once to get the cache initialized, along with its metrics.
-Then the metrics will be available in the `application` scope in `localhost:8080/metrics` and in JMX.
+Try these endpoint methods
+```
+curl localhost:8080/hello/joe
+curl localhost:8080/error
+curl localhost:8080/a/b/c/list
+curl localhost:8080/a/b/c/array
+curl localhost:8080/a/b/c/varargs
+curl localhost:8080/async
+```                           
+
+and then look at metrics using
+```
+curl localhost:8080/metrics/base | grep REST
+```
