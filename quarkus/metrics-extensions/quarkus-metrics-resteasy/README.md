@@ -6,6 +6,7 @@ curl localhost:8080/a/b/c/list
 curl localhost:8080/a/b/c/array
 curl localhost:8080/a/b/c/varargs
 curl localhost:8080/async
+curl localhost:8080/async/exception
 ```                           
 
 and then look at metrics using

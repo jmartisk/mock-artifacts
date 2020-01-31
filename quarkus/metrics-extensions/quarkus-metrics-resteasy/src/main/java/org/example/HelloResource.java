@@ -61,7 +61,9 @@ public class HelloResource {
     public CompletionStage<String> async() {
         return CompletableFuture.supplyAsync(() -> {
             try {
-                TimeUnit.MILLISECONDS.sleep(ThreadLocalRandom.current().nextInt(1000));
+                int timeout = ThreadLocalRandom.current().nextInt(1000);
+                TimeUnit.MILLISECONDS.sleep(timeout);
+                System.out.println("Waited " + timeout + " ms");
                 return "Hello";
             }
             catch (InterruptedException e) {
@@ -70,5 +72,20 @@ public class HelloResource {
         });
     }
 
+    @Path("/async/exception")
+    @GET
+    public CompletionStage<String> asyncException() {
+        return CompletableFuture.supplyAsync(() -> {
+            int timeout = ThreadLocalRandom.current().nextInt(1000);
+            try {
+                TimeUnit.MILLISECONDS.sleep(timeout);
+            }
+            catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            System.out.println("Waited " + timeout + " ms");
+            throw new RuntimeException("!!!");
+        });
+    }
 
 }
