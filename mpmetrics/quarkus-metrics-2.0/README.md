@@ -6,6 +6,8 @@ Development mode:
 
 Classic JAR:
 - `mvn package && java -jar target/quarkus-metrics-runner.jar`
+Optionally, add this to the `mvn` command:
+`-Dquarkus.debug.generated-sources-dir=generated-sources -Dquarkus.debug.generated-classes-dir=generated-classes`
 
 Native binary:
 - set `GRAALVM_HOME` env variable
