@@ -30,6 +30,11 @@
                     headers: {'Content-Type': 'application/json'},
                     body: JSON.stringify(graphQLParams),
                 })
+                        .then(response =>  {
+                            // logs the request into the browser's console (not the Java process stdout!)
+                            console.info(JSON.stringify(graphQLParams));
+                            return response;
+                        })
                         .then(response => response.json())
                         .catch(() => response.text());
             ReactDOM.render(

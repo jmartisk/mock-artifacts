@@ -1,6 +1,6 @@
 {
     "query": "{
-        allPersons {
+        all {
             name
         }
      }"

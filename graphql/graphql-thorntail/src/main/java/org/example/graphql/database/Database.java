@@ -27,4 +27,8 @@ public class Database {
         return Collections.unmodifiableList(personList);
     }
 
+    public void addPerson(Person person) {
+        personList.add(person);
+    }
+
 }
