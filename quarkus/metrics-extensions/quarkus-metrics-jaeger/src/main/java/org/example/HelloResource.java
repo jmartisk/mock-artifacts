@@ -10,8 +10,7 @@ public class HelloResource {
     @Path("/")
     @GET
     public String hello() {
-        throw new RuntimeException();
-//        return "Hello";
+        return "Hello";
     }
 
 }
