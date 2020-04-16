@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<solver>
+    <!-- Score configuration -->
+    <scoreDirectorFactory>
+        <easyScoreCalculatorClass>org.example.solver.CloudBalancingScoreCalculator</easyScoreCalculatorClass>
+    </scoreDirectorFactory>
+
+    <!-- Optimization algorithms configuration -->
+    <termination>
+        <secondsSpentLimit>5</secondsSpentLimit>
+    </termination>
+</solver>
+
