@@ -102,6 +102,22 @@
                     </execution>
                 </executions>
             </plugin>
+
+            <!-- To generate manually:
+            mvn compile io.smallrye:smallrye-graphql-maven-plugin:1.0.2-SNAPSHOT:generate-schema
+            -->
+           <!-- <plugin>
+                <artifactId>smallrye-graphql-maven-plugin</artifactId>
+                <groupId>io.smallrye</groupId>
+                <version>${version.smallrye.graphql}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>generate-schema</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>-->
         </plugins>
     </build>
 
