@@ -1,0 +1,7 @@
+{
+  "query": "mutation createFrunubucator($name: String!) {\n  create(name: $name) {\n    name\n  }\n}\n",
+  "variables": {
+    "name": "Frunubucator"
+  },
+  "operationName": "createFrunubucator"
+}
