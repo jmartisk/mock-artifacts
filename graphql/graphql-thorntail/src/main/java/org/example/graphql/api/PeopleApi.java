@@ -3,20 +3,17 @@ package org.example.graphql.api;
 import org.eclipse.microprofile.graphql.DefaultValue;
 import org.eclipse.microprofile.graphql.Description;
 import org.eclipse.microprofile.graphql.GraphQLApi;
-import org.eclipse.microprofile.graphql.GraphQLException;
 import org.eclipse.microprofile.graphql.Mutation;
 import org.eclipse.microprofile.graphql.Name;
 import org.eclipse.microprofile.graphql.Query;
 import org.eclipse.microprofile.graphql.Source;
 import org.example.graphql.database.Database;
-import org.example.graphql.model.Gender;
 import org.example.graphql.model.Person;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import java.util.Collection;
 import java.util.UUID;
-import java.util.logging.Level;
 
 @GraphQLApi
 @ApplicationScoped
