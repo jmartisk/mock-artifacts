@@ -1,12 +1,11 @@
-mutation createFrunubucator($name: String!) {
-  create(name: $name) {
+mutation createFrunubucator {
+  create(person:
+    {
+      name: "Frunubucator",
+      gender: OTHER
+    }
+  ){
+    gender
     name
   }
-}
-
-
-
-QUERY VARIABLES:
-{
-  "name": "Frunubucator",
 }

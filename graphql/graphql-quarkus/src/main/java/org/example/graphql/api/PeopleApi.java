@@ -3,6 +3,7 @@ package org.example.graphql.api;
 import org.eclipse.microprofile.graphql.DefaultValue;
 import org.eclipse.microprofile.graphql.Description;
 import org.eclipse.microprofile.graphql.GraphQLApi;
+import org.eclipse.microprofile.graphql.GraphQLException;
 import org.eclipse.microprofile.graphql.Mutation;
 import org.eclipse.microprofile.graphql.Name;
 import org.eclipse.microprofile.graphql.Query;
@@ -15,6 +16,7 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import java.util.Collection;
 import java.util.UUID;
+import java.util.logging.Level;
 
 @GraphQLApi
 @ApplicationScoped
@@ -33,9 +35,7 @@ public class PeopleApi {
     // To try out, see queries/mutation-create-person* files
     @Mutation(value = "create")
     @Description("Create a person")
-    // TODO: allow passing a whole person including gender
-    public Person create_methodName(@Name("name") String name) {
-        Person person = new Person(name, Gender.OTHER);
+    public Person create_methodName(Person person) {
         database.addPerson(person);
         return person;
     }

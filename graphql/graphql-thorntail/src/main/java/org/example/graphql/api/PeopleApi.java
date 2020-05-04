@@ -35,9 +35,7 @@ public class PeopleApi {
     // To try out, see queries/mutation-create-person* files
     @Mutation(value = "create")
     @Description("Create a person")
-    // TODO: allow passing a whole person including gender
-    public Person create_methodName(@Name("name") String name) {
-        Person person = new Person(name, Gender.OTHER);
+    public Person create_methodName(Person person) {
         database.addPerson(person);
         return person;
     }

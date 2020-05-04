@@ -1,7 +1,12 @@
-{
-  "query": "mutation createFrunubucator($name: String!) {\n  create(name: $name) {\n    name\n  }\n}\n",
-  "variables": {
-    "name": "Frunubucator"
-  },
-  "operationName": "createFrunubucator"
+{"query": "mutation createPerson {
+  create(person: {
+            name: \"Frunubucator\",
+            gender: OTHER
+         }){
+            gender
+            name
+         }
+  }",
+  "variables":{"name":"Frunubucator"},
+  "operationName":"createPerson"
 }
