@@ -2,7 +2,7 @@
 `mvn quarkus:dev`
 
 ## Query
-[NOT WORKING YET - will probably be integrated into quarkus]  Use GraphiQL interface at `http://localhost:8080/graphiql/`
+Use GraphiQL interface at `http://localhost:8080/graphql-ui`
 Or use curl:
 - To get the schema, `curl localhost:8080/graphql/schema.graphql`
 - To run a query, `curl -H"Content-Type: application/json" -X POST localhost:8080/graphql/ -d @queries/query-all-persons.txt`

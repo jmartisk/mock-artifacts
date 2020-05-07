@@ -14,9 +14,9 @@
     <maven.compiler.target>1.8</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    <quarkus-plugin.version>1.3.2.Final</quarkus-plugin.version> <!-- TODO use 999-SNAPSHOT? -->
+    <quarkus-plugin.version>999-SNAPSHOT</quarkus-plugin.version> <!-- TODO use 999-SNAPSHOT? -->
     <surefire-plugin.version>2.22.1</surefire-plugin.version>
-    <quarkus.version>1.3.2.Final</quarkus.version>               <!-- TODO use 999-SNAPSHOT? -->
+    <quarkus.version>999-SNAPSHOT</quarkus.version>               <!-- TODO use 999-SNAPSHOT? -->
   </properties>
 
    <dependencyManagement>
@@ -36,11 +36,9 @@
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-resteasy</artifactId>
     </dependency>
-    <!-- TODO when extension is merged to Quarkus, change the coordinates -->
     <dependency>
-      <groupId>com.github.phillip-kruger.graphql</groupId>
+      <groupId>io.quarkus</groupId>
       <artifactId>quarkus-smallrye-graphql</artifactId>
-      <version>1.0.0-SNAPSHOT</version>    <!-- TODO proper version -->
     </dependency>
     <dependency>
       <groupId>io.quarkus</groupId>
