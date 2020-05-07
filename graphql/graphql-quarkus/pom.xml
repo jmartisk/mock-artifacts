@@ -44,6 +44,12 @@
       <artifactId>quarkus-smallrye-metrics</artifactId>
     </dependency>
 
+    <!-- To enable tracing integration -->
+    <dependency>
+      <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-smallrye-opentracing</artifactId>
+    </dependency>  
+
     <dependency>
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-junit5</artifactId>
