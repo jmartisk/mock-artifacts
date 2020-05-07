@@ -40,10 +40,11 @@
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-smallrye-graphql</artifactId>
     </dependency>
-    <dependency>
-      <groupId>io.quarkus</groupId>
-      <artifactId>quarkus-smallrye-metrics</artifactId>
-    </dependency>
+    <!-- TODO: re-add after metrics integration is merged in Quarkus -->
+<!--    <dependency>-->
+<!--      <groupId>io.quarkus</groupId>-->
+<!--      <artifactId>quarkus-smallrye-metrics</artifactId>-->
+<!--    </dependency>-->
 
     <dependency>
       <groupId>io.quarkus</groupId>
