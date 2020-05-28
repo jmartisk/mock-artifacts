@@ -21,3 +21,10 @@ scrape_configs:
     static_configs:
     - targets: ['localhost:8080', 'localhost:8081']
 ```
+
+Running Prometheus and Grafana in Docker:
+```
+CONFIG=/path/to/prometheus/config.yml
+docker run --rm --network=host -p 9090:9090 -v $CONFIG:/etc/prometheus/prometheus.yml prom/prometheus
+docker run --rm -p 3000:3000 --network=host grafana/grafana
+```
