@@ -13,3 +13,9 @@ for server in $servers; do
   echo "Calling Agroal operations on $server"
   curl -s "${server}"/datasource
 done
+
+# Hibernate
+for server in $servers; do
+  echo "Calling Hibernate operations on $server"
+  curl -s "${server}"/hibernate
+done

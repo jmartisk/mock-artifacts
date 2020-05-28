@@ -49,6 +49,13 @@
       <artifactId>quarkus-jdbc-h2</artifactId>
     </dependency>
 
+
+    <!-- persistence -->
+    <dependency>
+      <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-hibernate-orm-panache</artifactId>
+    </dependency>
+
     <dependency>
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-junit5</artifactId>
