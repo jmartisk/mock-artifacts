@@ -17,7 +17,7 @@
         <failOnMissingWebXml>false</failOnMissingWebXml>
 
         <version.thorntail>2.6.0.Final</version.thorntail>
-        <version.smallrye.graphql>1.0.2-SNAPSHOT</version.smallrye.graphql>
+        <version.smallrye.graphql>1.0.4-SNAPSHOT</version.smallrye.graphql>
     </properties>
 
     <dependencyManagement>
