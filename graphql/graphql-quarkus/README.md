@@ -16,3 +16,7 @@ Or use curl:
 `docker run -p 5775:5775/udp -p 6831:6831/udp -p 6832:6832/udp -p 5778:5778 -p 16686:16686 -p 14268:14268 jaegertracing/all-in-one:1.17`
 Look at http://localhost:16686
 
+## Bean validation
+- Uncomment the `quarkus-hibernate-validator` dependency
+- Add a `@Valid` annotation wherever is desired, and some constraints to model classes
+- Run with `-Dsmallrye.graphql.validation.enabled=true
