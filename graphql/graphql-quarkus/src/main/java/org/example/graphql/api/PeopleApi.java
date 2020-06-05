@@ -7,11 +7,10 @@ import org.eclipse.microprofile.graphql.Mutation;
 import org.eclipse.microprofile.graphql.Name;
 import org.eclipse.microprofile.graphql.Query;
 import org.eclipse.microprofile.graphql.Source;
-import org.example.graphql.database.Database;
 import org.example.graphql.model.Person;
 
 import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
+import javax.transaction.Transactional;
 import java.util.Collection;
 import java.util.UUID;
 
@@ -19,21 +18,19 @@ import java.util.UUID;
 @ApplicationScoped
 public class PeopleApi {
 
-    @Inject
-    Database database;
-
     // To try out, see queries/query-all-persons* files
     @Query(value = "all")
     @Description("Retrieve all persons from the database")
     public Collection<Person> all_methodName() {
-        return database.allPersons();
+        return Person.findAll().list();
     }
 
     // To try out, see queries/mutation-create-person* files
     @Mutation(value = "create")
     @Description("Create a person")
+    @Transactional
     public Person create_methodName(Person person) {
-        database.addPerson(person);
+        person.persist();
         return person;
     }
 
