@@ -12,9 +12,9 @@
     <maven.compiler.target>1.8</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    <quarkus-plugin.version>999-SNAPSHOT</quarkus-plugin.version>
+    <quarkus-plugin.version>1.5.0.Final</quarkus-plugin.version>
     <surefire-plugin.version>2.22.1</surefire-plugin.version>
-    <quarkus.version>999-SNAPSHOT</quarkus.version>
+    <quarkus.version>1.5.0.Final</quarkus.version>
   </properties>
    <dependencyManagement>
         <dependencies>
@@ -46,15 +46,28 @@
       <artifactId>quarkus-junit5</artifactId>
       <scope>test</scope>
     </dependency>
-    <dependency>
+<!--    <dependency>
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-smallrye-metrics</artifactId>
-    </dependency>
+    </dependency>-->
     <dependency>
       <groupId>io.rest-assured</groupId>
       <artifactId>rest-assured</artifactId>
       <scope>test</scope>
     </dependency>
+
+    <dependency>
+      <groupId>io.micrometer</groupId>
+      <artifactId>micrometer-registry-prometheus</artifactId>
+      <version>1.5.0</version>
+    </dependency>
+    <dependency>
+      <groupId>dev.ebullient.quarkus-micrometer-extension</groupId>
+      <artifactId>quarkus-micrometer</artifactId>
+      <version>1.0.0-SNAPSHOT</version>
+    </dependency>
+
+
   </dependencies>
   <build>
     <plugins>
