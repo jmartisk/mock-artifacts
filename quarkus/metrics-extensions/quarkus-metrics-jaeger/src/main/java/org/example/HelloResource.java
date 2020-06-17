@@ -5,7 +5,6 @@ import javax.ws.rs.Path;
 
 @Path("/")
 public class HelloResource {
-
     @Path("/")
     @GET
     public String hello() {
