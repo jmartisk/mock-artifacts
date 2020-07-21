@@ -8,6 +8,7 @@ import org.eclipse.microprofile.metrics.annotation.Counted;
 import org.eclipse.microprofile.metrics.annotation.Gauge;
 import org.eclipse.microprofile.metrics.annotation.Metered;
 import org.eclipse.microprofile.metrics.annotation.Metric;
+import org.eclipse.microprofile.metrics.annotation.SimplyTimed;
 import org.eclipse.microprofile.metrics.annotation.Timed;
 
 import javax.inject.Inject;
@@ -48,6 +49,16 @@ public class MainResource {
     @Path("/timer")
     @Timed(name = "timer", absolute = true)
     public String timer() throws InterruptedException {
+        long wait = ThreadLocalRandom.current().nextLong(1000);
+        TimeUnit.MILLISECONDS.sleep(wait);
+        return "OK, waited " + wait + " milliseconds";
+    }
+
+    @GET
+    @Produces("text/plain")
+    @Path("/simpletimer")
+    @SimplyTimed(name = "simpletimer", absolute = true)
+    public String simpleTimer() throws InterruptedException {
         long wait = ThreadLocalRandom.current().nextLong(1000);
         TimeUnit.MILLISECONDS.sleep(wait);
         return "OK, waited " + wait + " milliseconds";
