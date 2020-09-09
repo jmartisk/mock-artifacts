@@ -1,0 +1,8 @@
+FROM openjdk
+WORKDIR /work/
+ENV JAVA_OPTIONS="-Dquarkus.http.host=0.0.0.0 -Djava.util.logging.manager=org.jboss.logmanager.LogManager"
+COPY target/lib/* /work/lib/
+COPY target/*-runner.jar /work/application
+RUN chmod 775 /work/application
+EXPOSE 8080
+CMD [ "java", "-jar", "/work/application" ]
