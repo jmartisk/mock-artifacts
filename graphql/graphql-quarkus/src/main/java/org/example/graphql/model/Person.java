@@ -10,7 +10,7 @@ import javax.persistence.Enumerated;
 @Entity
 public class Person extends PanacheEntity {
 
-    @Length(min = 1)
+    @Length(min = 8)
     private String name;
 
     @Enumerated(value = EnumType.STRING)

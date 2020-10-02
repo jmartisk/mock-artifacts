@@ -52,20 +52,13 @@
       <artifactId>quarkus-jdbc-h2</artifactId>
     </dependency>
 
-    <!-- Uncomment to enable bean validation -->
-    <!--
-    <dependency>
-      <groupId>io.quarkus</groupId>
-      <artifactId>quarkus-hibernate-validator</artifactId>
-    </dependency>
-    -->
-
     <!-- To enable tracing integration -->
     <dependency>
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-smallrye-opentracing</artifactId>
     </dependency>
 
+    <!-- To enable bean validation -->
     <dependency>
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-hibernate-validator</artifactId>
