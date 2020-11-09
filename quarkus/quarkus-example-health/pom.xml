@@ -15,9 +15,7 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <surefire.version>3.0.0-M3</surefire.version>
-        <!-- TODO remove this after https://github.com/quarkusio/quarkus/issues/4289 -->
-                 <quarkus.version>999-SNAPSHOT</quarkus.version>
- <!--       <quarkus.version>0.21.1</quarkus.version> -->
+        <quarkus.version>999-SNAPSHOT</quarkus.version>
     </properties>
 
 
@@ -68,13 +66,6 @@
     </build>
 
     <profiles>
-        <!-- FIXME: does not work atm for the devmode, see https://github.com/quarkusio/quarkus/issues/4289 -->
-        <profile>
-            <id>snapshot</id>
-            <properties>
-                <quarkus.version>999-SNAPSHOT</quarkus.version>
-            </properties>
-        </profile>
         <profile>
             <id>native</id>
             <build>
