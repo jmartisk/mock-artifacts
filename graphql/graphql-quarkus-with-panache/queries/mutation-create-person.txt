@@ -1,0 +1,12 @@
+{"query": "mutation createPerson {
+  create(person: {
+            name: \"Frunubucator\",
+            gender: OTHER
+         }){
+            gender
+            name
+         }
+  }",
+  "variables":{"name":"Frunubucator"},
+  "operationName":"createPerson"
+}

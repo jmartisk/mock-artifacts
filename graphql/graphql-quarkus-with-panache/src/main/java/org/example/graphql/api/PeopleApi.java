@@ -12,20 +12,17 @@ import org.example.graphql.model.Person;
 import javax.enterprise.context.ApplicationScoped;
 import javax.transaction.Transactional;
 import java.util.Collection;
-import java.util.List;
 import java.util.UUID;
 
 @GraphQLApi
 @ApplicationScoped
 public class PeopleApi {
 
-    private List<Person> database;
-
     // To try out, see queries/query-all-persons* files
     @Query(value = "all")
     @Description("Retrieve all persons from the database")
     public Collection<Person> all_methodName() {
-        return database;
+        return Person.findAll().list();
     }
 
     // To try out, see queries/mutation-create-person* files
@@ -33,7 +30,7 @@ public class PeopleApi {
     @Description("Create a person")
     @Transactional
     public Person create_methodName(Person person) {
-        database.add(person);
+        person.persist();
         return person;
     }
 

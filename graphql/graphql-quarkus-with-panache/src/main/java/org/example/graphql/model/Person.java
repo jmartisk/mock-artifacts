@@ -1,12 +1,19 @@
 package org.example.graphql.model;
 
+import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import org.hibernate.validator.constraints.Length;
 
-public class Person {
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+
+@Entity
+public class Person extends PanacheEntity {
 
     @Length(min = 8)
     private String name;
 
+    @Enumerated(value = EnumType.STRING)
     private Gender gender;
 
     public Person() {
