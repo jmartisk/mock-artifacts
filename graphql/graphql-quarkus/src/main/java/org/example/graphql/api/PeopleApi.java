@@ -11,6 +11,7 @@ import org.example.graphql.model.Person;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
@@ -19,7 +20,7 @@ import java.util.UUID;
 @ApplicationScoped
 public class PeopleApi {
 
-    private List<Person> database;
+    private List<Person> database = new ArrayList<>();
 
     // To try out, see queries/query-all-persons* files
     @Query(value = "all")
