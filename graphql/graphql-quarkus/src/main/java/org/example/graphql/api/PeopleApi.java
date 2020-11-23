@@ -7,10 +7,11 @@ import org.eclipse.microprofile.graphql.Mutation;
 import org.eclipse.microprofile.graphql.Name;
 import org.eclipse.microprofile.graphql.Query;
 import org.eclipse.microprofile.graphql.Source;
+import org.example.graphql.model.Gender;
 import org.example.graphql.model.Person;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
-import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -21,6 +22,12 @@ import java.util.UUID;
 public class PeopleApi {
 
     private List<Person> database = new ArrayList<>();
+
+    @PostConstruct
+    void init() {
+        database.add(new Person("david", Gender.MALE));
+        database.add(new Person("jane", Gender.FEMALE));
+    }
 
     // To try out, see queries/query-all-persons* files
     @Query(value = "all")
