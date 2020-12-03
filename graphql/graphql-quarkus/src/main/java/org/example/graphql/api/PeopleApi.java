@@ -39,7 +39,6 @@ public class PeopleApi {
     // To try out, see queries/mutation-create-person* files
     @Mutation(value = "create")
     @Description("Create a person")
-    @Transactional
     public Person create_methodName(Person person) {
         database.add(person);
         return person;
