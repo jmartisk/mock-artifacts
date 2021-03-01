@@ -36,6 +36,14 @@ public class PeopleApi {
         return database;
     }
 
+    // To try out, see queries/query-all-persons* files
+    @Query(value = "all2")
+    @Description("Retrieve all persons from the database")
+    public Collection<Person> all2_methodName() {
+        return database;
+    }
+
+
     // To try out, see queries/mutation-create-person* files
     @Mutation(value = "create")
     @Description("Create a person")

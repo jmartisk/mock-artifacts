@@ -1,4 +1,5 @@
-import io.smallrye.graphql.client.dynamic.DynamicClientImpl;
+import io.smallrye.graphql.client.dynamic.api.DynamicGraphQLClient;
+import io.smallrye.graphql.client.dynamic.api.DynamicGraphQLClientBuilder;
 import io.vertx.core.Vertx;
 import org.eclipse.microprofile.graphql.client.core.Document;
 
@@ -13,7 +14,7 @@ public class ClientMain {
 
     // Retrieve a list of countries. See https://github.com/trevorblades/countries
     public static void main(String[] args) throws ExecutionException, InterruptedException {
-        try (DynamicClientImpl client = new DynamicClientImpl.Builder()
+        try (DynamicGraphQLClient client = DynamicGraphQLClientBuilder.newBuilder()
                 .url("https://countries.trevorblades.com")
                 .build()) {
             Document document = document(
@@ -22,6 +23,9 @@ public class ClientMain {
                                     field("name"))));
             JsonObject data = client.executeSync(document).getData();
             System.out.println(data.toString());
+        }
+        catch (Exception e) {
+            e.printStackTrace();
         }
         finally {
             Vertx.vertx().close();
