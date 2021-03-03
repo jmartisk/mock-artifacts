@@ -1,0 +1,20 @@
+<web-app>
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>graphql</web-resource-name>
+            <url-pattern>/graphql</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>users</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <security-role>
+        <description>The role that is required to log in</description>
+        <role-name>users</role-name>
+    </security-role>
+    <login-config>
+        <auth-method>BASIC</auth-method>
+        <realm-name>UDomain</realm-name>
+    </login-config>
+</web-app>
+

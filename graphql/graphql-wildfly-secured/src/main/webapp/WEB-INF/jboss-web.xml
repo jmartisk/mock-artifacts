@@ -1,0 +1,3 @@
+<jboss-web>
+    <security-domain>UDomain</security-domain>
+</jboss-web>

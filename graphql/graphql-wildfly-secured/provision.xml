@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<installation xmlns="urn:jboss:galleon:provisioning:3.0">
+    <feature-pack location="wildfly@maven(org.jboss.universe:community-universe):current#21.0.0.Final">
+        <default-configs inherit="false"/>
+        <packages inherit="false">
+        </packages>
+    </feature-pack>
+    <feature-pack location="org.wildfly.extras.graphql:wildfly-microprofile-graphql-feature-pack:1.1.0.Final">
+        <default-configs inherit="false"/>
+        <packages inherit="false">
+        </packages>
+    </feature-pack>
+    <config model="standalone" name="standalone.xml">
+        <layers>
+            <include name="cloud-profile"/>
+            <include name="core-tools"/>
+            <include name="microprofile-graphql"/>
+        </layers>
+    </config>
+    <options>
+        <option name="optional-packages" value="passive+"/>
+    </options>
+</installation>
