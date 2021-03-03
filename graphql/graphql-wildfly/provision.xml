@@ -5,8 +5,7 @@
         <packages inherit="false">
         </packages>
     </feature-pack>
-    <!-- TODO update version after 1.1.0 is out -->
-    <feature-pack location="org.wildfly.extras.graphql:wildfly-microprofile-graphql-feature-pack:1.1.0.Beta1-SNAPSHOT">
+    <feature-pack location="org.wildfly.extras.graphql:wildfly-microprofile-graphql-feature-pack:1.1.0.Final">
         <default-configs inherit="false"/>
         <packages inherit="false">
         </packages>
