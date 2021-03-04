@@ -14,7 +14,6 @@ import org.example.graphql.model.Person;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
-import javax.validation.Valid;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -29,8 +28,8 @@ public class PeopleApi {
     private List<Person> database = new ArrayList<>();
 
     // to check the user using EE Security API
-    @Inject
-    javax.security.enterprise.SecurityContext securityContext;
+//    @Inject
+//    javax.security.enterprise.SecurityContext securityContext;
 
     @PostConstruct
     void init() {
@@ -44,12 +43,13 @@ public class PeopleApi {
     public Collection<Person> all() {
 
         // to check the user using EE Security API
-        Principal callerPrincipal = securityContext.getCallerPrincipal();
-        System.out.println("EE API principal: " + (callerPrincipal != null ? callerPrincipal.getName() : "null"));
+//        java.security.Principal callerPrincipal = securityContext.getCallerPrincipal();
+//        System.out.println("EE API principal: " + (callerPrincipal != null ? callerPrincipal.getName() : "null"));
 
         // to check the user using Elytron API
         org.wildfly.security.auth.server.SecurityIdentity identity
-                = org.wildfly.security.auth.server.SecurityDomain.getCurrent().getCurrentSecurityIdentity();
+                = org.wildfly.security.auth.server.SecurityDomain.getCurrent()
+                .getCurrentSecurityIdentity();
         System.out.println("Name: " + identity.getPrincipal().getName());
         System.out.println("Roles:");
         identity.getRoles().forEach(System.out::println);
@@ -67,7 +67,7 @@ public class PeopleApi {
     // To try out, see queries/mutation-create-person* files
     @Mutation(value = "create")
     @Description("Create a person")
-    public Person create_methodName(@Valid Person person) {
+    public Person create_methodName(Person person) {
         database.add(person);
         return person;
     }

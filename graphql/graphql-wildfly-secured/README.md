@@ -5,15 +5,15 @@
 - run a wildfly instance 
 ```
 wildfly/bin/add-user.sh -a -g users -u joe -p joeIsAwesome2013%
-/subsystem=elytron/http-authentication-factory=example-http-auth:add(http-server-mechanism-factory=global,security-domain=ApplicationDomain,mechanism-configurations=[{mechanism-name=BASIC,mechanism-realm-configurations=[{realm-name=exampleApplicationDomain}]}])
-/subsystem=undertow/application-security-domain=UDomain:add(http-authentication-factory=example-http-auth)
+/subsystem=undertow/application-security-domain=other:add(security-domain=ApplicationDomain)
 ```                                                                                                       
 
-And to get Jakarta EE Security API available:
+And to get Jakarta EE Security API available (optional, it's commented out in the code):
 ``` 
-/subsystem=undertow/application-security-domain=UDomain:write-attribute(name=enable-jacc, value=true)
-/subsystem=undertow/application-security-domain=UDomain:write-attribute(name=integrated-jaspi, value=false)
+/subsystem=undertow/application-security-domain=other:write-attribute(name=enable-jacc, value=true)
+/subsystem=undertow/application-security-domain=other:write-attribute(name=integrated-jaspi, value=false)
 /subsystem=elytron/policy=jacc:add(jacc-policy={})
+/subsystem=ee:write-attribute(name=global-modules,value=[{name=org.glassfish.soteria,services=true}])
 :reload
 ```
 
