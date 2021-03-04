@@ -7,6 +7,14 @@
 wildfly/bin/add-user.sh -a -g users -u joe -p joeIsAwesome2013%
 /subsystem=elytron/http-authentication-factory=example-http-auth:add(http-server-mechanism-factory=global,security-domain=ApplicationDomain,mechanism-configurations=[{mechanism-name=BASIC,mechanism-realm-configurations=[{realm-name=exampleApplicationDomain}]}])
 /subsystem=undertow/application-security-domain=UDomain:add(http-authentication-factory=example-http-auth)
+```                                                                                                       
+
+And to get Jakarta EE Security API available:
+``` 
+/subsystem=undertow/application-security-domain=UDomain:write-attribute(name=enable-jacc, value=true)
+/subsystem=undertow/application-security-domain=UDomain:write-attribute(name=integrated-jaspi, value=false)
+/subsystem=elytron/policy=jacc:add(jacc-policy={})
+:reload
 ```
 
 ## Deploy

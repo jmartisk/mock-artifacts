@@ -18,12 +18,10 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <surefire-plugin.version>2.22.1</surefire-plugin.version>
 
-        <microprofile-graphql.version>1.1</microprofile-graphql.version>
         <smallrye-graphql.version>1.0.19</smallrye-graphql.version>
-
-        <hibernate-validator.version>6.0.21.Final</hibernate-validator.version> <!-- TODO: import wildfly bom instead? -->
-        <cdi.version>2.0.2</cdi.version>
         <smallrye-mutiny.version>0.11.0</smallrye-mutiny.version>
+        <elytron.version>1.13.1.Final</elytron.version>
+        <jakarta-ee.api.version>8.0.0</jakarta-ee.api.version>
 
         <wildfly-plugin.version>2.0.2.Final</wildfly-plugin.version>
         <failOnMissingWebXml>false</failOnMissingWebXml>
@@ -56,15 +54,15 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>org.hibernate.validator</groupId>
-            <artifactId>hibernate-validator</artifactId>
-            <version>${hibernate-validator.version}</version>
+            <groupId>org.wildfly.security</groupId>
+            <artifactId>wildfly-elytron</artifactId>
+            <version>${elytron.version}</version>
             <scope>provided</scope>
-        </dependency>
+       </dependency>
         <dependency>
-            <groupId>jakarta.enterprise</groupId>
-            <artifactId>jakarta.enterprise.cdi-api</artifactId>
-            <version>${cdi.version}</version>
+            <groupId>jakarta.platform</groupId>
+            <artifactId>jakarta.jakartaee-api</artifactId>
+            <version>${jakarta-ee.api.version}</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>

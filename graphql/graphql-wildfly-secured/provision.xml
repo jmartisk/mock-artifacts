@@ -14,6 +14,8 @@
         <layers>
             <include name="cloud-profile"/>
             <include name="core-tools"/>
+            <include name="ee"/>
+            <include name="ee-security"/>
             <include name="microprofile-graphql"/>
         </layers>
     </config>

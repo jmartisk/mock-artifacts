@@ -1,4 +1,5 @@
 <web-app>
+    <!-- comment out the whole contents here to enable anonymous access to the graphql endpoint -->
     <security-constraint>
         <web-resource-collection>
             <web-resource-name>graphql</web-resource-name>

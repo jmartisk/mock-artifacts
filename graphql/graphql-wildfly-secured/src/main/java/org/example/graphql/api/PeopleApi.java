@@ -28,8 +28,9 @@ public class PeopleApi {
 
     private List<Person> database = new ArrayList<>();
 
+    // to check the user using EE Security API
     @Inject
-    private Principal principal;
+    javax.security.enterprise.SecurityContext securityContext;
 
     @PostConstruct
     void init() {
@@ -41,7 +42,18 @@ public class PeopleApi {
     @Query(value = "all")
     @Description("Retrieve all persons from the database")
     public Collection<Person> all() {
-        System.out.println("PRINCIPAL: " + principal.getName());
+
+        // to check the user using EE Security API
+        Principal callerPrincipal = securityContext.getCallerPrincipal();
+        System.out.println("EE API principal: " + (callerPrincipal != null ? callerPrincipal.getName() : "null"));
+
+        // to check the user using Elytron API
+        org.wildfly.security.auth.server.SecurityIdentity identity
+                = org.wildfly.security.auth.server.SecurityDomain.getCurrent().getCurrentSecurityIdentity();
+        System.out.println("Name: " + identity.getPrincipal().getName());
+        System.out.println("Roles:");
+        identity.getRoles().forEach(System.out::println);
+
         return database;
     }
 
