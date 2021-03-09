@@ -10,7 +10,7 @@ Or use curl:
 - To run a source query, `curl -H"Content-Type: application/json" -X POST localhost:8080/graphql/ -d @queries/generate-secret-tokens.txt`
 
 ## Metrics
-`curl localhost:8080/metrics/vendor | grep graphql`
+`curl -s localhost:8080/metrics/vendor | grep graphql`
 
 ## OpenTracing
 `docker run -p 5775:5775/udp -p 6831:6831/udp -p 6832:6832/udp -p 5778:5778 -p 16686:16686 -p 14268:14268 jaegertracing/all-in-one:1.17`
