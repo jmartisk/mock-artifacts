@@ -1,19 +1,20 @@
+import io.smallrye.graphql.client.core.Document;
 import io.smallrye.graphql.client.dynamic.api.DynamicGraphQLClient;
 import io.smallrye.graphql.client.dynamic.api.DynamicGraphQLClientBuilder;
 import io.vertx.core.Vertx;
-import org.eclipse.microprofile.graphql.client.core.Document;
 
 import javax.json.JsonObject;
 import java.util.concurrent.ExecutionException;
 
-import static org.eclipse.microprofile.graphql.client.core.Document.document;
-import static org.eclipse.microprofile.graphql.client.core.Field.field;
-import static org.eclipse.microprofile.graphql.client.core.Operation.operation;
+import static io.smallrye.graphql.client.core.Document.document;
+import static io.smallrye.graphql.client.core.Field.field;
+import static io.smallrye.graphql.client.core.Operation.operation;
+
 
 public class ClientMain {
 
     // Retrieve a list of countries. See https://github.com/trevorblades/countries
-    public static void main(String[] args) throws ExecutionException, InterruptedException {
+    public static void main(String[] args) {
         try (DynamicGraphQLClient client = DynamicGraphQLClientBuilder.newBuilder()
                 .url("https://countries.trevorblades.com")
                 .build()) {
