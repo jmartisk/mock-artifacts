@@ -1,7 +1,7 @@
 package org.example.graphql;
 
 import io.smallrye.common.annotation.Blocking;
-import io.smallrye.graphql.client.typesafe.api.GraphQlClientBuilder;
+import io.smallrye.graphql.client.typesafe.api.TypesafeGraphQLClientBuilder;
 import org.example.graphql.model.Person;
 
 import javax.inject.Inject;
@@ -30,7 +30,7 @@ public class ActionResource {
     @GET
     @Blocking
     public String callWithClient_manual() {
-        PeopleClientApi client = GraphQlClientBuilder.newBuilder().endpoint("http://localhost:8080/graphql").build(PeopleClientApi.class);
+        PeopleClientApi client = TypesafeGraphQLClientBuilder.newBuilder().endpoint("http://localhost:8080/graphql").build(PeopleClientApi.class);
         Collection<Person> people = client.all();
         for (Person person : people) {
             System.out.println(person.getName() + " : " + person.getGender());
