@@ -45,10 +45,6 @@
     </dependency>
 
     <!-- To enable tracing integration -->
-    <dependency>
-      <groupId>io.quarkus</groupId>
-      <artifactId>quarkus-smallrye-opentracing</artifactId>
-    </dependency>
 
     <!-- To enable bean validation -->
     <dependency>
