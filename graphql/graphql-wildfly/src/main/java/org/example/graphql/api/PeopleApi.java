@@ -1,6 +1,8 @@
 package org.example.graphql.api;
 
 import io.smallrye.graphql.api.Context;
+import io.smallrye.graphql.api.Subscription;
+import io.smallrye.mutiny.Multi;
 import io.smallrye.mutiny.Uni;
 import org.eclipse.microprofile.graphql.DefaultValue;
 import org.eclipse.microprofile.graphql.Description;
@@ -11,18 +13,19 @@ import org.eclipse.microprofile.graphql.Query;
 import org.eclipse.microprofile.graphql.Source;
 import org.example.graphql.model.Gender;
 import org.example.graphql.model.Person;
+import org.reactivestreams.Publisher;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.inject.Instance;
-import javax.enterprise.inject.spi.CDI;
 import javax.inject.Inject;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.ThreadLocalRandom;
+import java.util.concurrent.TimeUnit;
 import java.util.function.Supplier;
 
 @GraphQLApi
@@ -31,7 +34,8 @@ public class PeopleApi {
 
     private List<Person> database = new ArrayList<>();
 
-    @Inject  // use Instance to be able to get a new instance multiple times - Context is @Dependent and therefore not proxied
+    @Inject
+    // use Instance to be able to get a new instance multiple times - Context is @Dependent and therefore not proxied
     private Instance<Context> context;
 
     @PostConstruct
@@ -62,6 +66,23 @@ public class PeopleApi {
         return Uni.createFrom().item(supplier);
     }
 
+    @Subscription
+    public Publisher<Person> multi() {
+        System.out.println("Subscription requested!");
+        return subscriber -> {
+            for(int i = 0; i < 5; i++) {
+                subscriber.onNext(new Person(String.valueOf(i), Gender.OTHER));
+                try {
+                    TimeUnit.SECONDS.sleep(1);
+                }
+                catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            subscriber.onComplete();
+        };
+    }
+
     // To try out, see queries/mutation-create-person* files
     @Mutation(value = "create")
     @Description("Create a person")
@@ -80,7 +101,8 @@ public class PeopleApi {
         if (maskFirstPart) {
             return uuid.substring(0, uuid.length() - 4).replaceAll("[A-Za-z0-9]", "*")
                     + uuid.substring(uuid.length() - 4);
-        } else {
+        }
+        else {
             return uuid;
         }
     }
