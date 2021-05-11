@@ -2,7 +2,6 @@ package org.example.graphql.api;
 
 import io.smallrye.graphql.api.Context;
 import io.smallrye.graphql.api.Subscription;
-import io.smallrye.mutiny.Multi;
 import io.smallrye.mutiny.Uni;
 import org.eclipse.microprofile.graphql.DefaultValue;
 import org.eclipse.microprofile.graphql.Description;
@@ -17,14 +16,12 @@ import org.reactivestreams.Publisher;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
-import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
-import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Supplier;
 
@@ -35,8 +32,7 @@ public class PeopleApi {
     private List<Person> database = new ArrayList<>();
 
     @Inject
-    // use Instance to be able to get a new instance multiple times - Context is @Dependent and therefore not proxied
-    private Instance<Context> context;
+    private Context context;
 
     @PostConstruct
     void init() {
@@ -48,7 +44,7 @@ public class PeopleApi {
     @Query(value = "all")
     @Description("Retrieve all persons from the database")
     public Collection<Person> all() {
-        if (!context.get().getFieldName().equals("all")) {
+        if (!context.getFieldName().equals("all")) {
             throw new IllegalStateException("Context seems to not have been set correctly");
         }
         return database;
@@ -58,7 +54,7 @@ public class PeopleApi {
     @Description("Retrieve all persons from the database")
     public Uni<Collection<Person>> allUni() {
         Supplier<Collection<Person>> supplier = () -> {
-            if (!context.get().getFieldName().equals("allUni")) {
+            if (!context.getFieldName().equals("allUni")) {
                 throw new IllegalStateException("Context seems to not have been propagated correctly");
             }
             return database;
@@ -70,7 +66,7 @@ public class PeopleApi {
     public Publisher<Person> multi() {
         System.out.println("Subscription requested!");
         return subscriber -> {
-            for(int i = 0; i < 5; i++) {
+            for (int i = 0; i < 5; i++) {
                 subscriber.onNext(new Person(String.valueOf(i), Gender.OTHER));
                 try {
                     TimeUnit.SECONDS.sleep(1);
