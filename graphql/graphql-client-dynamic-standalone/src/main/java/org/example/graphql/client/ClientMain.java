@@ -29,6 +29,7 @@ public class ClientMain {
             System.out.println(response.getData().toString());
         } finally {
             client.close();
+            System.exit(0);
         }
     }
 }
