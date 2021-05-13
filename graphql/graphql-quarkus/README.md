@@ -8,7 +8,7 @@ Or use curl:
 - To run a query, `curl -H"Content-Type: application/json" -X POST localhost:8080/graphql/ -d @queries/query-all-persons.txt`
 - To run a mutation, `curl -H"Content-Type: application/json" -X POST localhost:8080/graphql/ -d @queries/mutation-create-person.txt`
 - To run a source query, `curl -H"Content-Type: application/json" -X POST localhost:8080/graphql/ -d @queries/generate-secret-tokens.txt`
-- Subscription: `wscat -w 30 -c "ws://localhost:8080/graphql" -x '{"query":"subscription a { multi { name } }","variables":null,"operationName":"a"}'`
+- Subscription: `wscat -w 30 -c "ws://localhost:8080/graphql" -x '{"query":"subscription { newPeople { name } }"}'`
 
 
 ## Metrics

@@ -1,5 +1,7 @@
 package org.example.graphql.api;
 
+import io.smallrye.graphql.api.Subscription;
+import io.smallrye.mutiny.Multi;
 import org.eclipse.microprofile.graphql.DefaultValue;
 import org.eclipse.microprofile.graphql.Description;
 import org.eclipse.microprofile.graphql.GraphQLApi;
@@ -12,6 +14,7 @@ import org.example.graphql.model.Person;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -23,10 +26,21 @@ public class PeopleApi {
 
     private List<Person> database = new ArrayList<>();
 
+    // a new random person is generated each second
+    private Multi<Person> newPersons;
+
     @PostConstruct
     void init() {
         database.add(new Person("david", Gender.MALE));
         database.add(new Person("jane", Gender.FEMALE));
+        newPersons = Multi.createFrom()
+                .ticks()
+                .every(Duration.ofMillis(1000))
+                .map(number -> new Person("person" + number, Gender.OTHER))
+                .invoke(person -> database.add(person))
+                .broadcast()
+                .toAllSubscribers();
+//        newPersons.subscribe().with(item -> { System.out.println("New person: " + item.getName()); });
     }
 
     // To try out, see queries/query-all-persons* files
@@ -36,20 +50,17 @@ public class PeopleApi {
         return database;
     }
 
-    // To try out, see queries/query-all-persons* files
-    @Query(value = "all2")
-    @Description("Retrieve all persons from the database")
-    public Collection<Person> all2_methodName() {
-        return database;
-    }
-
-
     // To try out, see queries/mutation-create-person* files
     @Mutation(value = "create")
     @Description("Create a person")
     public Person create_methodName(Person person) {
         database.add(person);
         return person;
+    }
+
+    @Subscription
+    public Multi<Person> newPeople() {
+        return newPersons;
     }
 
     // This effectively adds a "secretToken" field to the Person type. It is random and different each time it is requested.
@@ -62,7 +73,8 @@ public class PeopleApi {
         if (maskFirstPart) {
             return uuid.substring(0, uuid.length() - 4).replaceAll("[A-Za-z0-9]", "*")
                     + uuid.substring(uuid.length() - 4);
-        } else {
+        }
+        else {
             return uuid;
         }
     }

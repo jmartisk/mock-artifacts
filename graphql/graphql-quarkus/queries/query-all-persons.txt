@@ -1,7 +1,7 @@
 {
     "query": "{
         all {
-            name gender
+            name gender secretToken
         }
      }"
 }
