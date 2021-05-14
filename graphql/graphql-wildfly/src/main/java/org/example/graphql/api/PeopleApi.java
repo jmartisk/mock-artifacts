@@ -15,7 +15,7 @@ import org.example.graphql.model.Person;
 import org.reactivestreams.Publisher;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.validation.Valid;
 import java.util.ArrayList;
@@ -26,7 +26,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.function.Supplier;
 
 @GraphQLApi
-@RequestScoped
+@ApplicationScoped
 public class PeopleApi {
 
     private List<Person> database = new ArrayList<>();
