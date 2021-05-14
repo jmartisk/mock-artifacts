@@ -3,6 +3,8 @@ package org.example.graphql.api;
 import io.smallrye.graphql.api.Context;
 import io.smallrye.graphql.api.Subscription;
 import io.smallrye.mutiny.Uni;
+import io.smallrye.mutiny.helpers.Subscriptions;
+import io.smallrye.mutiny.helpers.test.AbstractSubscriber;
 import org.eclipse.microprofile.graphql.DefaultValue;
 import org.eclipse.microprofile.graphql.Description;
 import org.eclipse.microprofile.graphql.GraphQLApi;
@@ -66,16 +68,29 @@ public class PeopleApi {
     public Publisher<Person> multi() {
         System.out.println("Subscription requested!");
         return subscriber -> {
-            for (int i = 0; i < 5; i++) {
-                subscriber.onNext(new Person(String.valueOf(i), Gender.OTHER));
-                try {
-                    TimeUnit.SECONDS.sleep(1);
+            subscriber.onSubscribe(new org.reactivestreams.Subscription() {
+
+                int i = 0;
+
+                @Override
+                public void request(long l) {
+                    try {
+                        TimeUnit.SECONDS.sleep(1);
+                    }
+                    catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    if(i > 10) {
+                        subscriber.onComplete();
+                        return;
+                    }
+                    subscriber.onNext(new Person(String.valueOf(i++), Gender.OTHER));
                 }
-                catch (InterruptedException e) {
-                    throw new RuntimeException(e);
+
+                @Override
+                public void cancel() {
                 }
-            }
-            subscriber.onComplete();
+            });
         };
     }
 
