@@ -2,6 +2,7 @@ package org.example.graphql.api;
 
 import io.smallrye.graphql.api.Context;
 import io.smallrye.graphql.api.Subscription;
+import io.smallrye.mutiny.Multi;
 import io.smallrye.mutiny.Uni;
 import io.smallrye.mutiny.helpers.Subscriptions;
 import io.smallrye.mutiny.helpers.test.AbstractSubscriber;
@@ -20,6 +21,7 @@ import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.validation.Valid;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -33,6 +35,9 @@ public class PeopleApi {
 
     private List<Person> database = new ArrayList<>();
 
+    // a new random person is generated each second
+    private Multi<Person> newPersons;
+
     @Inject
     private Context context;
 
@@ -40,6 +45,13 @@ public class PeopleApi {
     void init() {
         database.add(new Person("david", Gender.MALE));
         database.add(new Person("jane", Gender.FEMALE));
+        newPersons = Multi.createFrom()
+                .ticks()
+                .every(Duration.ofMillis(1000))
+                .map(number -> new Person("person" + number, Gender.OTHER))
+                .invoke(person -> database.add(person))
+                .broadcast()
+                .toAllSubscribers();
     }
 
     // To try out, see queries/query-all-persons* files
@@ -65,33 +77,8 @@ public class PeopleApi {
     }
 
     @Subscription
-    public Publisher<Person> multi() {
-        System.out.println("Subscription requested!");
-        return subscriber -> {
-            subscriber.onSubscribe(new org.reactivestreams.Subscription() {
-
-                int i = 0;
-
-                @Override
-                public void request(long l) {
-                    try {
-                        TimeUnit.SECONDS.sleep(1);
-                    }
-                    catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    if(i > 10) {
-                        subscriber.onComplete();
-                        return;
-                    }
-                    subscriber.onNext(new Person(String.valueOf(i++), Gender.OTHER));
-                }
-
-                @Override
-                public void cancel() {
-                }
-            });
-        };
+    public Multi<Person> multi() {
+        return newPersons;
     }
 
     // To try out, see queries/mutation-create-person* files

@@ -40,6 +40,7 @@ public class PeopleApi {
                 .invoke(person -> database.add(person))
                 .broadcast()
                 .toAllSubscribers();
+        // optionally, show the generated persons in stdout
 //        newPersons.subscribe().with(item -> { System.out.println("New person: " + item.getName()); });
     }
 
