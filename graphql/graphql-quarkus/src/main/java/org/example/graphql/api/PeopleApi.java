@@ -35,7 +35,7 @@ public class PeopleApi {
         database.add(new Person("jane", Gender.FEMALE));
         newPersons = Multi.createFrom()
                 .ticks()
-                .every(Duration.ofMillis(1000))
+                .every(Duration.ofMillis(150))
                 .map(number -> new Person("person" + number, Gender.OTHER))
                 .invoke(person -> database.add(person))
                 .broadcast()
@@ -59,9 +59,20 @@ public class PeopleApi {
         return person;
     }
 
+    // one Multi shared by all clients
+    @Subscription
+    public Multi<Person> newPeopleShared() {
+        return newPersons;
+    }
+
+    // each client gets their own Multi
     @Subscription
     public Multi<Person> newPeople() {
-        return newPersons;
+        return Multi.createFrom()
+                .ticks()
+                .every(Duration.ofMillis(150))
+                .map(number -> new Person("person" + number, Gender.OTHER))
+                .invoke(person -> database.add(person));
     }
 
     // This effectively adds a "secretToken" field to the Person type. It is random and different each time it is requested.
@@ -71,6 +82,10 @@ public class PeopleApi {
                                       @DefaultValue("true")
                                       @Name("maskFirstPart") boolean maskFirstPart) {
         String uuid = UUID.randomUUID().toString();
+        // inserting an error?
+//        if(person.getName().endsWith("1")) {
+//            throw new RuntimeException("Unknown token");
+//        }
         if (maskFirstPart) {
             return uuid.substring(0, uuid.length() - 4).replaceAll("[A-Za-z0-9]", "*")
                     + uuid.substring(uuid.length() - 4);
