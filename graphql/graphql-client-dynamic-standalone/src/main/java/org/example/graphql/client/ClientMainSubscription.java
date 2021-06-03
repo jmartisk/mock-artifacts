@@ -8,7 +8,7 @@ import io.smallrye.graphql.client.dynamic.api.DynamicGraphQLClient;
 import io.smallrye.graphql.client.dynamic.api.DynamicGraphQLClientBuilder;
 import io.smallrye.mutiny.Multi;
 
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.CountDownLatch;
 
 import static io.smallrye.graphql.client.core.Document.document;
 import static io.smallrye.graphql.client.core.Field.field;
@@ -24,17 +24,30 @@ public class ClientMainSubscription {
             Document query = document(
                     operation(
                             OperationType.SUBSCRIPTION,
-                            field("multi",
+                            field("newPeople",
                                     field("name")
                             )
                     ));
+            final CountDownLatch FINISHED = new CountDownLatch(1);
             System.out.println("QUERY: " + query.build());
-            Multi<Response> subscribe = client.subscribe(query); // TODO: should the client lib perform the subscribe?
-            subscribe.subscribe().with(response -> {
-                System.out.println("RESPONSE: " + response.getData());
-                System.out.println(response.getErrors());
-            });
-            TimeUnit.SECONDS.sleep(30);
+            Multi<Response> events = client.subscription(query);
+            events.subscribe().with(
+                    // event handler
+                    response -> {
+                        System.out.println("RECEIVED EVENT: " + response);
+                    },
+                    // failure handler
+                    t -> {
+                        System.out.println("FAILED!");
+                        t.printStackTrace();
+                    },
+                    // close handler
+                    () -> {
+                        System.out.println("COMPLETE!");
+                        FINISHED.countDown();
+                    });
+
+            FINISHED.await();
         }
         catch (Exception e) {
             e.printStackTrace();
