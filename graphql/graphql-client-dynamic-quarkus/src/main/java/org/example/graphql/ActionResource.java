@@ -3,12 +3,17 @@ package org.example.graphql;
 import io.smallrye.graphql.client.NamedClient;
 import io.smallrye.graphql.client.Response;
 import io.smallrye.graphql.client.core.Document;
+import io.smallrye.graphql.client.core.OperationType;
 import io.smallrye.graphql.client.dynamic.api.DynamicGraphQLClient;
 import io.smallrye.graphql.client.dynamic.api.DynamicGraphQLClientBuilder;
+import io.smallrye.mutiny.Multi;
+import org.jboss.resteasy.reactive.RestSseElementType;
 
 import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 import java.util.concurrent.ExecutionException;
 
 import static io.smallrye.graphql.client.core.Document.document;
@@ -47,6 +52,25 @@ public class ActionResource {
         );
         Response response = client.executeSync(query);
         return response.getData().toString();
+    }
+
+    /**
+     * This requests a subscription over a websocket, and basically translates that websocket
+     * to server sent events.
+     */
+    @Path("/subscription")
+    @GET
+    @Produces(MediaType.SERVER_SENT_EVENTS)
+    @RestSseElementType(MediaType.TEXT_PLAIN)
+    public Multi<String> subscription() {
+        Document query = document(
+                operation(
+                        OperationType.SUBSCRIPTION,
+                        field("newPeopleShared", field("name"))
+                )
+        );
+        return client.subscription(query)
+                .map(Response::toString);
     }
 
 }
