@@ -126,5 +126,6 @@
             </build>
 
         </profile>
+   </profiles>
 
 </project>
