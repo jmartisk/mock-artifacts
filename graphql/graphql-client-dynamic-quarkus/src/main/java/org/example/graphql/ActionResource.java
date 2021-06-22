@@ -1,6 +1,6 @@
 package org.example.graphql;
 
-import io.smallrye.graphql.client.NamedClient;
+import io.smallrye.graphql.client.GraphQLClient;
 import io.smallrye.graphql.client.Response;
 import io.smallrye.graphql.client.core.Document;
 import io.smallrye.graphql.client.core.OperationType;
@@ -24,7 +24,7 @@ import static io.smallrye.graphql.client.core.Operation.operation;
 public class ActionResource {
 
     @Inject
-    @NamedClient("people")
+    @GraphQLClient("people")
     DynamicGraphQLClient client;
 
     @Path("/injected")
