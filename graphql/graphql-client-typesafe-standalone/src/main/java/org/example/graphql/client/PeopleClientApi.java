@@ -5,7 +5,7 @@ import org.example.graphql.client.model.Person;
 
 import java.util.Collection;
 
-@io.smallrye.graphql.client.typesafe.api.GraphQlClientApi
+@io.smallrye.graphql.client.typesafe.api.GraphQLClientApi
 public interface PeopleClientApi {
 
     @Query(value = "all")
