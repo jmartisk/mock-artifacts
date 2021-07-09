@@ -1,6 +1,6 @@
-{"query": "mutation createPerson {
+{"query": "mutation createPerson($name: String) {
   create(person: {
-            name: \"Frunubucator\",
+            name: $name,
             gender: OTHER
          }){
             gender
