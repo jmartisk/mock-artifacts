@@ -1,6 +1,6 @@
 package org.example.graphql.client.rest;
 
-import io.smallrye.graphql.client.typesafe.api.GraphQlClientBuilder;
+import io.smallrye.graphql.client.typesafe.api.TypesafeGraphQLClientBuilder;
 import org.example.graphql.client.api.PeopleClientApi;
 import org.example.graphql.client.model.Person;
 
@@ -19,7 +19,7 @@ public class ClientWrappingApplication {
         Integer port = Integer.getInteger("port", 8080);
         String url = "http://localhost:" + port + "/graphql";
         System.out.println("Using URL " + url);
-        PeopleClientApi client = GraphQlClientBuilder.newBuilder()
+        PeopleClientApi client = TypesafeGraphQLClientBuilder.newBuilder()
                 .endpoint(url)
                 .build(PeopleClientApi.class);
         return client.getAll();
