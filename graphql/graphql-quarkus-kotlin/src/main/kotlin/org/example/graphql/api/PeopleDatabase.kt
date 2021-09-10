@@ -4,7 +4,7 @@ import org.example.graphql.model.Person
 
 object PeopleDatabase {
 
-    val people: MutableList<Person> = mutableListOf()
+    private val people: MutableList<Person> = mutableListOf()
 
     fun add(person: Person) {
         people.add(person)
