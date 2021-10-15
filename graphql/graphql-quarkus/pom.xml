@@ -90,6 +90,21 @@
           </systemProperties>
         </configuration>
       </plugin>
+      <!-- TODO: enable after solving the issue with Mutiny API being present -->
+      <!--<plugin>
+        <artifactId>smallrye-graphql-maven-plugin</artifactId>
+        <groupId>io.smallrye</groupId>
+        <version>1.3.5-SNAPSHOT</version>
+        <executions>
+          <execution>
+            <id>generate-graphql-schema</id>
+            <phase>compile</phase>
+            <goals>
+              <goal>generate-schema</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>-->
     </plugins>
   </build>
   <profiles>
