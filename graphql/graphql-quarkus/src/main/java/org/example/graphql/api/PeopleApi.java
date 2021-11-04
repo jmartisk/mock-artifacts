@@ -2,6 +2,7 @@ package org.example.graphql.api;
 
 import io.smallrye.graphql.api.Subscription;
 import io.smallrye.mutiny.Multi;
+import io.smallrye.mutiny.Uni;
 import org.eclipse.microprofile.graphql.DefaultValue;
 import org.eclipse.microprofile.graphql.Description;
 import org.eclipse.microprofile.graphql.GraphQLApi;
@@ -19,6 +20,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.ThreadLocalRandom;
+import java.util.concurrent.TimeUnit;
 
 @GraphQLApi
 @ApplicationScoped
@@ -59,6 +62,13 @@ public class PeopleApi {
         return person;
     }
 
+    @Query(value = "uni")
+    public Uni<Person> randomPerson() throws InterruptedException {
+        TimeUnit.SECONDS.sleep(2);
+        return Uni.createFrom()
+            .item(new Person("random" + ThreadLocalRandom.current().nextInt(2000), Gender.MALE));
+    }
+
     // one Multi shared by all clients
     @Subscription
     public Multi<Person> newPeopleShared() {
@@ -68,6 +78,7 @@ public class PeopleApi {
     // each client gets their own Multi
     @Subscription
     public Multi<Person> newPeople() {
+//        return Multi.createFrom().failure(new RuntimeException("blabla"));       // if failure is desired
         return Multi.createFrom()
                 .ticks()
                 .every(Duration.ofMillis(150))
