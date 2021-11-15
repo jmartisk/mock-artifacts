@@ -1,10 +1,12 @@
 package org.example.graphql;
 
 import io.smallrye.common.annotation.Blocking;
+import io.smallrye.graphql.client.typesafe.api.ErrorOr;
 import io.smallrye.graphql.client.typesafe.api.TypesafeGraphQLClientBuilder;
 import io.smallrye.mutiny.Multi;
 import io.smallrye.mutiny.Uni;
 import org.example.graphql.model.Person;
+import org.example.graphql.model.PersonWithSourceError;
 import org.jboss.resteasy.annotations.SseElementType;
 
 import javax.inject.Inject;
@@ -39,6 +41,15 @@ public class ActionResource {
     public Multi<String> callWithClient_injected_subscription() {
         Multi<Person> multi = client.newPeople();
         return multi.map(Object::toString);
+    }
+
+    @Path("/subscription-with-source-error")
+    @GET
+    @SseElementType(value = "text/plain")
+    @Produces(MediaType.SERVER_SENT_EVENTS)
+    public Multi<String> subscription_withSourceError() {
+        Multi<PersonWithSourceError> multi = client.newPeopleWithSourceError();
+        return multi.map(PersonWithSourceError::toString);
     }
 
     @Path("/uni")

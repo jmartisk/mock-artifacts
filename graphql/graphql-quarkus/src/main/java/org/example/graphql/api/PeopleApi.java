@@ -80,10 +80,13 @@ public class PeopleApi {
     public Multi<Person> newPeople() {
 //        return Multi.createFrom().failure(new RuntimeException("blabla"));       // if failure is desired
         return Multi.createFrom()
-                .ticks()
-                .every(Duration.ofMillis(150))
-                .map(number -> new Person("person" + number, Gender.OTHER))
-                .invoke(person -> database.add(person));
+            .ticks()
+            .every(Duration.ofMillis(150))
+            .map(number -> new Person("person" + number, Gender.OTHER))
+            .invoke(person -> {
+                System.out.println("Generating person: " + person);
+                database.add(person);
+            });
     }
 
     // This effectively adds a "secretToken" field to the Person type. It is random and different each time it is requested.
@@ -93,10 +96,6 @@ public class PeopleApi {
                                       @DefaultValue("true")
                                       @Name("maskFirstPart") boolean maskFirstPart) {
         String uuid = UUID.randomUUID().toString();
-        // inserting an error?
-//        if(person.getName().endsWith("1")) {
-//            throw new RuntimeException("Unknown token");
-//        }
         if (maskFirstPart) {
             return uuid.substring(0, uuid.length() - 4).replaceAll("[A-Za-z0-9]", "*")
                     + uuid.substring(uuid.length() - 4);
@@ -104,6 +103,11 @@ public class PeopleApi {
         else {
             return uuid;
         }
+    }
+
+    @Name("error")
+    public String addSourceError(@Source Person person) {
+        throw new RuntimeException("Error!");
     }
 
 }
