@@ -20,6 +20,8 @@ psql -h localhost -p 5432 -U postgres -f import-data.sql
 
 ## Run the client
 
+### Manually using wscat
+
 ### Typesafe client
 
 ### Dynamic client
