@@ -7,7 +7,7 @@ import io.smallrye.mutiny.Multi;
 import java.io.Closeable;
 import java.util.List;
 
-@GraphQLClientApi
+@GraphQLClientApi(configKey = "TYPESAFE")
 public interface PersonApi extends Closeable {
 
     @Subscription
