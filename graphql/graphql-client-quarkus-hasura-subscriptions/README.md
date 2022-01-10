@@ -21,15 +21,23 @@ psql -h localhost -p 5432 -U postgres -f import-data.sql
 ## Run the client
 
 ### Manually using wscat
+TODO
 
 ### Typesafe client
+```
+curl localhost:8080/typesafe/start
+curl localhost:8080/typesafe/stop
+```
 
 ### Dynamic client
 
 ## Do changes to the database to receive them by the client
+```
+psql -h localhost -p 5432 -U postgres -f generate-event.sql
+```
 
 ## Cleanup
 ```
-psql -h localhost -p 5432 -U postgres -f clear-data.sql
+psql -h localhost -p 5432 -U postgres -f clear-data.sql # not necessary though if you want to keep the data for next time
 podman-compose down
 ```

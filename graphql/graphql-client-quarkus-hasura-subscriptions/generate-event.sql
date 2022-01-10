@@ -1,0 +1,1 @@
+UPDATE "public"."person" SET age = age + 1;

@@ -3,6 +3,7 @@ package org.example.graphql;
 import io.smallrye.graphql.client.typesafe.api.TypesafeGraphQLClientBuilder;
 import io.smallrye.graphql.client.websocket.WebsocketSubprotocol;
 import io.smallrye.mutiny.Multi;
+import io.smallrye.mutiny.subscription.Cancellable;
 import org.jboss.logging.Logger;
 
 import javax.ws.rs.GET;
@@ -15,6 +16,7 @@ public class EntryPoint {
     private Logger logger = Logger.getLogger(EntryPoint.class);
 
     private PersonApi typesafeClient;
+    private Cancellable typesafeClientSubscription;
     private Multi<List<Person>> personMulti;
 
     @Path("/typesafe/start")
@@ -25,7 +27,7 @@ public class EntryPoint {
             .subprotocols(WebsocketSubprotocol.GRAPHQL_TRANSPORT_WS)
             .build(PersonApi.class);
         personMulti = typesafeClient.person();
-        personMulti.subscribe().with(list -> {
+        typesafeClientSubscription = personMulti.subscribe().with(list -> {
             logger.info("Typesafe client received: " + list);
         }, failure -> {
             System.out.println("APPLICATION RECEIVED A FAILURE");
@@ -33,10 +35,9 @@ public class EntryPoint {
         });
     }
 
-    // TODO: this should do typesafeClient.close or something
-//    @Path("/typesafe/stop")
-//    @GET
-//    public void stopTypesafeClient() {
-//
-//    }
+    @Path("/typesafe/stop")
+    @GET
+    public void stopTypesafeClient() {
+        typesafeClientSubscription.cancel();
+    }
 }
