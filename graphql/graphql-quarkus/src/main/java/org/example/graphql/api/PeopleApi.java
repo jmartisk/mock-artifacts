@@ -75,13 +75,22 @@ public class PeopleApi {
         return newPersons;
     }
 
+    @Subscription
+    public Multi<Person> failingMulti() {
+        return Multi.createFrom().failure(new RuntimeException("blabla"));
+    }
+
+    @Subscription
+    public Multi<Person> singleResultMulti() {
+        return Multi.createFrom().item(new Person("Elsa", Gender.FEMALE));
+    }
+
     // each client gets their own Multi
     @Subscription
     public Multi<Person> newPeople() {
-//        return Multi.createFrom().failure(new RuntimeException("blabla"));       // if failure is desired
         return Multi.createFrom()
             .ticks()
-            .every(Duration.ofMillis(150))
+            .every(Duration.ofMillis(1000))
             .map(number -> new Person("person" + number, Gender.OTHER))
             .invoke(person -> {
                 System.out.println("Generating person: " + person);

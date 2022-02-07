@@ -14,5 +14,3 @@ Run the server side using the `../graphql-quarkus` project.
 - `curl localhost:4444/dynamic/query`
 - `curl localhost:4444/dynamic/subscription/start`
 - `curl localhost:4444/dynamic/subscription/stop`
-
-## TODO: add commands for manual execution using wscat

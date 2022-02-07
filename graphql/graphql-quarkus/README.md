@@ -17,3 +17,17 @@ Or use curl:
 ## OpenTracing
 `docker run -p 5775:5775/udp -p 6831:6831/udp -p 6832:6832/udp -p 5778:5778 -p 16686:16686 -p 14268:14268 jaegertracing/all-in-one:1.17`
 Look at http://localhost:16686
+
+
+## Using websocket transport through wscat
+```
+wscat -w 300 -P -s graphql-transport-ws -c "ws://localhost:8080/graphql"
+{"type":"connection_init"}
+
+# Query
+{"type":"subscribe","id":"q","payload":{"query":"{all{name gender secretToken}}"}}
+
+# Subscription
+{"type":"subscribe","id":"1","payload":{"query":"subscription newPeople { newPeople {name gender} }","operationName":"newPeople","variables":{}}}
+{"id":"1","type":"complete"}
+```
