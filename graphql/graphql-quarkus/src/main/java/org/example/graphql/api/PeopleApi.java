@@ -38,7 +38,7 @@ public class PeopleApi {
         database.add(new Person("jane", Gender.FEMALE));
         newPersons = Multi.createFrom()
                 .ticks()
-                .every(Duration.ofMillis(150))
+                .every(Duration.ofMillis(1000))
                 .map(number -> new Person("person" + number, Gender.OTHER))
                 .invoke(person -> database.add(person))
                 .broadcast()
