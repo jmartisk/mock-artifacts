@@ -52,6 +52,18 @@ public class TypesafeResource {
         subscription.cancel();
     }
 
+    @Path("/subscription/failing")
+    @GET
+    public void subscriptionFailing() {
+        client.failingMulti().subscribe().with(item -> {
+            LOG.info("Typesafe client received: " + item);
+        }, failure -> {
+            LOG.warn("Typesafe client received failure", failure);
+        }, () -> {
+            LOG.info("Typesafe client's subscription finished");
+        });
+    }
+
     // TODO
 //    @Path("/subscription-with-source-error")
 //    @GET

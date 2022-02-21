@@ -25,4 +25,7 @@ public interface PeopleClientApi {
     @Query(value = "uni")
     Uni<Person> randomPerson();
 
+    @Subscription
+    Multi<Person> failingMulti();
+
 }
