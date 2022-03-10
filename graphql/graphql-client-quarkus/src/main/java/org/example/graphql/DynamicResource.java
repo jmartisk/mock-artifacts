@@ -12,6 +12,9 @@ import org.jboss.logging.Logger;
 import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 import static io.smallrye.graphql.client.core.Document.document;
@@ -39,6 +42,12 @@ public class DynamicResource {
         System.out.println(response);
     }
 
+    @Path("/query-text")
+    @GET
+    public void querytext() throws ExecutionException, InterruptedException {
+        Response response = client.executeSync("query($namePrefix:String) {all(nameStartsWith: $namePrefix) {name}}", Collections.singletonMap("namePrefix", "d"));
+        System.out.println(response);
+    }
 
     Cancellable subscription;
 

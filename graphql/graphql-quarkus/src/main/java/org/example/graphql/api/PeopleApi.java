@@ -22,6 +22,7 @@ import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 @GraphQLApi
 @ApplicationScoped
@@ -50,8 +51,8 @@ public class PeopleApi {
     // To try out, see queries/query-all-persons* files
     @Query(value = "all")
     @Description("Retrieve all persons from the database")
-    public Collection<Person> all_methodName() {
-        return database;
+    public Collection<Person> all_methodName(@DefaultValue("") String nameStartsWith) {
+        return database.stream().filter(person -> person.getName().startsWith(nameStartsWith)).collect(Collectors.toList());
     }
 
     // To try out, see queries/mutation-create-person* files
