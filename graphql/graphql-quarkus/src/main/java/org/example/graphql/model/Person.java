@@ -1,10 +1,10 @@
 package org.example.graphql.model;
 
-import org.hibernate.validator.constraints.Length;
+import javax.validation.constraints.Size;
 
 public class Person {
 
-    @Length(min = 8)
+    @Size(min = 4)
     private String name;
 
     private Gender gender;
