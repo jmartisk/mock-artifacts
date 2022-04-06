@@ -16,6 +16,8 @@
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <surefire-plugin.version>2.22.1</surefire-plugin.version>
     <quarkus.version>999-SNAPSHOT</quarkus.version>
+    <!-- FIXME: can this come from quarkus bom?? -->
+    <smallrye-graphql-maven-plugin.version>1.4.4</smallrye-graphql-maven-plugin.version>
   </properties>
 
    <dependencyManagement>
@@ -95,11 +97,10 @@
           </systemProperties>
         </configuration>
       </plugin>
-      <!-- TODO: enable after solving the issue with Mutiny API being present -->
-      <!--<plugin>
+     <!-- <plugin>
         <artifactId>smallrye-graphql-maven-plugin</artifactId>
         <groupId>io.smallrye</groupId>
-        <version>1.3.5-SNAPSHOT</version>
+        <version>${smallrye-graphql-maven-plugin.version}</version>
         <executions>
           <execution>
             <id>generate-graphql-schema</id>

@@ -15,6 +15,7 @@ import org.example.graphql.model.Person;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
+import javax.validation.constraints.Size;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -39,7 +40,7 @@ public class PeopleApi {
         database.add(new Person("jane", Gender.FEMALE));
         newPersons = Multi.createFrom()
                 .ticks()
-                .every(Duration.ofMillis(1000))
+                .every(Duration.ofMillis(2000))
                 .map(number -> new Person("person" + number, Gender.OTHER))
                 .invoke(person -> database.add(person))
                 .broadcast()
@@ -61,6 +62,11 @@ public class PeopleApi {
     public Person create_methodName(Person person) {
         database.add(person);
         return person;
+    }
+
+    @Query
+    public String queryWithConstrainedParameter(@Size(max = 9) String constrained) {
+        return null;
     }
 
     @Query(value = "uni")
@@ -91,7 +97,7 @@ public class PeopleApi {
     public Multi<Person> newPeople() {
         return Multi.createFrom()
             .ticks()
-            .every(Duration.ofMillis(1000))
+            .every(Duration.ofMillis(2000))
             .map(number -> new Person("person" + number, Gender.OTHER))
             .invoke(person -> {
                 System.out.println("Generating person: " + person);
