@@ -1,0 +1,45 @@
+plugins {
+    id 'java'
+    id 'io.quarkus'
+    id "io.smallrye.graphql" version "${smallRyeGraphQLPluginVersion}"
+}
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+}
+
+dependencies {
+    implementation enforcedPlatform("${quarkusPlatformGroupId}:${quarkusPlatformArtifactId}:${quarkusPlatformVersion}")
+    implementation 'io.quarkus:quarkus-smallrye-graphql'
+    implementation 'io.quarkus:quarkus-hibernate-validator'
+    testImplementation 'io.quarkus:quarkus-smallrye-graphql-client'
+    testImplementation 'io.quarkus:quarkus-junit5'
+    testImplementation 'io.rest-assured:rest-assured'
+}
+
+group 'my-groupId'
+version '1.0.0-SNAPSHOT'
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+}
+
+compileJava {
+    options.encoding = 'UTF-8'
+    options.compilerArgs << '-parameters'
+}
+
+// generate schema automatically during build
+jar.dependsOn generateSchema
+
+compileTestJava {
+    options.encoding = 'UTF-8'
+}
+
+// this will go to build/generated/schema.graphql
+generateSchema {
+    includeTransitiveDependencies = true
+    includeScalars = true
+}

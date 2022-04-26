@@ -16,7 +16,7 @@
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <surefire-plugin.version>2.22.1</surefire-plugin.version>
     <quarkus.version>999-SNAPSHOT</quarkus.version>
-    <!-- FIXME: can this come from quarkus bom?? -->
+    <!-- Can this version come from quarkus bom? Probably not, because we don't productize this plugin?! -->
     <smallrye-graphql-maven-plugin.version>1.4.4</smallrye-graphql-maven-plugin.version>
   </properties>
 
@@ -97,7 +97,7 @@
           </systemProperties>
         </configuration>
       </plugin>
-     <!-- <plugin>
+      <plugin>
         <artifactId>smallrye-graphql-maven-plugin</artifactId>
         <groupId>io.smallrye</groupId>
         <version>${smallrye-graphql-maven-plugin.version}</version>
@@ -110,7 +110,7 @@
             </goals>
           </execution>
         </executions>
-      </plugin>-->
+      </plugin>
     </plugins>
   </build>
   <profiles>

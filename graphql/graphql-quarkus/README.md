@@ -1,5 +1,6 @@
 ## Run
-`mvn quarkus:dev`
+`mvn quarkus:dev` OR
+`gradle quarkusDev`
 
 ## Query
 Use GraphiQL interface at `http://localhost:8080/graphql-ui`
@@ -31,3 +32,8 @@ wscat -w 300 -P -s graphql-transport-ws -c "ws://localhost:8080/graphql"
 {"type":"subscribe","id":"1","payload":{"query":"subscription newPeople { newPeople {name gender} }","operationName":"newPeople","variables":{}}}
 {"id":"1","type":"complete"}
 ```
+                                           
+
+## Schema
+GraphQL schema will appear after build in `target/generated/schema.graphql`.
+With Gradle, this is `build/generated/schema.graphql`
