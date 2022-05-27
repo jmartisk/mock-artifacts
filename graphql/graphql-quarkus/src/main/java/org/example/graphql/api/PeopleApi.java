@@ -1,5 +1,6 @@
 package org.example.graphql.api;
 
+import io.smallrye.common.annotation.NonBlocking;
 import io.smallrye.graphql.api.Subscription;
 import io.smallrye.mutiny.Multi;
 import io.smallrye.mutiny.Uni;
@@ -53,6 +54,7 @@ public class PeopleApi {
     @Query(value = "all")
     @Description("Retrieve all persons from the database")
     public Collection<Person> all_methodName(@DefaultValue("") String nameStartsWith) {
+        System.out.println("Query 'all' is executing on thread " + Thread.currentThread().getName());
         return database.stream().filter(person -> person.getName().startsWith(nameStartsWith)).collect(Collectors.toList());
     }
 
@@ -100,7 +102,7 @@ public class PeopleApi {
             .every(Duration.ofMillis(2000))
             .map(number -> new Person("person" + number, Gender.OTHER))
             .invoke(person -> {
-                System.out.println("Generating person: " + person);
+                System.out.println(Thread.currentThread().getName() + ": generating person: " + person);
                 database.add(person);
             });
     }
