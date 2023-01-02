@@ -1,5 +1,5 @@
 ///usr/bin/env jbang "$0" "$@" ; exit $?
-//DEPS io.smallrye:smallrye-graphql-client-implementation-vertx:2.0.0.RC3
+//DEPS io.smallrye:smallrye-graphql-client-implementation-vertx:2.0.0
 
 import io.smallrye.graphql.client.dynamic.api.DynamicGraphQLClientBuilder;
 import io.smallrye.graphql.client.dynamic.api.DynamicGraphQLClient;
