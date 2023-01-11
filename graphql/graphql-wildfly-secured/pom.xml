@@ -20,7 +20,7 @@
 
         <smallrye-graphql.version>1.0.19</smallrye-graphql.version>
         <smallrye-mutiny.version>0.11.0</smallrye-mutiny.version>
-        <elytron.version>1.13.1.Final</elytron.version>
+        <elytron.version>1.15.5.Final</elytron.version>
         <jakarta-ee.api.version>8.0.0</jakarta-ee.api.version>
 
         <wildfly-plugin.version>2.0.2.Final</wildfly-plugin.version>
