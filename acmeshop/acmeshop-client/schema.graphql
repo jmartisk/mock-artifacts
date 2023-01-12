@@ -1,0 +1,68 @@
+type Customer {
+  id: BigInteger
+  name: String
+  orders: [ShopOrder]
+}
+
+"Mutation root"
+type Mutation {
+  createCustomer(customer: CustomerInput): Customer
+  createOrder(customerId: BigInteger, itemInput: [OrderItemInputInput]): ShopOrder
+}
+
+type OrderItem {
+  id: BigInteger
+  product: Product
+  quantity: Int
+}
+
+type Product {
+  id: BigInteger
+  name: String
+}
+
+"Query root"
+type Query {
+  customers: [Customer]
+  orders: [ShopOrder]
+  products: [Product]
+}
+
+type ShopOrder {
+  id: BigInteger
+  items: [OrderItem]
+  user: Customer
+}
+
+"Subscription root"
+type Subscription {
+  newOrders: ShopOrder
+}
+
+input CustomerInput {
+  id: BigInteger
+  name: String
+  orders: [ShopOrderInput]
+}
+
+input OrderItemInput {
+  id: BigInteger
+  product: ProductInput
+  quantity: Int
+}
+
+input OrderItemInputInput {
+  productId: BigInteger
+  quantity: Int
+}
+
+input ProductInput {
+  id: BigInteger
+  name: String
+}
+
+input ShopOrderInput {
+  id: BigInteger
+  items: [OrderItemInput]
+  user: CustomerInput
+}
