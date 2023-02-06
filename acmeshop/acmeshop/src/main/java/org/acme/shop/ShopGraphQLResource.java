@@ -12,9 +12,9 @@ import org.eclipse.microprofile.graphql.GraphQLApi;
 import org.eclipse.microprofile.graphql.Mutation;
 import org.eclipse.microprofile.graphql.Query;
 
-import javax.annotation.PostConstruct;
-import javax.transaction.Transactional;
-import javax.validation.Valid;
+import jakarta.annotation.PostConstruct;
+import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
 import java.util.List;
 
 @GraphQLApi
