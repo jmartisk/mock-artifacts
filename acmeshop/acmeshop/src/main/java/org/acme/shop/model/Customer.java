@@ -2,9 +2,9 @@ package org.acme.shop.model;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.validation.constraints.Size;
+import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 

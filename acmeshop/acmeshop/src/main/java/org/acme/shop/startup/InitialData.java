@@ -5,8 +5,8 @@ import org.acme.shop.model.Customer;
 import org.acme.shop.model.ShopOrder;
 import org.acme.shop.model.Product;
 
-import javax.enterprise.event.Observes;
-import javax.transaction.Transactional;
+import jakarta.enterprise.event.Observes;
+import jakarta.transaction.Transactional;
 
 public class InitialData {
 
