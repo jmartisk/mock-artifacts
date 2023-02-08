@@ -10,7 +10,7 @@ import io.smallrye.mutiny.subscription.Cancellable;
 import picocli.CommandLine;
 import picocli.CommandLine.Command;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 
 import java.io.IOException;
 import java.util.concurrent.ExecutionException;
