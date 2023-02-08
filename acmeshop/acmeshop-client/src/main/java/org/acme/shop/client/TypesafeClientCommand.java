@@ -2,23 +2,14 @@ package org.acme.shop.client;
 
 import io.quarkus.logging.Log;
 import io.smallrye.graphql.client.GraphQLClient;
-import io.smallrye.graphql.client.Response;
-import io.smallrye.graphql.client.core.Document;
-import io.smallrye.graphql.client.core.OperationType;
-import io.smallrye.graphql.client.dynamic.api.DynamicGraphQLClient;
 import io.smallrye.mutiny.subscription.Cancellable;
 import org.acme.shop.client.model.Customer;
 import picocli.CommandLine;
 import picocli.CommandLine.Command;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 import java.io.IOException;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
-
-import static io.smallrye.graphql.client.core.Document.document;
-import static io.smallrye.graphql.client.core.Field.field;
-import static io.smallrye.graphql.client.core.Operation.operation;
 
 @Command(name = "typesafe", mixinStandardHelpOptions = true)
 public class TypesafeClientCommand implements Runnable {
