@@ -1,3 +1,6 @@
+# Required version
+Build pr version of smallrye graphql locally https://github.com/smallrye/smallrye-graphql/pull/1898
+
 ## Supergraph file
 
 The supergraph.graphql file is composed via rover. Download rover by running
@@ -24,7 +27,7 @@ curl -sSL https://router.apollo.dev/download/nix/latest | sh
 Then start the router with:
 
 ```
-router --dev --supergraph supergraph/supergraph.graphql
+./router --dev --supergraph supergraph/supergraph.graphql
 ```
 
 Then, the federated service should be running on localhost:4000
