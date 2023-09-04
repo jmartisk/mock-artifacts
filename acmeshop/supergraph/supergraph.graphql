@@ -1,0 +1,150 @@
+schema
+  @link(url: "https://specs.apollo.dev/link/v1.0")
+  @link(url: "https://specs.apollo.dev/join/v0.3", for: EXECUTION)
+{
+  query: Query
+  mutation: Mutation
+  subscription: Subscription
+}
+
+directive @join__enumValue(graph: join__Graph!) repeatable on ENUM_VALUE
+
+directive @join__field(graph: join__Graph, requires: join__FieldSet, provides: join__FieldSet, type: String, external: Boolean, override: String, usedOverridden: Boolean) repeatable on FIELD_DEFINITION | INPUT_FIELD_DEFINITION
+
+directive @join__graph(name: String!, url: String!) on ENUM_VALUE
+
+directive @join__implements(graph: join__Graph!, interface: String!) repeatable on OBJECT | INTERFACE
+
+directive @join__type(graph: join__Graph!, key: join__FieldSet, extension: Boolean! = false, resolvable: Boolean! = true, isInterfaceObject: Boolean! = false) repeatable on OBJECT | INTERFACE | UNION | ENUM | INPUT_OBJECT | SCALAR
+
+directive @join__unionMember(graph: join__Graph!, member: String!) repeatable on UNION
+
+directive @link(url: String, as: String, for: link__Purpose, import: [link__Import]) repeatable on SCHEMA
+
+"""Scalar for BigDecimal"""
+scalar BigDecimal
+  @join__type(graph: ACMESHOP)
+  @join__type(graph: ADDONS)
+
+"""Scalar for BigInteger"""
+scalar BigInteger
+  @join__type(graph: ACMESHOP)
+  @join__type(graph: ADDONS)
+
+type Customer
+  @join__type(graph: ACMESHOP, key: "id")
+  @join__type(graph: ADDONS, key: "id")
+{
+  id: BigInteger
+  name: String @join__field(graph: ACMESHOP)
+  orders: [ShopOrder] @join__field(graph: ACMESHOP)
+  password: String @join__field(graph: ADDONS)
+}
+
+input CustomerInput
+  @join__type(graph: ACMESHOP)
+{
+  id: BigInteger
+  name: String
+  orders: [ShopOrderInput]
+}
+
+scalar join__FieldSet
+
+enum join__Graph {
+  ACMESHOP @join__graph(name: "acmeshop", url: "http://localhost:8080/graphql")
+  ADDONS @join__graph(name: "addons", url: "http://localhost:8081/graphql")
+}
+
+scalar link__Import
+
+enum link__Purpose {
+  """
+  `SECURITY` features provide metadata necessary to securely resolve fields.
+  """
+  SECURITY
+
+  """
+  `EXECUTION` features provide metadata necessary for operation execution.
+  """
+  EXECUTION
+}
+
+"""Mutation root"""
+type Mutation
+  @join__type(graph: ACMESHOP)
+{
+  createCustomer(customer: CustomerInput): Customer
+  createOrder(customerId: BigInteger, itemInput: [OrderItemInputInput]): ShopOrder
+}
+
+type OrderItem
+  @join__type(graph: ACMESHOP)
+{
+  id: BigInteger
+  product: Product
+  quantity: Int
+}
+
+input OrderItemInput
+  @join__type(graph: ACMESHOP)
+{
+  id: BigInteger
+  product: ProductInput
+  quantity: Int
+}
+
+input OrderItemInputInput
+  @join__type(graph: ACMESHOP)
+{
+  productId: BigInteger
+  quantity: Int
+}
+
+type Product
+  @join__type(graph: ACMESHOP)
+{
+  id: BigInteger
+  name: String
+}
+
+input ProductInput
+  @join__type(graph: ACMESHOP)
+{
+  id: BigInteger
+  name: String
+}
+
+"""Query root"""
+type Query
+  @join__type(graph: ACMESHOP)
+  @join__type(graph: ADDONS)
+{
+  customers: [Customer] @join__field(graph: ACMESHOP)
+  orders: [ShopOrder] @join__field(graph: ACMESHOP)
+  products: [Product] @join__field(graph: ACMESHOP)
+  customer(id: BigInteger): Customer @join__field(graph: ADDONS)
+}
+
+type ShopOrder
+  @join__type(graph: ACMESHOP)
+{
+  id: BigInteger
+  items: [OrderItem]
+  user: Customer
+}
+
+input ShopOrderInput
+  @join__type(graph: ACMESHOP)
+{
+  id: BigInteger
+  items: [OrderItemInput]
+  user: CustomerInput
+}
+
+"""Subscription root"""
+type Subscription
+  @join__type(graph: ACMESHOP)
+{
+  newOrders: ShopOrder
+}
