@@ -1,6 +1,6 @@
 package org.acme.shop.model;
 
-import io.quarkus.hibernate.orm.panache.PanacheEntity;
+import io.quarkus.hibernate.reactive.panache.PanacheEntity;
 
 import io.smallrye.graphql.api.federation.Key;
 import jakarta.persistence.Entity;
