@@ -31,7 +31,7 @@ public class AiResource {
         embed("Charlie is wearing a hat", Metadata.from("k1", "v1"));
         embed("Charlie has a big tummy");
         embed("Charlie broke his bulldozer");
-        embed("Charlie has a lot of toys");
+        embed("Charlie has a lot of toys", Metadata.from("k3", "v3"));
         embed("Charlie likes construction vehicles");
         embed("One year ago, Charlie was three years old");
         embed("David can move stuff around with his mind");
