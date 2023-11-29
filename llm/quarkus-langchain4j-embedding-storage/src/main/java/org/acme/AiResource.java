@@ -7,7 +7,7 @@ import dev.langchain4j.model.embedding.AllMiniLmL6V2QuantizedEmbeddingModel;
 import dev.langchain4j.model.embedding.EmbeddingModel;
 import dev.langchain4j.model.output.Response;
 import dev.langchain4j.store.embedding.EmbeddingMatch;
-import io.quarkiverse.langchain4j.redis.RedisEmbeddingStore;
+import dev.langchain4j.store.embedding.EmbeddingStore;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
@@ -20,7 +20,7 @@ import java.util.List;
 public class AiResource {
 
     @Inject
-    RedisEmbeddingStore store;
+    EmbeddingStore<TextSegment> store;
 
     private final EmbeddingModel embeddingModel = new AllMiniLmL6V2QuantizedEmbeddingModel();
 
