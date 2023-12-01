@@ -21,56 +21,7 @@ import java.util.List;
 public class ShopGraphQLResource {
 
     @Query
-    public List<Customer> getCustomers() {
-        return Customer.listAll();
-    }
-
-    @Query
-    public List<ShopOrder> getOrders() {
-        return ShopOrder.listAll();
-    }
-    @Query
-    public List<Product> getProducts() {
-        return Product.listAll();
-    }
-
-    @Mutation
-    @Transactional
-    public Customer createCustomer(@Valid Customer customer) {
-        customer.persist();
-        return customer;
-    }
-
-    @Mutation
-    @Transactional
-    public ShopOrder createOrder(Long customerId, List<OrderItemInput> itemInput) {
-        ShopOrder order = new ShopOrder();
-        List<OrderItem> items = itemInput.stream()
-            .map(input -> {
-                OrderItem item = new OrderItem();
-                item.setProduct(Product.findById(input.getProductId()));
-                item.setQuantity(input.getQuantity());
-                item.persistAndFlush();
-                return item;
-            }).toList();
-        order.setItems(items);
-        order.persistAndFlush();
-        Customer.<Customer>findById(customerId).addOrder(order);
-        newOrdersPublisher.onNext(order);
-        return order;
-    }
-
-    private Multi<ShopOrder> newOrdersMulti;
-    private BroadcastProcessor<ShopOrder> newOrdersPublisher;
-
-    @PostConstruct
-    public void initializeNewOrdersMulti() {
-        newOrdersPublisher = BroadcastProcessor.create();
-        newOrdersMulti = Multi.createFrom().publisher(newOrdersPublisher);
-    }
-
-    @Subscription
-    public Multi<ShopOrder> newOrders() {
-        return newOrdersMulti;
+    public MyCustomScalar exec() {
+        return new MyCustomScalar();
     }
 }

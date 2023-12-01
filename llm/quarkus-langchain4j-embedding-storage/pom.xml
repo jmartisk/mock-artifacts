@@ -17,7 +17,7 @@
         <skipITs>true</skipITs>
         <surefire-plugin.version>3.1.2</surefire-plugin.version>
         <quarkus-langchain4j.version>999-SNAPSHOT</quarkus-langchain4j.version>
-        <langchain4j.version>0.23.0</langchain4j.version>
+        <langchain4j.version>0.24.0</langchain4j.version>
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -31,10 +31,6 @@
         </dependencies>
     </dependencyManagement>
     <dependencies>
-        <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-arc</artifactId>
-        </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-resteasy-reactive</artifactId>
@@ -57,16 +53,16 @@
         <!--      <artifactId>quarkus-langchain4j-chroma</artifactId>-->
         <!--      <version>${quarkus-langchain4j.version}</version>-->
         <!--    </dependency>-->
-        <dependency>
-            <groupId>io.quarkiverse.langchain4j</groupId>
-            <artifactId>quarkus-langchain4j-redis</artifactId>
-            <version>${quarkus-langchain4j.version}</version>
-        </dependency>
-        <!--    <dependency>-->
-        <!--      <groupId>io.quarkiverse.langchain4j</groupId>-->
-        <!--      <artifactId>quarkus-langchain4j-pgvector</artifactId>-->
-        <!--      <version>${quarkus-langchain4j.version}</version>-->
-        <!--    </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>io.quarkiverse.langchain4j</groupId>-->
+<!--            <artifactId>quarkus-langchain4j-redis</artifactId>-->
+<!--            <version>${quarkus-langchain4j.version}</version>-->
+<!--        </dependency>-->
+            <dependency>
+              <groupId>io.quarkiverse.langchain4j</groupId>
+              <artifactId>quarkus-langchain4j-pgvector</artifactId>
+              <version>${quarkus-langchain4j.version}</version>
+            </dependency>
         <!--    <dependency>-->
         <!--      <groupId>io.quarkiverse.langchain4j</groupId>-->
         <!--      <artifactId>quarkus-langchain4j-pinecone</artifactId>-->
