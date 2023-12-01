@@ -22,7 +22,8 @@ public class AiResource {
     @Inject
     EmbeddingStore<TextSegment> store;
 
-    private final EmbeddingModel embeddingModel = new AllMiniLmL6V2QuantizedEmbeddingModel();
+    @Inject
+    EmbeddingModel embeddingModel;
 
     @GET
     @Produces(MediaType.TEXT_PLAIN)

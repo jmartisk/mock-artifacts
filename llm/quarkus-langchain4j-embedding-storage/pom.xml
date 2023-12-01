@@ -50,6 +50,7 @@
             <version>${langchain4j.version}</version>
         </dependency>
 
+
         <!-- Choose one of the dependencies (embedding stores) below -->
 
         <!--    <dependency>-->
