@@ -50,6 +50,7 @@ public class AiResource {
         Response<Embedding> question = embeddingModel.embed("Does Charlie have a bulldozer?");
         List<EmbeddingMatch<TextSegment>> relevantEmbeddings = store.findRelevant(question.content(), 5);
 
+        System.out.println("Found relevant embeddings (" + relevantEmbeddings.size() + "):");
         for (EmbeddingMatch<TextSegment> match : relevantEmbeddings) {
             String text = match.embedded() != null ? match.embedded().text() : null;
             Metadata metadata = match.embedded() != null ? match.embedded().metadata() : null;
