@@ -7,6 +7,8 @@ import dev.langchain4j.model.embedding.EmbeddingModel;
 import dev.langchain4j.model.output.Response;
 import dev.langchain4j.store.embedding.EmbeddingMatch;
 import dev.langchain4j.store.embedding.EmbeddingStore;
+import io.quarkus.logging.Log;
+import jakarta.annotation.PostConstruct;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
@@ -24,10 +26,11 @@ public class AiResource {
     @Inject
     EmbeddingModel embeddingModel;
 
-    @GET
-    @Produces(MediaType.TEXT_PLAIN)
-    @Path("/embeddings")
-    public void embeddings() {
+    @Inject
+    CharlieKnower charlieKnower;
+
+    @PostConstruct
+    public void init() {
         embed("Charlie is wearing a hat", Metadata.from("k1", "v1"));
         embed("Charlie has a big tummy");
         embed("Charlie broke his bulldozer");
@@ -38,7 +41,12 @@ public class AiResource {
         embed("Pedro can count");
         embed("Charlie likes candy");
         embed("I believe in aliens");
+    }
 
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    @Path("/embeddings")
+    public void search_for_relevant_embeddings() {
         Response<Embedding> question = embeddingModel.embed("Does Charlie have a bulldozer?");
         List<EmbeddingMatch<TextSegment>> relevantEmbeddings = store.findRelevant(question.content(), 5);
 
@@ -51,6 +59,15 @@ public class AiResource {
                     "metadata = " + metadata + "\n" +
                     "score = " + match.score());
         }
+    }
+
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    @Path("/question")
+    public void askQuestion() {
+        String question = "Does Charlie have a bulldozer?";
+        String answer = charlieKnower.ask(question);
+        Log.info("ANSWER: " + answer);
     }
 
     private void embed(String string) {
