@@ -99,6 +99,23 @@
           </systemPropertyVariables>
         </configuration>
       </plugin>
+
+      <!-- to enable the maven plugin to generate the schema on build-->
+      <!-- FIXME: could the version be provided by the quarkus bom? -->
+<!--      <plugin>-->
+<!--        <artifactId>smallrye-graphql-maven-plugin</artifactId>-->
+<!--        <groupId>io.smallrye</groupId>-->
+<!--        <version>2.6.2-SNAPSHOT</version>-->
+<!--        <executions>-->
+<!--          <execution>-->
+<!--            <goals>-->
+<!--              <goal>generate-schema</goal>-->
+<!--            </goals>-->
+<!--          </execution>-->
+<!--        </executions>-->
+<!--      </plugin>-->
+
+
       <plugin>
         <artifactId>maven-failsafe-plugin</artifactId>
         <version>${surefire-plugin.version}</version>
@@ -118,6 +135,7 @@
           </execution>
         </executions>
       </plugin>
+
     </plugins>
   </build>
   <profiles>
