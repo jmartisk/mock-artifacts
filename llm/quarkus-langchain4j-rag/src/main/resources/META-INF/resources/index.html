@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Chatbot example</title>
+    <link rel="stylesheet"
+          href="https://cdn.simplecss.org/simple.min.css">
+    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+</head>
+<body>
+<h1>Chat</h1>
+<div hx-ws="connect:/chatbot">
+
+    <form id="form" hx-ws="send">
+        <input name="chat_message" value="Does Charlie have a bulldozer?"/>
+        <button type="submit">Send</button>
+    </form>
+
+    <div id="chatContent"></div>
+</div>
+
+</body>
+</html>

@@ -8,6 +8,10 @@ import dev.langchain4j.model.output.Response;
 import dev.langchain4j.store.embedding.EmbeddingMatch;
 import dev.langchain4j.store.embedding.EmbeddingStore;
 import io.quarkus.logging.Log;
+import io.quarkus.qute.Template;
+import io.quarkus.qute.TemplateInstance;
+import io.quarkus.runtime.Startup;
+import io.smallrye.common.annotation.Blocking;
 import jakarta.annotation.PostConstruct;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.GET;
@@ -17,6 +21,7 @@ import jakarta.ws.rs.core.MediaType;
 import org.jboss.resteasy.reactive.RestQuery;
 
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 @Path("/")
 public class AiResource {
@@ -29,20 +34,6 @@ public class AiResource {
 
     @Inject
     CharlieKnower charlieKnower;
-
-    @PostConstruct
-    public void init() {
-        embed("Charlie is wearing a hat", Metadata.from("k1", "v1"));
-        embed("Charlie has a big tummy");
-        embed("Charlie broke his bulldozer");
-        embed("Charlie has a lot of toys", Metadata.from("k3", "v3"));
-        embed("Charlie likes construction vehicles");
-        embed("One year ago, Charlie was three years old");
-        embed("David can move stuff around with his mind");
-        embed("Pedro can count");
-        embed("Charlie likes candy");
-        embed("I believe in aliens");
-    }
 
     @GET
     @Produces(MediaType.TEXT_PLAIN)
@@ -69,19 +60,9 @@ public class AiResource {
     @Produces(MediaType.TEXT_PLAIN)
     @Path("/question")
     public String askQuestion(@RestQuery String question) {
-        String answer = charlieKnower.ask(question);
+        String answer = charlieKnower.ask(ThreadLocalRandom.current().nextLong(), question);
         Log.info("ANSWER: " + answer);
         return answer;
-    }
-
-    private void embed(String string) {
-        embed(string, new Metadata());
-    }
-
-    private void embed(String string, Metadata metadata) {
-        TextSegment textSegment = new TextSegment(string, metadata);
-        Embedding embedding = embeddingModel.embed(textSegment).content();
-        store.add(embedding, textSegment);
     }
 
 }
