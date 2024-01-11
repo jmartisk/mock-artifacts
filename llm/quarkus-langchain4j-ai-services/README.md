@@ -23,3 +23,8 @@ curl localhost:8080/poem/mushroom/5
 This will write a poem about mushrooms, 5 lines long, and sends it to
 test@test.com via the SMTP server (view at http://0.0.0.0:8025/#).
 
+## Using an image model
+
+```
+curl -s -G localhost:8080/image --data-urlencode  "prompt=ant riding a bicycle" | base64 -d > image.jpg
+```
