@@ -16,7 +16,7 @@ public class RetrieverExample implements Retriever<TextSegment> {
     private final EmbeddingStoreRetriever retriever;
 
     RetrieverExample(EmbeddingStore<TextSegment> store, EmbeddingModel model) {
-        retriever = EmbeddingStoreRetriever.from(store, model, 3);
+        retriever = EmbeddingStoreRetriever.from(store, model, 5);
     }
 
     @Override

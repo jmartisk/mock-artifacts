@@ -14,6 +14,7 @@ import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
+import org.jboss.resteasy.reactive.RestQuery;
 
 import java.util.List;
 
@@ -46,11 +47,12 @@ public class AiResource {
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     @Path("/embeddings")
-    public void search_for_relevant_embeddings() {
-        Response<Embedding> question = embeddingModel.embed("Does Charlie have a bulldozer?");
-        List<EmbeddingMatch<TextSegment>> relevantEmbeddings = store.findRelevant(question.content(), 5);
+    public String search_for_relevant_embeddings(@RestQuery String question) {
+        Log.info("Searching for relevant embeddings for question: " + question);
+        Response<Embedding> questionEmbedding = embeddingModel.embed(question);
+        List<EmbeddingMatch<TextSegment>> relevantEmbeddings = store.findRelevant(questionEmbedding.content(), 5);
 
-        System.out.println("Found relevant embeddings (" + relevantEmbeddings.size() + "):");
+        Log.info("Found relevant embeddings (count: " + relevantEmbeddings.size() + "):");
         for (EmbeddingMatch<TextSegment> match : relevantEmbeddings) {
             String text = match.embedded() != null ? match.embedded().text() : null;
             Metadata metadata = match.embedded() != null ? match.embedded().metadata() : null;
@@ -60,13 +62,13 @@ public class AiResource {
                     "metadata = " + metadata + "\n" +
                     "score = " + match.score());
         }
+        return "OK, look at the server log\n";
     }
 
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     @Path("/question")
-    public void askQuestion() {
-        String question = "Does Charlie have a bulldozer?";
+    public void askQuestion(@RestQuery String question) {
         String answer = charlieKnower.ask(question);
         Log.info("ANSWER: " + answer);
     }
