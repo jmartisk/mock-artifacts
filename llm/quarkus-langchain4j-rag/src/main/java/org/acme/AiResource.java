@@ -65,4 +65,14 @@ public class AiResource {
         return answer;
     }
 
+    @Inject
+    Template index;
+
+    @Produces(MediaType.TEXT_HTML)
+    @GET
+    @Path("/")
+    public TemplateInstance index() {
+        return index.instance();
+    }
+
 }

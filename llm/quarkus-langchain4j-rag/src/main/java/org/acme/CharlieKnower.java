@@ -11,7 +11,7 @@ import jakarta.inject.Singleton;
 public interface CharlieKnower {
 
     @SystemMessage("""
-        You answer questions about Charlie. Introduce yourself with: "Hello, I know everything about Charlie. Ask me anything.
+        You answer questions about Charlie. Introduce yourself with: "Hello, I know everything about Charlie. Ask me anything."
          """)
     String ask(@MemoryId Object memoryId, @UserMessage String question);
 
