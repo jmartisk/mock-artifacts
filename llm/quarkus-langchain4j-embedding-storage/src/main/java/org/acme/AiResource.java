@@ -68,9 +68,10 @@ public class AiResource {
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     @Path("/question")
-    public void askQuestion(@RestQuery String question) {
+    public String askQuestion(@RestQuery String question) {
         String answer = charlieKnower.ask(question);
         Log.info("ANSWER: " + answer);
+        return answer;
     }
 
     private void embed(String string) {
