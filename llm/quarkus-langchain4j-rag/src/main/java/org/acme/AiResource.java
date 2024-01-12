@@ -30,7 +30,7 @@ public class AiResource {
     EmbeddingModel embeddingModel;
 
     @Inject
-    CharlieKnower charlieKnower;
+    NewsService newsService;
 
     @GET
     @Produces(MediaType.TEXT_PLAIN)
@@ -57,7 +57,7 @@ public class AiResource {
     @Produces(MediaType.TEXT_PLAIN)
     @Path("/question")
     public String askQuestion(@RestQuery String question) {
-        String answer = charlieKnower.ask(ThreadLocalRandom.current().nextLong(), question);
+        String answer = newsService.ask(ThreadLocalRandom.current().nextLong(), question);
         Log.info("ANSWER: " + answer);
         return answer;
     }

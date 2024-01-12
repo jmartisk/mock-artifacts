@@ -5,12 +5,10 @@ import java.io.StringReader;
 import java.util.Collections;
 import java.util.List;
 
-import com.fasterxml.jackson.core.JsonParser;
 import dev.langchain4j.data.message.ChatMessage;
 import dev.langchain4j.store.memory.chat.ChatMemoryStore;
 import io.quarkus.logging.Log;
 import io.quarkus.qute.Template;
-import io.vertx.core.parsetools.impl.JsonParserImpl;
 import jakarta.inject.Inject;
 import jakarta.json.Json;
 import jakarta.json.JsonObject;
@@ -28,7 +26,7 @@ import io.quarkiverse.langchain4j.ChatMemoryRemover;
 public class ChatBotWebSocket {
 
     @Inject
-    CharlieKnower bot;
+    NewsService bot;
 
     @Inject
     ManagedExecutor managedExecutor;
@@ -37,7 +35,7 @@ public class ChatBotWebSocket {
     public void onOpen(Session session) {
         Log.info("WebSocket session open");
         managedExecutor.execute(() -> {
-            String response = bot.ask(session, "Hello");
+            String response = bot.ask(session, "Please introduce yourself");
             try {
                 session.getBasicRemote().sendText(response);
             } catch (IOException e) {
@@ -67,6 +65,8 @@ public class ChatBotWebSocket {
             try {
                 List<ChatMessage> messages = chatMemory.getMessages(session);
                 Collections.reverse(messages); // make sure new messages are at the top
+                // ignore the first USER Hello message that was sent by the onOpen method
+                messages = messages.stream().filter(m -> !m.text().startsWith("Please introduce yourself")).toList();
                 String html = chatMessages.data("messages", messages).render();
                 session.getBasicRemote().sendText(html);
             } catch (IOException e) {
@@ -85,7 +85,6 @@ public class ChatBotWebSocket {
             JsonObject object = Json.createReader(new StringReader(message)).readObject();
             return object.getString("chat_message");
         } catch(Exception e) {
-            e.printStackTrace();
             return message;
         }
     }

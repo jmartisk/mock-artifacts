@@ -11,12 +11,17 @@
 <h1>Chat</h1>
 <div hx-ws="connect:/chatbot">
 
+    <div>Suggested questions: <br/>
+        How much does a cyberhouse cost? <br/>
+        What's the issue with opening a Tesla car in winter? <br/><br/>
+    </div>
+
     <form id="form" hx-ws="send">
-        <input name="chat_message" value="Does Charlie have a bulldozer?"/>
-        <button type="submit">Send</button>
+        Question: <input name="chat_message" value=""/>
+        <button type="submit">Submit</button>
     </form>
 
-    <div id="chatContent"></div>
+    <div id="chatContent" hx-trigger="wsAfterMessage"></div>
 </div>
 
 </body>

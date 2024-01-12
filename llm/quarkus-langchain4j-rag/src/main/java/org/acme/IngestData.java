@@ -1,14 +1,32 @@
 package org.acme;
 
+import dev.langchain4j.data.document.Document;
 import dev.langchain4j.data.document.Metadata;
 import dev.langchain4j.data.embedding.Embedding;
 import dev.langchain4j.data.segment.TextSegment;
 import dev.langchain4j.model.embedding.EmbeddingModel;
 import dev.langchain4j.store.embedding.EmbeddingStore;
+import dev.langchain4j.store.embedding.EmbeddingStoreIngestor;
 import io.quarkus.logging.Log;
 import io.quarkus.runtime.Startup;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import jakarta.json.Json;
+import jakarta.json.JsonArray;
+import jakarta.json.JsonObject;
+import jakarta.json.JsonReader;
+import jakarta.json.JsonValue;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import static dev.langchain4j.data.document.splitter.DocumentSplitters.recursive;
 
 @ApplicationScoped
 public class IngestData {
@@ -19,28 +37,33 @@ public class IngestData {
     @Inject
     EmbeddingModel embeddingModel;
 
+    @Inject
+    @ConfigProperty(name = "data.file")
+    File dataFile;
+
     @Startup
     public void init() {
-        embed("Charlie is wearing a hat", Metadata.from("k1", "v1"));
-        embed("Charlie has a big tummy");
-        embed("Charlie broke his bulldozer");
-        embed("Charlie has a lot of toys", Metadata.from("k3", "v3"));
-        embed("Charlie likes construction vehicles");
-        embed("One year ago, Charlie was three years old");
-        embed("David can move stuff around with his mind");
-        embed("Pedro can count");
-        embed("Charlie likes candy");
-        embed("I believe in aliens");
-        Log.info("Ingested embeddings...");
+
+        List<Document> documents = new ArrayList<>();
+        try(JsonReader reader = Json.createReader(new FileReader(dataFile))) {
+            JsonArray results = reader.readObject().getJsonArray("results");
+            Log.info("Ingesting " + results.size() + " news reports...");
+            for (JsonValue newsEntry : results) {
+                JsonObject entryObject = newsEntry.asJsonObject();
+                Document doc = new Document(entryObject.toString());
+                documents.add(doc);
+            }
+            var ingestor = EmbeddingStoreIngestor.builder()
+                    .embeddingStore(store)
+                    .embeddingModel(embeddingModel)
+                    .documentSplitter(recursive(1500, 0))
+                    .build();
+            ingestor.ingest(documents);
+            Log.infof("Ingested %d news articles.", documents.size());
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    private void embed(String string) {
-        embed(string, new Metadata());
-    }
 
-    private void embed(String string, Metadata metadata) {
-        TextSegment textSegment = new TextSegment(string, metadata);
-        Embedding embedding = embeddingModel.embed(textSegment).content();
-        store.add(embedding, textSegment);
-    }
 }

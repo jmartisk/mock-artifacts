@@ -20,3 +20,14 @@ Open `http://localhost:8080/`
 wscat -w 300 -P -c "ws://127.0.0.1:8080/chatbot"
 ... and just enter your questions
 ```
+
+## Accessing the database manually
+
+### PgVector
+??? TODO
+
+### Redis
+```
+redis-cli
+FT.SEARCH "embedding-index" "*" LIMIT 0 10
+```
