@@ -36,11 +36,7 @@ public class ChatBotWebSocket {
         Log.info("WebSocket session open");
         managedExecutor.execute(() -> {
             String response = bot.ask(session, "Please introduce yourself");
-            try {
-                session.getBasicRemote().sendText(response);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+            updateChatMessages(session);
         });
     }
 
@@ -62,18 +58,22 @@ public class ChatBotWebSocket {
         String chatMessage = parseChatMessage(message);
         managedExecutor.execute(() -> {
             String response = bot.ask(session, chatMessage);
-            try {
-                List<ChatMessage> messages = chatMemory.getMessages(session);
-                Collections.reverse(messages); // make sure new messages are at the top
-                // ignore the first USER Hello message that was sent by the onOpen method
-                messages = messages.stream().filter(m -> !m.text().startsWith("Please introduce yourself")).toList();
-                String html = chatMessages.data("messages", messages).render();
-                session.getBasicRemote().sendText(html);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+            updateChatMessages(session);
         });
 
+    }
+
+    private void updateChatMessages(Session session) {
+        try {
+            List<ChatMessage> messages = chatMemory.getMessages(session);
+            Collections.reverse(messages); // make sure new messages are at the top
+            // ignore the first USER Hello message that was sent by the onOpen method
+            messages = messages.stream().filter(m -> !m.text().startsWith("Please introduce yourself")).toList();
+            String html = chatMessages.data("messages", messages).render();
+            session.getBasicRemote().sendText(html);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**
