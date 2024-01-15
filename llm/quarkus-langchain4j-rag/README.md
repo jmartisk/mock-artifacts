@@ -4,12 +4,12 @@
 
 ## To just search for related embeddings:
 ```
-curl -G http://localhost:8080/embeddings --data-urlencode 'question=Does Charlie have a bulldozer?'
+curl -G http://localhost:8080/embeddings --data-urlencode 'question=How much does a CyberHouse cost?'
 ```
 
 ## To ask the model a question:
 ```
-curl -G http://localhost:8080/question --data-urlencode 'question=Does Charlie have a bulldozer?'
+curl -G http://localhost:8080/question --data-urlencode 'question=How much does a CyberHouse cost?'
 ```
 
 ## Chatting via the web page
