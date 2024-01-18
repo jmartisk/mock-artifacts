@@ -43,20 +43,34 @@ public class IngestData {
 
     @Startup
     public void init() {
-
         List<Document> documents = new ArrayList<>();
         try(JsonReader reader = Json.createReader(new FileReader(dataFile))) {
-            JsonArray results = reader.readObject().getJsonArray("results");
-            Log.info("Ingesting " + results.size() + " news reports...");
+            JsonArray results = reader.readArray();
+            Log.info("Ingesting news reports...");
             for (JsonValue newsEntry : results) {
-                JsonObject entryObject = newsEntry.asJsonObject();
-                Document doc = new Document(entryObject.toString());
-                documents.add(doc);
+                String content = newsEntry.asJsonObject().getString("content", null);
+                if(content != null && !content.isEmpty()) {
+                    Document doc = new Document(content);
+                    documents.add(doc);
+                    continue;
+                }
+                String description = newsEntry.asJsonObject().getString("description", null);
+                if(description != null && !description.isEmpty()) {
+                    Document doc = new Document(description);
+                    documents.add(doc);
+                    continue;
+                }
+                String fullDescription = newsEntry.asJsonObject().getString("full_description", null);
+                if(fullDescription != null && !fullDescription.isEmpty()) {
+                    Document doc = new Document(fullDescription);
+                    documents.add(doc);
+                    continue;
+                }
             }
             var ingestor = EmbeddingStoreIngestor.builder()
                     .embeddingStore(store)
                     .embeddingModel(embeddingModel)
-                    .documentSplitter(recursive(1500, 0))
+                    .documentSplitter(recursive(1000, 50))
                     .build();
             ingestor.ingest(documents);
             Log.infof("Ingested %d news articles.", documents.size());

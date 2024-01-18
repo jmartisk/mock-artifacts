@@ -2,10 +2,14 @@ package org.acme;
 
 import java.io.IOException;
 import java.io.StringReader;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
+import dev.langchain4j.data.message.AiMessage;
 import dev.langchain4j.data.message.ChatMessage;
+import dev.langchain4j.data.message.UserMessage;
 import dev.langchain4j.store.memory.chat.ChatMemoryStore;
 import io.quarkus.logging.Log;
 import io.quarkus.qute.Template;
@@ -69,6 +73,15 @@ public class ChatBotWebSocket {
             Collections.reverse(messages); // make sure new messages are at the top
             // ignore the first USER Hello message that was sent by the onOpen method
             messages = messages.stream().filter(m -> !m.text().startsWith("Please introduce yourself")).toList();
+            // make the text of user messages more html-friendly (the RAG-added data contain newline characters)
+            messages = messages.stream().map(m -> {
+                if(m instanceof UserMessage) {
+                    String sanitizedText = Arrays.stream(m.text().split("\n")).collect(Collectors.joining("</p><p>", "<p>", "</p>"));
+                    return new UserMessage(sanitizedText);
+                } else {
+                    return m;
+                }
+            }).collect(Collectors.toList());
             String html = chatMessages.data("messages", messages).render();
             session.getBasicRemote().sendText(html);
         } catch (IOException e) {
