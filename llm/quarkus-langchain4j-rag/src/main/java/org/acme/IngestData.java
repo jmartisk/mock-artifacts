@@ -54,15 +54,15 @@ public class IngestData {
                     documents.add(doc);
                     continue;
                 }
-                String description = newsEntry.asJsonObject().getString("description", null);
-                if(description != null && !description.isEmpty()) {
-                    Document doc = new Document(description);
-                    documents.add(doc);
-                    continue;
-                }
                 String fullDescription = newsEntry.asJsonObject().getString("full_description", null);
                 if(fullDescription != null && !fullDescription.isEmpty()) {
                     Document doc = new Document(fullDescription);
+                    documents.add(doc);
+                    continue;
+                }
+                String description = newsEntry.asJsonObject().getString("description", null);
+                if(description != null && !description.isEmpty()) {
+                    Document doc = new Document(description);
                     documents.add(doc);
                     continue;
                 }

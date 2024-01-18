@@ -21,8 +21,8 @@ import java.util.List;
 public class ShopGraphQLResource {
 
     @Query
-    public List<Customer> getCustomers() {
-        return Customer.listAll();
+    public List<Customer> getCustomers() throws CustomError {
+        throw new CustomError();
     }
 
     @Query

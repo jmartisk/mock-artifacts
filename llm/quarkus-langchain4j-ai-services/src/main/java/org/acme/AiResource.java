@@ -1,6 +1,7 @@
 package org.acme;
 
 import dev.langchain4j.model.image.ImageModel;
+import dev.langchain4j.model.moderation.ModerationModel;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
@@ -17,6 +18,10 @@ public class AiResource {
 
     @Inject
     ImageModel imageModel;
+
+    @Inject
+    ModerationModel moderationModel;
+
 
     @Produces(MediaType.TEXT_PLAIN)
     @GET

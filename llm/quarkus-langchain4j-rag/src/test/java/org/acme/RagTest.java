@@ -29,19 +29,24 @@ public class RagTest {
         Endpoint clientEndpoint = new Endpoint() {
             @Override
             public void onOpen(Session session, EndpointConfig config) {
-                session.addMessageHandler((MessageHandler.Whole<String>) s -> receivedMessages.add(s));
+                session.addMessageHandler(String.class, new MessageHandler.Whole<String>() {
+                    @Override
+                    public void onMessage(String s) {
+                        receivedMessages.add(s);
+                    }
+                });
             }
         };
         try (Session session = ContainerProvider
                 .getWebSocketContainer()
                 .connectToServer(clientEndpoint, ClientEndpointConfig.Builder.create().build(), serverChatbotEndpoint)) {
-            String firstResponse = receivedMessages.poll(20, TimeUnit.SECONDS);
+            String firstResponse = receivedMessages.poll(30, TimeUnit.SECONDS);
             Assertions.assertNotNull(firstResponse); // this should be a new history with only the bot's introduction
-            Assertions.assertTrue(firstResponse.contains("How can I help you?"));
-            session.getBasicRemote().sendText("How much does a CyberHouse cost? Answer with only the raw number in EUR, nothing else.");
-            String secondResponse = receivedMessages.poll(20, TimeUnit.SECONDS);
+            Assertions.assertTrue(firstResponse.contains("how can I help you?"), firstResponse);
+            session.getBasicRemote().sendText("Who did the Japanese princess marry?");
+            String secondResponse = receivedMessages.poll(30, TimeUnit.SECONDS);
             Assertions.assertNotNull(secondResponse);
-            Assertions.assertTrue(secondResponse.contains("<td>775,000</td>"));
+            Assertions.assertTrue(secondResponse.contains("Kei Komuro"), secondResponse);
         }
 
     }

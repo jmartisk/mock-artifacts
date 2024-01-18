@@ -5,7 +5,8 @@ import dev.langchain4j.service.UserMessage;
 import io.quarkiverse.langchain4j.RegisterAiService;
 
 @RegisterAiService(
-        tools = Tools.class
+        tools = Tools.class,
+        moderationModelSupplier = RegisterAiService.BeanModerationModelSupplier.class
 )
 public interface PoetService {
 
