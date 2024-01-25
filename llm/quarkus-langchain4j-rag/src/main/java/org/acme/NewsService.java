@@ -6,7 +6,9 @@ import dev.langchain4j.service.UserMessage;
 import io.quarkiverse.langchain4j.RegisterAiService;
 import jakarta.inject.Singleton;
 
-@RegisterAiService
+@RegisterAiService(
+        retriever = RetrieverExample.class
+)
 @Singleton
 public interface NewsService {
 

@@ -1,8 +1,6 @@
 package org.acme;
 
 import dev.langchain4j.data.document.Document;
-import dev.langchain4j.data.document.Metadata;
-import dev.langchain4j.data.embedding.Embedding;
 import dev.langchain4j.data.segment.TextSegment;
 import dev.langchain4j.model.embedding.EmbeddingModel;
 import dev.langchain4j.store.embedding.EmbeddingStore;
@@ -13,7 +11,6 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.json.Json;
 import jakarta.json.JsonArray;
-import jakarta.json.JsonObject;
 import jakarta.json.JsonReader;
 import jakarta.json.JsonValue;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
@@ -22,9 +19,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import static dev.langchain4j.data.document.splitter.DocumentSplitters.recursive;
 
@@ -41,13 +36,22 @@ public class IngestData {
     @ConfigProperty(name = "data.file")
     File dataFile;
 
+    @Inject
+    @ConfigProperty(name = "max.entries", defaultValue = "99999")
+    Integer maxEntries;
+
     @Startup
     public void init() {
         List<Document> documents = new ArrayList<>();
         try(JsonReader reader = Json.createReader(new FileReader(dataFile))) {
             JsonArray results = reader.readArray();
             Log.info("Ingesting news reports...");
+            int i = 0;
             for (JsonValue newsEntry : results) {
+                i++;
+                if(i > maxEntries) {
+                    break;
+                }
                 String content = newsEntry.asJsonObject().getString("content", null);
                 if(content != null && !content.isEmpty()) {
                     Document doc = new Document(content);
