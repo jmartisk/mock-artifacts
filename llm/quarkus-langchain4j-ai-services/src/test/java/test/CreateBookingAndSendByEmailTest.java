@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
 @QuarkusTest
-public class WriteAPoemAndSendByEmailTest {
+public class CreateBookingAndSendByEmailTest {
 
     @Inject
     AiResource ai;
@@ -23,13 +23,13 @@ public class WriteAPoemAndSendByEmailTest {
 
     @Test
     public void test() {
-        ai.poem("a broken toy bulldozer", 6);
-        List<Mail> list = mailbox.getMailsSentTo("test@test.com");
+        ai.create("John Doe", "john@gmail.com");
+        List<Mail> list = mailbox.getMailsSentTo("john@gmail.com");
         assertEquals(1, list.size());
         Mail email = list.get(0);
-        assertEquals("Poem", email.getSubject());
+        assertEquals("Booking confirmation", email.getSubject());
         assertFalse(email.getText().isEmpty());
-        System.out.println("----- RESULTING POEM:");
+        System.out.println("----- RESULTING MAIL:");
         System.out.println(email.getText());
     }
 }

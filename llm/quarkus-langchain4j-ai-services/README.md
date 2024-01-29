@@ -14,14 +14,14 @@ Then view the sent emails at http://0.0.0.0:8025/#
 
 # Usage
 
-## Writing poems and having them sent by email
+## Creating bookins and having them sent by email
 
 ```
-curl localhost:8080/poem/mushroom/5
+curl -G localhost:8080/create --data-urlencode "name=John Doe" --data-urlencode "email=john@gmail.com"
 ```
 
-This will write a poem about mushrooms, 5 lines long, and sends it to
-test@test.com via the SMTP server (view at http://0.0.0.0:8025/#).
+This will create a booking, and send it to
+john@gmail.com via the SMTP server (view at http://0.0.0.0:8025/#).
 
 ## Using an image model
 
