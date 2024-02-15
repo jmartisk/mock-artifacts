@@ -18,7 +18,7 @@
         <surefire-plugin.version>3.1.2</surefire-plugin.version>
         <quarkus-langchain4j.version>999-SNAPSHOT</quarkus-langchain4j.version>
         <!-- FIXME: import from the bom when it's available -->
-        <langchain4j.version>0.25.0</langchain4j.version>
+        <langchain4j.version>0.27.1</langchain4j.version>
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -61,7 +61,7 @@
 <!--            <artifactId>langchain4j-embeddings-all-minilm-l6-v2-q</artifactId>-->
 <!--            <version>${langchain4j.version}</version>-->
 <!--        </dependency>-->
-
+<!---->
         <dependency>
             <groupId>io.quarkiverse.langchain4j</groupId>
             <artifactId>quarkus-langchain4j-openai</artifactId>
@@ -94,6 +94,28 @@
 <!--            <groupId>io.quarkiverse.langchain4j</groupId>-->
 <!--            <artifactId>quarkus-langchain4j-milvus</artifactId>-->
 <!--            <version>${quarkus-langchain4j.version}</version>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>io.quarkiverse.langchain4j</groupId>-->
+<!--            <artifactId>quarkus-langchain4j-infinispan</artifactId>-->
+<!--            <version>${quarkus-langchain4j.version}</version>-->
+<!--        </dependency>-->
+        <!-- Needed if using infinispan:
+         This is temporary until Quarkus upgrades to a final version of Infinispan 15 -->
+<!--        <dependency>-->
+<!--            <groupId>org.infinispan</groupId>-->
+<!--            <artifactId>infinispan-commons</artifactId>-->
+<!--            <version>15.0.0.Dev08</version>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>org.infinispan</groupId>-->
+<!--            <artifactId>infinispan-api</artifactId>-->
+<!--            <version>15.0.0.Dev08</version>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>org.infinispan</groupId>-->
+<!--            <artifactId>infinispan-query-dsl</artifactId>-->
+<!--            <version>15.0.0.Dev08</version>-->
 <!--        </dependency>-->
 
     </dependencies>
