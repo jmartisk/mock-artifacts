@@ -7,7 +7,7 @@ import io.quarkiverse.langchain4j.RegisterAiService;
 import jakarta.inject.Singleton;
 
 @RegisterAiService(
-        retriever = RetrieverExample.class
+        retrievalAugmentor = RetrievalAugmentorExample.class
 )
 @Singleton
 public interface NewsService {
