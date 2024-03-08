@@ -14,7 +14,7 @@ Then view the sent emails at http://0.0.0.0:8025/#
 
 # Usage
 
-## Creating bookins and having them sent by email
+## Creating bookings and having them sent by email
 
 ```
 curl -G localhost:8080/create --data-urlencode "name=John Doe" --data-urlencode "email=john@gmail.com"
