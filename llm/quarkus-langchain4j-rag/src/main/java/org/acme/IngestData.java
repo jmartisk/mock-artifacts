@@ -5,6 +5,7 @@ import dev.langchain4j.data.segment.TextSegment;
 import dev.langchain4j.model.embedding.EmbeddingModel;
 import dev.langchain4j.store.embedding.EmbeddingStore;
 import dev.langchain4j.store.embedding.EmbeddingStoreIngestor;
+import io.quarkus.arc.ClientProxy;
 import io.quarkus.logging.Log;
 import io.quarkus.runtime.Startup;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -20,6 +21,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import static dev.langchain4j.data.document.splitter.DocumentSplitters.recursive;
 
@@ -41,7 +43,7 @@ public class IngestData {
     Integer maxEntries;
 
     @Startup
-    public void init() {
+    public void init() throws InterruptedException {
         List<Document> documents = new ArrayList<>();
         try(JsonReader reader = Json.createReader(new FileReader(dataFile))) {
             JsonArray results = reader.readArray();
@@ -76,7 +78,21 @@ public class IngestData {
                     .embeddingModel(embeddingModel)
                     .documentSplitter(recursive(1000, 50))
                     .build();
-            ingestor.ingest(documents);
+
+            if(ClientProxy.unwrap(embeddingModel).getClass().getName().contains("mistral")) {
+                // ingest in batches of 25 documents
+                // this is to avoid getting a 'message too long' error from mistral
+                // .. and limit requests to 5/sec
+                int batchSize = 25;
+                for (int x = 0; x < documents.size(); x += batchSize) {
+                    int end = Math.min(x + batchSize, documents.size());
+                    List<Document> batch = documents.subList(x, end);
+                    ingestor.ingest(batch);
+                    TimeUnit.MILLISECONDS.sleep(200);
+                }
+            } else {
+                ingestor.ingest(documents);
+            }
             Log.infof("Ingested %d news articles.", documents.size());
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
