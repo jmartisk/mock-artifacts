@@ -1,15 +1,14 @@
 package org.acme;
 
-import dev.langchain4j.service.MemoryId;
 import dev.langchain4j.service.SystemMessage;
 import dev.langchain4j.service.UserMessage;
 import io.quarkiverse.langchain4j.RegisterAiService;
-import jakarta.inject.Singleton;
+import jakarta.enterprise.context.SessionScoped;
 
 @RegisterAiService(
         retrievalAugmentor = RetrievalAugmentorExample.class
 )
-@Singleton
+@SessionScoped
 public interface NewsService {
 
     @SystemMessage("""
@@ -20,7 +19,7 @@ public interface NewsService {
         They are written in different languages. You must always answer
         in the same language as the question.
         Introduce yourself with: "Hello, I'm NewsBot, how can I help you?"
-         """)
-    String ask(@MemoryId Object memoryId, @UserMessage String question);
+        """)
+    String ask(@UserMessage String question);
 
 }

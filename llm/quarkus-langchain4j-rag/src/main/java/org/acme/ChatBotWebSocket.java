@@ -7,48 +7,44 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import dev.langchain4j.data.message.AiMessage;
 import dev.langchain4j.data.message.ChatMessage;
 import dev.langchain4j.data.message.UserMessage;
 import dev.langchain4j.store.memory.chat.ChatMemoryStore;
 import io.quarkus.logging.Log;
 import io.quarkus.qute.Template;
+import io.quarkus.websockets.next.OnTextMessage;
+import io.quarkus.websockets.next.WebSocketConnection;
 import jakarta.inject.Inject;
 import jakarta.json.Json;
 import jakarta.json.JsonObject;
-import jakarta.websocket.OnClose;
-import jakarta.websocket.OnMessage;
-import jakarta.websocket.OnOpen;
-import jakarta.websocket.Session;
-import jakarta.websocket.server.ServerEndpoint;
+import io.quarkus.websockets.next.OnOpen;
+import io.quarkus.websockets.next.WebSocket;
 
-import org.eclipse.microprofile.context.ManagedExecutor;
-
-import io.quarkiverse.langchain4j.ChatMemoryRemover;
-
-@ServerEndpoint("/chatbot")
+//@ServerEndpoint("/chatbot")
+@WebSocket(path = "/chatbot")
 public class ChatBotWebSocket {
 
-    @Inject
-    NewsService bot;
+    private final NewsService bot;
+
+    public ChatBotWebSocket(NewsService bot) {
+        this.bot = bot;
+    }
 
     @Inject
-    ManagedExecutor managedExecutor;
+    WebSocketConnection connection;
 
     @OnOpen
-    public void onOpen(Session session) {
-        Log.info("WebSocket session open");
-        managedExecutor.execute(() -> {
-            String response = bot.ask(session, "Please introduce yourself");
-            updateChatMessages(session);
-        });
+    public void onOpen() {
+        Log.info("WebSocket sessionId open");
+        bot.ask("Please introduce yourself");
+        connection.sendText(updateChatMessages());
     }
 
-    @OnClose
-    void onClose(Session session) {
-        Log.info("WebSocket session close");
-        ChatMemoryRemover.remove(bot, session);
-    }
+//    @OnClose
+//    void onClose() {
+//        Log.info("WebSocket sessionId close");
+//        ChatMemoryRemover.remove(bot, connection.id());
+//    }
 
     @Inject
     ChatMemoryStore chatMemory;
@@ -56,37 +52,31 @@ public class ChatBotWebSocket {
     @Inject
     Template chatMessages;
 
-    @OnMessage
-    public void onMessage(String message, Session session) {
+    @OnTextMessage
+    public String onMessage(String message) {
         Log.info("WebSocket received message: " + message);
         String chatMessage = parseChatMessage(message);
-        managedExecutor.execute(() -> {
-            String response = bot.ask(session, chatMessage);
-            updateChatMessages(session);
-        });
-
+        String response = bot.ask(chatMessage);
+        return updateChatMessages();
     }
 
-    private void updateChatMessages(Session session) {
-        try {
-            List<ChatMessage> messages = chatMemory.getMessages(session);
-            Collections.reverse(messages); // make sure new messages are at the top
-            // ignore the first USER Hello message that was sent by the onOpen method
-            messages = messages.stream().filter(m -> !m.text().startsWith("Please introduce yourself")).toList();
-            // make the text of user messages more html-friendly (the RAG-added data contain newline characters)
-            messages = messages.stream().map(m -> {
-                if(m instanceof UserMessage) {
-                    String sanitizedText = Arrays.stream(m.text().split("\n")).collect(Collectors.joining("</p><p>", "<p>", "</p>"));
-                    return new UserMessage(sanitizedText);
-                } else {
-                    return m;
-                }
-            }).collect(Collectors.toList());
-            String html = chatMessages.data("messages", messages).render();
-            session.getBasicRemote().sendText(html);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+    private String updateChatMessages() {
+        String sessionId = connection.id();
+        List<ChatMessage> messages = chatMemory.getMessages(sessionId);
+        Collections.reverse(messages); // make sure new messages are at the top
+        // ignore the first USER Hello message that was sent by the onOpen method
+        messages = messages.stream().filter(m -> !m.text().startsWith("Please introduce yourself")).toList();
+        // make the text of user messages more html-friendly (the RAG-added data contain newline characters)
+        messages = messages.stream().map(m -> {
+            if(m instanceof UserMessage) {
+                String sanitizedText = Arrays.stream(m.text().split("\n")).collect(Collectors.joining("</p><p>", "<p>", "</p>"));
+                return new UserMessage(sanitizedText);
+            } else {
+                return m;
+            }
+        }).collect(Collectors.toList());
+        String html = chatMessages.data("messages", messages).render();
+        return html;
     }
 
     /**

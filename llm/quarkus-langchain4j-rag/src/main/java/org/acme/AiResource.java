@@ -57,7 +57,7 @@ public class AiResource {
     @Produces(MediaType.TEXT_PLAIN)
     @Path("/question")
     public String askQuestion(@RestQuery String question) {
-        String answer = newsService.ask(ThreadLocalRandom.current().nextLong(), question);
+        String answer = newsService.ask(question);
         Log.info("ANSWER: " + answer);
         return answer;
     }
