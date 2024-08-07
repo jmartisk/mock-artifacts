@@ -2,8 +2,6 @@ package org.acme.shop.model;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 
-import io.smallrye.graphql.api.federation.FieldSet;
-import io.smallrye.graphql.api.federation.Key;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.Size;
@@ -11,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Key(fields = @FieldSet("id"))
 public class Customer extends PanacheEntity {
 
     @Size(min = 4)
