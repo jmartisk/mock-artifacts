@@ -3,6 +3,7 @@ package org.example.graphql.client;
 import io.smallrye.graphql.client.typesafe.api.TypesafeGraphQLClientBuilder;
 
 import java.io.IOException;
+import java.util.logging.Logger;
 
 public class ClientMain {
 
