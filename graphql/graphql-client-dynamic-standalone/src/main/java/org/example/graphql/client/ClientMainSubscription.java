@@ -19,6 +19,7 @@ public class ClientMainSubscription {
     public static void main(String[] args) throws Exception {
         DynamicGraphQLClient client = DynamicGraphQLClientBuilder.newBuilder()
                 .url("http://localhost:8080/graphql")
+//                .header("Authorization", "Bearer XXX")
                 .build();
         try {
             Document query = document(
