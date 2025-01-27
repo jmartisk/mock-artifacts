@@ -50,6 +50,3 @@ build
 **/m2repo
 
 **/quarkus.log
-
-# maven wrapper
-.mvn 
