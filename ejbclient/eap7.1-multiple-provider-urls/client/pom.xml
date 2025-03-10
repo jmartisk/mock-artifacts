@@ -35,7 +35,7 @@
         <dependency>
             <groupId>org.jboss</groupId>
             <artifactId>jboss-ejb-client</artifactId>
-            <version>4.0.0.Final</version>
+            <version>4.0.39.Final</version>
         </dependency>
 
    <!--     <dependency>
