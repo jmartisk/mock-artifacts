@@ -20,7 +20,7 @@
         <dependency>
             <groupId>org.jboss.remoting</groupId>
             <artifactId>jboss-remoting</artifactId>
-            <version>5.0.0.CR5-jmartisktest</version>
+            <version>5.0.20.Final</version>
         </dependency>
         <dependency>
             <groupId>org.jboss.eap</groupId>
