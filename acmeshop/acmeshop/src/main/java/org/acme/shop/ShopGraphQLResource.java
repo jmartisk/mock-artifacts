@@ -1,76 +1,45 @@
 package org.acme.shop;
 
+import io.smallrye.common.annotation.Blocking;
 import io.smallrye.graphql.api.Subscription;
 import io.smallrye.mutiny.Multi;
-import io.smallrye.mutiny.operators.multi.processors.BroadcastProcessor;
-import org.acme.shop.model.Customer;
-import org.acme.shop.model.OrderItem;
-import org.acme.shop.model.OrderItemInput;
-import org.acme.shop.model.Product;
-import org.acme.shop.model.ShopOrder;
+import io.smallrye.mutiny.infrastructure.Infrastructure;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
+import jakarta.json.Json;
+import jakarta.json.JsonValue;
+import org.acme.shop.model.User;
+import org.acme.shop.model.UserDatabase;
 import org.eclipse.microprofile.graphql.GraphQLApi;
-import org.eclipse.microprofile.graphql.Mutation;
 import org.eclipse.microprofile.graphql.Query;
 
-import jakarta.annotation.PostConstruct;
-import jakarta.transaction.Transactional;
-import jakarta.validation.Valid;
 import java.util.List;
+import java.util.UUID;
 
 @GraphQLApi
 public class ShopGraphQLResource {
 
-    @Query
-    public List<Customer> getCustomers() {
-        return Customer.listAll();
-    }
+    @Inject
+    UserDatabase userDatabase;
 
     @Query
-    public List<ShopOrder> getOrders() {
-        return ShopOrder.listAll();
-    }
-    @Query
-    public List<Product> getProducts() {
-        return Product.listAll();
+    public List<User> getUsers() {
+        return userDatabase.getUsers();
     }
 
-    @Mutation
-    @Transactional
-    public Customer createCustomer(@Valid Customer customer) {
-        customer.persist();
-        return customer;
-    }
-
-    @Mutation
-    @Transactional
-    public ShopOrder createOrder(Long customerId, List<OrderItemInput> itemInput) {
-        ShopOrder order = new ShopOrder();
-        List<OrderItem> items = itemInput.stream()
-            .map(input -> {
-                OrderItem item = new OrderItem();
-                item.setProduct(Product.findById(input.getProductId()));
-                item.setQuantity(input.getQuantity());
-                item.persistAndFlush();
-                return item;
-            }).toList();
-        order.setItems(items);
-        order.persistAndFlush();
-        Customer.<Customer>findById(customerId).addOrder(order);
-        newOrdersPublisher.onNext(order);
-        return order;
-    }
-
-    private Multi<ShopOrder> newOrdersMulti;
-    private BroadcastProcessor<ShopOrder> newOrdersPublisher;
-
-    @PostConstruct
-    public void initializeNewOrdersMulti() {
-        newOrdersPublisher = BroadcastProcessor.create();
-        newOrdersMulti = Multi.createFrom().publisher(newOrdersPublisher);
-    }
-
+    @Blocking
     @Subscription
-    public Multi<ShopOrder> newOrders() {
-        return newOrdersMulti;
+    public Multi<User> getRandomUsers() {
+        return Multi.createFrom()
+                .range(0, 10)
+                .map(x -> {
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                    return new User(UUID.randomUUID().toString(), UUID.randomUUID().toString() + "@example.org");
+                }).runSubscriptionOn(Infrastructure.getDefaultWorkerPool());
     }
+
 }

@@ -23,7 +23,7 @@ import static io.smallrye.graphql.client.core.Operation.operation;
 public class DynamicClientCommand implements Runnable {
 
     @CommandLine.Option(names = {"-o", "--operation"},
-        description = "What to get. Values: customers, customersWithOrders, newOrders", required = true)
+        description = "What to get. Values: users, randomUsers", required = true)
     String target;
 
     @Inject
@@ -34,14 +34,12 @@ public class DynamicClientCommand implements Runnable {
     public void run() {
         try {
             switch (target) {
-                case "customers":
-                    getCustomers();
+                case "users":
+                    getUsers();
                     break;
-                case "customersWithOrders":
-                    getCustomersWithOrders();
+                case "randomUsers":
+                    getRandomUsers();
                     break;
-                case "newOrders":
-                    subscribeToNewOrders();
             }
         }
         catch (Exception e) {
@@ -49,17 +47,13 @@ public class DynamicClientCommand implements Runnable {
         }
     }
 
-    private void subscribeToNewOrders() {
+    private void getRandomUsers() {
         Document subOperation = document(
             operation(
                 OperationType.SUBSCRIPTION,
-                field("newOrders",
-                    field("user",
-                        field("name")),
-                    field("items",
-                        field("product",
-                            field("name")),
-                        field("quantity"))
+                field("randomUsers",
+                    field("username"),
+                    field("email")
                 )
             )
         );
@@ -79,12 +73,12 @@ public class DynamicClientCommand implements Runnable {
         }
     }
 
-    private void getCustomers() throws ExecutionException, InterruptedException {
+    private void getUsers() throws ExecutionException, InterruptedException {
         Document query = document(
             operation(
-                field("customers",
-                    field("name"),
-                    field("id")
+                field("randomUsers",
+                    field("username"),
+                    field("email")
                 )
             )
         );
@@ -92,24 +86,5 @@ public class DynamicClientCommand implements Runnable {
         Log.info(response.getData());
     }
 
-    private void getCustomersWithOrders() throws ExecutionException, InterruptedException {
-        Document query = document(
-            operation(
-                field("customers",
-                    field("name"),
-                    field("orders",
-                        field("items",
-                            field("product",
-                                field("name")
-                            ),
-                            field("quantity")
-                        )
-                    )
-                )
-            )
-        );
-        Response response = client.executeSync(query);
-        Log.info(response.getData());
-    }
 
 }

@@ -3,19 +3,17 @@ package org.acme.shop.client;
 import io.quarkus.logging.Log;
 import io.smallrye.graphql.client.GraphQLClient;
 import io.smallrye.mutiny.subscription.Cancellable;
-import org.acme.shop.client.model.Customer;
+import jakarta.inject.Inject;
 import picocli.CommandLine;
 import picocli.CommandLine.Command;
 
-import jakarta.inject.Inject;
 import java.io.IOException;
-import java.util.List;
 
 @Command(name = "typesafe", mixinStandardHelpOptions = true)
 public class TypesafeClientCommand implements Runnable {
 
     @CommandLine.Option(names = {"-o", "--operation"},
-        description = "What to get. Values: customers, newOrders", required = true)
+            description = "What to get. Values: users, randomUsers", required = true)
     String target;
 
     @Inject
@@ -26,24 +24,23 @@ public class TypesafeClientCommand implements Runnable {
     public void run() {
         try {
             switch (target) {
-                case "customers":
-                    getCustomers();
+                case "users":
+                    getUsers();
                     break;
-                case "newOrders":
-                    subscribeToNewOrders();
+                case "randomUsers":
+                    getRandomUsers();
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
 
-    private void subscribeToNewOrders() {
-        Cancellable subscription = client.newOrders().subscribe().with(
-            System.out::println, // FIXME: why Log.info doesn't work here?
-            Throwable::printStackTrace
+    private void getRandomUsers() {
+        Cancellable subscription = client.randomUsers().subscribe().with(
+                user -> Log.info(user),
+                Throwable::printStackTrace
         );
-        Log.info("------ Listening for new orders now, press Enter to finish");
+        Log.info("------ Listening for new random users now, press Enter to finish");
         try {
             System.in.read();
         }
@@ -51,13 +48,13 @@ public class TypesafeClientCommand implements Runnable {
             throw new RuntimeException(e);
         } finally {
             subscription.cancel();
-            Log.info("------ Finished listening for new orders");
+            Log.info("------ Finished listening");
         }
+
     }
 
-    private void getCustomers() {
-        List<Customer> customers = client.customers();
-        Log.info(customers);
+    private void getUsers() {
+        System.out.println(client.getUsers());
     }
 
 

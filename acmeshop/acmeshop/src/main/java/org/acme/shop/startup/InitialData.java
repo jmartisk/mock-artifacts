@@ -1,28 +1,19 @@
 package org.acme.shop.startup;
 
 import io.quarkus.runtime.StartupEvent;
-import org.acme.shop.model.Customer;
-import org.acme.shop.model.ShopOrder;
-import org.acme.shop.model.Product;
+import jakarta.inject.Inject;
+import org.acme.shop.model.User;
 
 import jakarta.enterprise.event.Observes;
-import jakarta.transaction.Transactional;
+import org.acme.shop.model.UserDatabase;
 
 public class InitialData {
 
-    @Transactional
+    @Inject
+    UserDatabase userDatabase;
+
     public void initialData(@Observes StartupEvent evt) {
-        Product soap = new Product();
-        soap.setName("Soap");
-        soap.persistAndFlush();
-
-        Customer alice = new Customer();
-        alice.setName("Alice");
-        alice.persistAndFlush();
-
-        ShopOrder alicesOrder = new ShopOrder();
-        alicesOrder.addItem(3, soap);
-        alice.addOrder(alicesOrder);
-        alicesOrder.persist();
+        User user = new User("admin", "admin@admin.org");
+        userDatabase.getUsers().add(user);
     }
 }
